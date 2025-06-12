@@ -152,18 +152,6 @@ nav {
   margin-top: 0.7rem;
 }
 
-#toggleLink {
-  color: rgba(219, 233, 244, 0.5);
-  text-decoration: none;
-  cursor: pointer;
-  font-size: 0.85rem;
-  transition: color 0.3s ease; 
-}
-
-#toggleLink:hover {
-  color: #dbe9f4;
-}
-
 #skills h2 {
   margin-bottom: 1rem; 
 }
