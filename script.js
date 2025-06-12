@@ -1,3 +1,4 @@
+
 document.querySelectorAll('a[href^="#"]').forEach(link => {
   link.addEventListener("click", function(e) {
     e.preventDefault();
@@ -32,23 +33,6 @@ function toggleProject(box) {
   }
 }
 
-function toggleAbout(event) {
-  event.preventDefault();
-  const moreText = document.getElementById("moreText");
-  const toggleLink = document.getElementById("toggleLink");
-  const dots = document.getElementById("dots");
-  const isExpanded = moreText.style.display === "inline";
-  if (isExpanded) {
-    moreText.style.display = "none";
-    dots.style.display = "inline";
-    toggleLink.textContent = " See More";
-  } else {
-    moreText.style.display = "inline";
-    dots.style.display = "none";
-    toggleLink.textContent = " See Less";
-  }
-}
-
 const skillSpans = document.querySelectorAll('.clickable-skill');
 const circle = document.querySelector('.circle');
 const percentageText = document.querySelector('.percentage-text');
@@ -72,3 +56,48 @@ skillSpans.forEach(span => {
     setTimeout(() => circle.classList.remove('glow'), 800);
   });
 });
+
+
+  const lines = [
+    "An Agricultural Engineer",
+    "I'm specializing in Precision Agriculture",
+    "I love blending Nature with Technology",
+    "Robotics in Agriculture is my thing",
+    "Hooked on Coding and Data Science",
+    "I see poetry in Code, stories in Data",
+    "I work with Spectroscopy and Image Processing",
+    "My hometown is in Sherpur, Bangladesh"
+  ];
+
+  const typingText = document.getElementById("typing-text");
+  let lineIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+
+  function typeLine() {
+    const currentLine = lines[lineIndex];
+    const visibleText = currentLine.substring(0, charIndex);
+
+    typingText.textContent = visibleText;
+
+    if (!isDeleting && charIndex < currentLine.length) {
+      charIndex++;
+      setTimeout(typeLine, 50);
+    } else if (!isDeleting && charIndex === currentLine.length) {
+      setTimeout(() => {
+        isDeleting = true;
+        typeLine();
+      }, 1500);
+    } else if (isDeleting && charIndex > 0) {
+      charIndex--;
+      setTimeout(typeLine, 30);
+    } else if (isDeleting && charIndex === 0) {
+      isDeleting = false;
+      lineIndex = (lineIndex + 1) % lines.length;
+      setTimeout(typeLine, 500);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    typeLine();
+  });
