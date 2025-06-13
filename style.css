@@ -569,11 +569,21 @@ nav {
     gap: 1rem;
     justify-content: center;
     flex-wrap: wrap;
-    font-size: 1rem;
   }
 
   .contact-icon img {
     width: 30px !important;
     height: 30px !important;
+  }
+  
+  .project-box {
+    transition: all 0.3s ease;
+    padding-bottom: 1rem;
+    box-shadow: none;
+  }
+
+  .project-box.active {
+    padding-bottom: 1.5rem;
+    box-shadow: 0 0 10px #33f;
   }
 }
