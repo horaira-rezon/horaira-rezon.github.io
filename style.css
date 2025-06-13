@@ -453,11 +453,11 @@ nav {
     flex-wrap: nowrap;
   }
   .name {
-    font-size: 1.3rem;
+    font-size: 1rem;
     white-space: normal;
   }
   .typewriter {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     white-space: normal;
   }
 
