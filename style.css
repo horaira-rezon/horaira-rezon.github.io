@@ -453,6 +453,14 @@ nav {
   justify-content: center;
 }
 
+  .greet {
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 0.3rem;
+  color: #dbe9f4;
+  text-align: center;
+}
+
   .name {
     font-size: clamp(1.1rem, 6vw, 1.6rem);
     white-space: nowrap;
