@@ -25,7 +25,7 @@ nav {
   justify-content: space-between;
   align-items: center;
   background-color: #1a1a1a;
-  padding: 1rem;
+  padding: 0.2rem 2.5rem;
 }
 
 .logo {
@@ -487,6 +487,7 @@ nav {
     position: relative;
     width: 100%;
     justify-content: space-between;
+    padding: 0.1rem 2rem;
   }
 
   /* Hide nav-links by default */
