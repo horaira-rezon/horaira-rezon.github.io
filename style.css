@@ -469,8 +469,9 @@ nav {
   .typewriter {
     font-size: clamp(0.7rem, 3.2vw, 0.95rem);
     text-align: center;
-    white-space: normal;
+    white-space: nowrap;
     line-height: 1;
+    margin-top: 0.4rem;
   }
 
   /* Center profile image below header text */
