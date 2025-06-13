@@ -138,3 +138,22 @@ document.addEventListener('DOMContentLoaded', () => {
     typeLine();
   }
 });
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Create hamburger button dynamically (or add to HTML)
+  const nav = document.querySelector('nav');
+  if (nav) {
+    const hamburger = document.createElement('div');
+    hamburger.classList.add('hamburger');
+    hamburger.innerHTML = '<span></span><span></span><span></span>';
+    nav.insertBefore(hamburger, nav.querySelector('.nav-links'));
+
+    const navLinks = nav.querySelector('.nav-links');
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+  }
+});
