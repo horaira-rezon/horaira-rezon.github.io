@@ -394,6 +394,17 @@ nav {
   cursor: pointer;
 }
 
+.contact-email-phone span {
+  margin-right: 1rem; /* Adds spacing between email and phone */
+}
+
+.contact-icons-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.2rem; /* Adds space between social icons */
+  margin-top: 0.8rem;
+}
 
 .fade-in {
   opacity: 0;
@@ -566,9 +577,12 @@ nav {
 
   .contact-email-phone {
     display: flex;
-    gap: 1rem;
+    flex-direction: column; /* Stack on small screens */
+    gap: 0.3rem;
     justify-content: center;
-    flex-wrap: wrap;
+    align-items: center;
+    font-size: 0.85rem; /* Smaller font size for mobile */
+    margin-bottom: 1rem;
   }
 
   .contact-icon img {
