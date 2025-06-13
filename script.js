@@ -28,30 +28,36 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(section);
   });
 
-  // Project box toggle to show/hide details
+  // ✅ Project box toggle with mobile-specific collapse behavior
   const projectBoxes = document.querySelectorAll('.project-box');
   projectBoxes.forEach(box => {
     box.addEventListener('click', () => {
-  const details = box.querySelector(".project-details");
-  if (!details) return;
+      const details = box.querySelector(".project-details");
+      if (!details) return;
 
-  const isActive = box.classList.contains("active");
+      const isActive = box.classList.contains("active");
 
-  if (isActive) {
-    // Collapse
-    box.classList.remove("active");
-    details.style.maxHeight = null;
-    // Optional: reset padding or glow if used
-    box.style.paddingBottom = "1rem"; // example fallback
-  } else {
-    // Expand
-    box.classList.add("active");
-    details.style.maxHeight = details.scrollHeight + "px";
-    // Optional: adjust padding or add effect if needed
-    box.style.paddingBottom = "1.5rem"; // example
-  }
-});
+      if (isActive) {
+        // Collapse
+        box.classList.remove("active");
+        details.style.maxHeight = null;
 
+        // Mobile-only: remove glow and reset padding
+        if (window.innerWidth <= 768) {
+          box.style.boxShadow = "none";
+          box.style.paddingBottom = "1rem";
+        }
+      } else {
+        // Expand
+        box.classList.add("active");
+        details.style.maxHeight = details.scrollHeight + "px";
+
+        // Mobile-only: add padding; glow is handled by CSS
+        if (window.innerWidth <= 768) {
+          box.style.paddingBottom = "1.5rem";
+        }
+      }
+    });
   });
 
   // Skill circle interaction
@@ -153,20 +159,21 @@ document.addEventListener('DOMContentLoaded', () => {
     typeLine();
   }
 
-// Hamburger menu toggle (no dynamic creation)
-const hamburger = document.querySelector('.hamburger');
-const navLinks = document.querySelector('.nav-links');
+  // Hamburger menu toggle
+  const hamburger = document.querySelector('.hamburger');
+  const navLinks = document.querySelector('.nav-links');
 
-if (hamburger && navLinks) {
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navLinks.classList.toggle('show');
-  });
-  navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      hamburger.classList.remove('active');
-      navLinks.classList.remove('show');
+  if (hamburger && navLinks) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('show');
     });
-  });
-}
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('show');
+      });
+    });
+  }
 });
