@@ -1,3 +1,7 @@
+window.onbeforeunload = function () {
+  window.scrollTo(0, 0);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   // Smooth scrolling for anchor links starting with #
   document.querySelectorAll('a[href^="#"]').forEach(link => {
