@@ -11,7 +11,12 @@
   <header>
     <nav>
       <a href="#header" class="logo">Horaira Rezon</a>
-      <ul class="nav-links">
+      <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links" id="nav-menu">
         <li><a href="#about">About Me</a></li>
         <li><a href="#skills">Skills & Awards</a></li>
         <li><a href="#projects">Projects</a></li>
@@ -41,8 +46,7 @@
 
 I’ve worked on diverse projects including disease prediction, smart irrigation, farm automation, and non-destructive fruit quality assessment. My expertise includes programming (Python, C/C++), Data Science Frameworks, Computer Vision with OpenCV, Embedded Systems, Mechatronics and geospatial tools like ArcGIS. I enjoy working on tasks like Data Pre-processing, Multivariate Analysis, Statistical Modeling, and exploring data through visualization.
       </p>
-    </div>
-  </section>
+    </section>
 
 <section id="skills" class="section slide-up">
   <h2>Skills & Awards</h2>
@@ -139,13 +143,13 @@ I’ve worked on diverse projects including disease prediction, smart irrigation
         </div>
         <div class="project-details">
           <p>
-            System designed to streamline the management of agricultural equipment and tools were developed.<br><br>
-            Key Features:
-            <li>Add, update, and delete equipment records.</li>
-            <li>Track equipment type, power source, availability, and price.</li>
-            <li>Generate insightful Bar and Pie charts using Matplotlib.</li>
-            <li>CSV-based storage for easy access and data manipulation.</li>
-            <li>User-friendly terminal interface with robust error handling.</li>
+            The Farm Inventory Management System is a powerful tool designed to streamline and optimize farm operations by digitizing the management of farm resources, inputs, equipment, and produce. This system helps farmers and farm managers maintain detailed records of stock levels, usage history, purchase records, and sales, enabling better resource planning and cost control.<br><br>
+            Features of the system include:<br>
+            - Comprehensive inventory tracking for seeds, fertilizers, pesticides, and machinery.<br>
+            - Automated alerts for low stock levels.<br>
+            - User-friendly interface for data input and report generation.<br>
+            - Integration with mobile devices for on-field data entry.<br><br>
+            This system aims to reduce waste, prevent shortages, and improve overall farm efficiency.
           </p>
         </div>
       </div>
@@ -158,12 +162,9 @@ I’ve worked on diverse projects including disease prediction, smart irrigation
       <div class="contact-item">
         <h2>Contact Me :</h2>
       </div>
-      <div class="contact-item">
-        <span>aharezon@gmail.com</span>
-      </div>
-      <div class="contact-item">
-        <span>+880 179 9144 788</span>
-      </div>
+    <div class="contact-email-phone">
+      <span>aharezon@gmail.com</span><span>+880 179 9144 788</span>
+    </div>
       <a href="https://www.linkedin.com/in/allsabaab/" target="_blank" class="contact-icon">
         <img src="zlinkedin.png" alt="zlinkedin.png"/>
       </a>
@@ -185,6 +186,6 @@ I’ve worked on diverse projects including disease prediction, smart irrigation
     </div>
   </section>
 
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
