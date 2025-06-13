@@ -174,28 +174,4 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
-
-function applyTouchHoverEffect(selector, hoverClass) {
-  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-  if (!isTouchDevice) return;
-
-  document.querySelectorAll(selector).forEach(el => {
-    el.addEventListener('click', () => {
-      el.classList.add(hoverClass); // simulate hover
-      setTimeout(() => {
-        el.classList.remove(hoverClass); // remove after 0.6s
-      }, 600);
-    });
-  });
-}
-
-// Use your existing selectors + their hover class
-applyTouchHoverEffect('.name', 'hover');
-applyTouchHoverEffect('.clickable-skill', 'hover');
-applyTouchHoverEffect('.project-title a', 'hover');
-applyTouchHoverEffect('.nav-links a', 'hover');
-applyTouchHoverEffect('.contact-icon', 'hover');
-applyTouchHoverEffect('.certificate-link', 'hover');
-
-
 });
