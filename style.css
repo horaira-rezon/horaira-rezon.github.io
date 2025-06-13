@@ -365,37 +365,34 @@ nav {
 
 .contact-row {
   display: flex;
-  align-items: center; /* vertical alignment */
-  gap: 2rem;            /* horizontal spacing between all 3 groups */
+  align-items: center;
+  gap: 1.5rem;
   flex-wrap: wrap;
 }
 
-.contact-item h2 {
+.contact-label h2 {
+  font-size: 1.5rem; /* Increased for both PC & mobile */
   margin: 0;
-  font-size: 1.2rem;
-  font-weight: 700;
+  white-space: nowrap;
 }
 
 .contact-email-phone {
   display: flex;
   gap: 1.2rem;
+  font-size: 0.95rem;
   align-items: center;
-}
-
-.contact-email-phone span {
-  font-size: 1rem;
-  color: #dbe9f4;
 }
 
 .contact-icons-row {
   display: flex;
-  gap: 1.2rem;
+  gap: 1rem;
   align-items: center;
 }
 
 .contact-icon img {
   width: 25px;
   height: 25px;
+  vertical-align: middle;
   filter: brightness(0.9);
   transition: transform 0.3s ease, filter 0.3s ease;
 }
@@ -553,41 +550,29 @@ nav {
     min-height: auto;
   }
 
-  .contact-links {
-    display: flex;
+  .contact-row {
     flex-direction: column;
     align-items: center;
-    padding: 1.5rem 0;
+    gap: 1rem;
+  }
+
+  .contact-label h2 {
+    font-size: 1.3rem;
     text-align: center;
   }
 
-  .contact-row {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .contact-item h2 {
-    font-size: 1.2rem;
-    margin-bottom: 0.3rem;
-  }
-
   .contact-email-phone {
-    display: flex;
     flex-direction: row;
-    gap: 1.2rem;
+    flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    gap: 1rem;
   }
 
   .contact-icons-row {
-    display: flex;
     justify-content: center;
-    gap: 1rem;
     flex-wrap: wrap;
-    padding-top: 1rem;
+    padding-top: 0.5rem;
   }
 
   .contact-icon img {
