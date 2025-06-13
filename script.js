@@ -152,5 +152,10 @@ if (hamburger && navLinks) {
     hamburger.classList.toggle('active');
     navLinks.classList.toggle('show');
   });
-}
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      navLinks.classList.remove('show');
+    });
+  });
 });
