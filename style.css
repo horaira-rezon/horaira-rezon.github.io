@@ -583,11 +583,10 @@ nav {
   .project-box {
     transition: all 0.3s ease;
     padding-bottom: 1rem;
-    box-shadow: none;
   }
 
   .project-box.active {
     padding-bottom: 1.5rem;
-    box-shadow: 0 0 10px #33f;
+    box-shadow: 0 0 10px rgba(51, 102, 255, 0.6); /* Use the same glow color as PC */
   }
 }
