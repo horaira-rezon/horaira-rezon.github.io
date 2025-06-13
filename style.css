@@ -90,6 +90,15 @@ nav {
   box-shadow: 0 0 25px rgba(46, 141, 230, 0.6);
 }
 
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 25px 5px rgba(46, 141, 230, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 40px 10px rgba(46, 141, 230, 0.9);
+  }
+}
+
 .header-text {
   position: relative;
   flex: 1;                        
@@ -382,6 +391,12 @@ nav {
   opacity: 0;
   transform: translateY(40px);
   animation: slideUp 1s forwards;
+}
+
+.fade-in.visible,
+.slide-up.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 @keyframes fadeInUp {
