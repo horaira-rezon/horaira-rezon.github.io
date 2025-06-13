@@ -582,16 +582,15 @@ nav {
   
   .project-box {
     padding-bottom: 1rem;
-    box-shadow: none;
     transition: all 0.3s ease;
+    box-shadow: none !important; /* No glow when collapsed */
   }
 
-  .project-box.active {
+  .project-box.expanded {
     padding-bottom: 1.5rem;
-    box-shadow: 0 0 10px #33f; /* Keep your original glow color here exactly as you had */
+    box-shadow: 0 0 20px 4px rgba(46, 141, 230, 0.5) !important; /* Exact same as desktop glow */
   }
 
-  /* Make sure project-details max-height transition works smoothly */
   .project-details {
     max-height: 0;
     overflow: hidden;
@@ -599,6 +598,6 @@ nav {
   }
 
   .project-box.active .project-details {
-    /* max-height is set dynamically by JS inline style */
+    /* max-height will be set inline by JS */
   }
 }
