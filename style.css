@@ -489,9 +489,14 @@ nav {
 .hamburger {
   background: none;
   border: none;
-  padding: 0;
+  padding: 0.5rem;
   margin: 0;
   outline: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  z-index: 1001; /* stays above nav links */
 }
 
 .hamburger + .hamburger {
@@ -500,13 +505,23 @@ nav {
 
 
 
-  .hamburger span {
-    display: block;
-    height: 4px;
-    background: #2e8de6;
-    border-radius: 2px;
-    transition: 0.3s;
-  }
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background: #2e8de6;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translateY(8px);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translateY(-8px);
+}
 
   /* Stack skill boxes vertically */
   .skills-container {
