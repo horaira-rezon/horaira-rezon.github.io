@@ -467,7 +467,7 @@ nav {
     line-height: 1.2;
   }
   .typewriter {
-    font-size: clamp(0.9rem, 6vw, 1.3rem);
+    font-size: clamp(0.85rem, 6vw, 1.1rem);
     white-space: nowrap;
     line-height: 1;
   }
