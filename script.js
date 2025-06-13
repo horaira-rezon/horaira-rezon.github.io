@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // Smooth scrolling for anchor links starting with #
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener("click", function(e) {
       e.preventDefault();
@@ -9,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Intersection Observer for fade-in and slide-up animations
   const animatedSections = document.querySelectorAll('.fade-in, .slide-up');
   const observer = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
@@ -26,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(section);
   });
 
+  // Project box toggle to show/hide details
   const projectBoxes = document.querySelectorAll('.project-box');
   projectBoxes.forEach(box => {
     box.addEventListener('click', () => {
@@ -41,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Skill circle interaction
   const skillSpans = document.querySelectorAll('.clickable-skill');
   const circle = document.querySelector('.circle');
   const percentageText = document.querySelector('.percentage-text');
@@ -55,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const level = parseInt(this.getAttribute('data-level'));
       const skill = this.getAttribute('data-skill');
-      const circumference = 2 * Math.PI * 40;
+      const circumference = 2 * Math.PI * 40; // assuming radius 40
       const offset = circumference - (level / 100) * circumference;
 
       circle.style.strokeDashoffset = offset;
@@ -78,6 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Typing effect lines
   const lines = [
     "An Agricultural Engineer",
     "I'm specializing in Precision Agriculture",
@@ -95,18 +100,18 @@ document.addEventListener('DOMContentLoaded', () => {
   let isDeleting = false;
   let isPaused = false;
   
-    if (typingText) {
+  if (typingText) {
     typingText.addEventListener('mouseenter', () => isPaused = true);
     typingText.addEventListener('mouseleave', () => isPaused = false);
-    }
-    
+  }
+
   document.addEventListener('visibilitychange', () => {
     isPaused = document.hidden;
   });
 
   function typeLine() {
     if (isPaused) {
-      setTimeout(typeLine, 100); // Check again later
+      setTimeout(typeLine, 100);
       return;
     }
 
@@ -137,13 +142,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typingText) {
     typeLine();
   }
-});
 
-
-
-
-document.addEventListener('DOMContentLoaded', () => {
-  // Create hamburger button dynamically (or add to HTML)
+  // Hamburger menu setup — dynamically create and toggle
   const nav = document.querySelector('nav');
   if (nav) {
     const hamburger = document.createElement('div');
@@ -153,13 +153,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const navLinks = nav.querySelector('.nav-links');
     hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
       navLinks.classList.toggle('show');
     });
   }
-});
-
-
-document.querySelector('.hamburger').addEventListener('click', function () {
-  this.classList.toggle('active');
-  document.querySelector('.nav-links').classList.toggle('show');
 });
