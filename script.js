@@ -158,4 +158,4 @@ if (hamburger && navLinks) {
       navLinks.classList.remove('show');
     });
   });
-});
+}
