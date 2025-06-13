@@ -29,36 +29,27 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ✅ Project box toggle with mobile-specific collapse behavior
-  const projectBoxes = document.querySelectorAll('.project-box');
-  projectBoxes.forEach(box => {
-    box.addEventListener('click', () => {
-      const details = box.querySelector(".project-details");
-      if (!details) return;
+const projectBoxes = document.querySelectorAll('.project-box');
+projectBoxes.forEach(box => {
+  box.addEventListener('click', () => {
+    const details = box.querySelector(".project-details");
+    if (!details) return;
 
-      const isActive = box.classList.contains("active");
+    const isActive = box.classList.contains("active");
 
-      if (isActive) {
-        // Collapse
-        box.classList.remove("active");
-        details.style.maxHeight = null;
-
-        // Mobile-only: remove glow and reset padding
-        if (window.innerWidth <= 768) {
-          box.style.boxShadow = "none";
-          box.style.paddingBottom = "1rem";
-        }
-      } else {
-        // Expand
-        box.classList.add("active");
-        details.style.maxHeight = details.scrollHeight + "px";
-
-        // Mobile-only: add padding; glow is handled by CSS
-        if (window.innerWidth <= 768) {
-          box.style.paddingBottom = "1.5rem";
-        }
-      }
-    });
+    if (isActive) {
+      // Collapse
+      box.classList.remove("active");
+      details.style.maxHeight = null;
+    } else {
+      // Expand
+      box.classList.add("active");
+      details.style.maxHeight = details.scrollHeight + "px";
+    }
   });
+});
+
+
 
   // Skill circle interaction
   const skillSpans = document.querySelectorAll('.clickable-skill');
