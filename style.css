@@ -444,34 +444,29 @@ nav {
   }
 
   /* Header text and typewriter on one line with smaller font */
-  .header-text {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 0.3rem;
-    flex-wrap: nowrap;
-  }
-
-  .greet {
-  font-size: 0.7rem;
-  color: #888;
-  margin: 0 0 0.3rem 0;
-  }
+ .header-text {
+  width: 100%;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
   .name {
-    font-size: 1rem;
-    white-space: normal;
+    font-size: clamp(1rem, 5vw, 1.8rem);
+    white-space: nowrap;
+    line-height: 1.2;
   }
   .typewriter {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     white-space: normal;
   }
 
   /* Center profile image below header text */
   .profile-img {
-    max-width: 200px;
-    width: 60vw;
+    max-width: 180px;
+    width: 40vw;
     height: auto;
     margin: 1rem auto 0;
   }
