@@ -430,8 +430,6 @@ nav {
 
 
 
-
-
 /* Mobile Responsive Overrides for max-width 768px */
 
 @media (max-width: 768px) {
@@ -440,7 +438,9 @@ nav {
   .header-container {
     flex-direction: column;
     text-align: center;
-    padding: 0 1rem;
+    padding: 0 0rem;
+    width: 100%;
+    max-width: 100%;
   }
 
   /* Header text and typewriter on one line with smaller font */
@@ -463,9 +463,10 @@ nav {
 
   /* Center profile image below header text */
   .profile-img {
+    max-width: 180px;
+    width: 40vw;
+    height: auto;
     margin: 1rem auto 0;
-    width: 180px;
-    height: 180px;
   }
 
   /* Navigation becomes hamburger menu */
