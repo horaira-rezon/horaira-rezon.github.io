@@ -600,4 +600,33 @@ nav {
   .project-box.active .project-details {
     /* max-height will be set inline by JS */
   }
+  
+.glow-tap {
+  box-shadow: 0 0 20px 4px rgba(46, 141, 230, 0.5);
+  transition: box-shadow 0.4s ease, transform 0.3s ease;
+  transform: scale(1.05);
+}
+
+  
+  .glow-tap, .project-box, .contact-icon {
+  will-change: box-shadow;
+}
+  
+  html, body {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.nav-links a,
+.name,
+.hamburger,
+.clickable-skill,
+.project-title a,
+.contact-icon,
+.project-box,
+.certificate-link {
+  touch-action: manipulation;
+}
+
+
 }
