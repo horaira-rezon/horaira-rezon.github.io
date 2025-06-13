@@ -1,13 +1,8 @@
-window.onbeforeunload = function () {
-  window.scrollTo({ top: 0, behavior: "smooth" });
+document.addEventListener('DOMContentLoaded', () => {
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'auto';
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-
-  setTimeout(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, 100);
-  
   // Smooth scrolling for anchor links starting with #
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener("click", function(e) {
