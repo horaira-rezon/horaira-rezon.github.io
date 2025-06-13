@@ -21,12 +21,11 @@ header {
 }
 
 nav {
-  width: 90%;
-  margin: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: #dbe9f4;
+  background-color: #1a1a1a;
+  padding: 1rem;
 }
 
 .logo {
@@ -43,8 +42,8 @@ nav {
 }
 
 .nav-links {
-  list-style: none;
   display: flex;
+  list-style: none;
   gap: 1.2rem;
 }
 
@@ -56,6 +55,20 @@ nav {
 
 .nav-links li a:hover {
   color: #2e8de6;
+}
+
+.hamburger {
+  display: none;
+}
+
+/* Hamburger lines */
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background: #2e8de6;
+  border-radius: 2px;
+  margin: 3px 0;
+  transition: 0.3s;
 }
 
 .section {
@@ -464,64 +477,44 @@ nav {
 
   /* Hide nav-links by default */
   .nav-links {
-    display: none;
-    flex-direction: column;
-    background-color: #1a1a1a;
     position: absolute;
     top: 100%;
     left: 0;
     right: 0;
-    border-top: 1px solid #222;
+    background: #1a1a1a;
+    flex-direction: column;
+    display: none;
+    text-align: center;
     padding: 0.5rem 0;
-    z-index: 1000;
   }
 
   .nav-links.show {
     display: flex;
   }
 
-  .nav-links li {
+   .nav-links li {
     margin: 0.5rem 0;
-    text-align: center;
+  }
+  /* Hamburger button */
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 1001;
   }
 
-  /* Hamburger button */
-.hamburger {
-  background: none;
-  border: none;
-  padding: 0.5rem;
-  margin: 0;
-  outline: none;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-  z-index: 1001; /* stays above nav links */
-}
-
-.hamburger + .hamburger {
-  display: none !important;
-}
-
-
-
-.hamburger span {
-  width: 25px;
-  height: 3px;
-  background: #2e8de6;
-  border-radius: 2px;
-  transition: 0.3s;
-}
-
-.hamburger.active span:nth-child(1) {
-  transform: rotate(45deg) translateY(8px);
-}
-.hamburger.active span:nth-child(2) {
-  opacity: 0;
-}
-.hamburger.active span:nth-child(3) {
-  transform: rotate(-45deg) translateY(-8px);
-}
+  .hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translateY(8px);
+  }
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translateY(-8px);
+  }
 
   /* Stack skill boxes vertically */
   .skills-container {
