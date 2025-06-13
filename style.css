@@ -374,9 +374,9 @@ nav {
 .contact-row {
   display: flex;
   justify-content: center;
-  align-items: center;
-  flex-wrap: wrap; 
-  gap: 1.3rem;
+  align-items: center; /* vertical alignment */
+  gap: 2rem; /* spacing between .contact-email-phone and .contact-icons-row */
+  flex-wrap: nowrap; /* keep in one line */
   padding: 1rem 0;
 }
 
@@ -396,6 +396,12 @@ nav {
 
 .contact-email-phone span {
   margin-right: 1rem; /* Adds spacing between email and phone */
+}
+
+.contact-email-phone {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* space between email and phone */
 }
 
 .contact-icons-row {
