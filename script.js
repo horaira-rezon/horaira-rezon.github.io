@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-if ('scrollRestoration' in history) {
-  history.scrollRestoration = 'auto';
-}
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'auto';
+  }
 
   // Smooth scrolling for anchor links starting with #
   document.querySelectorAll('a[href^="#"]').forEach(link => {
@@ -44,19 +44,18 @@ if ('scrollRestoration' in history) {
       const isMobile = window.innerWidth <= 768;
 
       if (isActive) {
-        // Collapse: remove everything
+        // Collapse
         box.classList.remove("active");
         if (isMobile) box.classList.remove("expanded");
         details.style.maxHeight = null;
       } else {
-        // Expand: add active and expanded class on mobile
+        // Expand
         box.classList.add("active");
         if (isMobile) box.classList.add("expanded");
         details.style.maxHeight = details.scrollHeight + "px";
       }
     });
   });
-
 
   // Skill circle interaction
   const skillSpans = document.querySelectorAll('.clickable-skill');
@@ -73,12 +72,13 @@ if ('scrollRestoration' in history) {
 
       const level = parseInt(this.getAttribute('data-level'));
       const skill = this.getAttribute('data-skill');
-      const circumference = 2 * Math.PI * 40; // assuming radius 40
+      const circumference = 2 * Math.PI * 40; // radius 40 assumed
       const offset = circumference - (level / 100) * circumference;
 
       circle.style.strokeDashoffset = offset;
       percentageText.textContent = `${level}%`;
       selectedSkill.textContent = skill;
+
       skillCooldown = false;
     }
 
@@ -113,7 +113,7 @@ if ('scrollRestoration' in history) {
   let charIndex = 0;
   let isDeleting = false;
   let isPaused = false;
-  
+
   if (typingText) {
     typingText.addEventListener('mouseenter', () => isPaused = true);
     typingText.addEventListener('mouseleave', () => isPaused = false);
@@ -174,25 +174,28 @@ if ('scrollRestoration' in history) {
       });
     });
   }
-  
-    function applyTapGlow(selector) {
-    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    if (!isTouchDevice) return;
 
-    document.querySelectorAll(selector).forEach((el) => {
-      el.addEventListener('click', () => {
-        el.classList.remove('tap-glow'); // restart animation if tapped again
-        void el.offsetWidth; // force reflow
-        el.classList.add('tap-glow');
-      });
+function applyTouchHoverEffect(selector, hoverClass) {
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  if (!isTouchDevice) return;
+
+  document.querySelectorAll(selector).forEach(el => {
+    el.addEventListener('click', () => {
+      el.classList.add(hoverClass); // simulate hover
+      setTimeout(() => {
+        el.classList.remove(hoverClass); // remove after 0.6s
+      }, 600);
     });
-  }
+  });
+}
 
-  applyTapGlow('.nav-links a');
-  applyTapGlow('.name');
-  applyTapGlow('.clickable-skill');
-  applyTapGlow('.project-title a');
-  applyTapGlow('.contact-icon');
-  applyTapGlow('.certificate-link');
-  
+// Use your existing selectors + their hover class
+applyTouchHoverEffect('.name', 'hover');
+applyTouchHoverEffect('.clickable-skill', 'hover');
+applyTouchHoverEffect('.project-title a', 'hover');
+applyTouchHoverEffect('.nav-links a', 'hover');
+applyTouchHoverEffect('.contact-icon', 'hover');
+applyTouchHoverEffect('.certificate-link', 'hover');
+
+
 });
