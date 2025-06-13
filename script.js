@@ -143,18 +143,14 @@ document.addEventListener('DOMContentLoaded', () => {
     typeLine();
   }
 
-  // Hamburger menu setup — dynamically create and toggle
-  const nav = document.querySelector('nav');
-  if (nav) {
-    const hamburger = document.createElement('div');
-    hamburger.classList.add('hamburger');
-    hamburger.innerHTML = '<span></span><span></span><span></span>';
-    nav.insertBefore(hamburger, nav.querySelector('.nav-links'));
+// Hamburger menu toggle (no dynamic creation)
+const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelector('.nav-links');
 
-    const navLinks = nav.querySelector('.nav-links');
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('active');
-      navLinks.classList.toggle('show');
-    });
-  }
+if (hamburger && navLinks) {
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navLinks.classList.toggle('show');
+  });
+}
 });
