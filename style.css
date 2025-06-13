@@ -553,7 +553,7 @@ nav {
     min-height: auto;
   }
 
-    .contact-links {
+  .contact-links {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -569,16 +569,17 @@ nav {
   }
 
   .contact-item h2 {
-    margin-bottom: 0.5rem;
     font-size: 1.2rem;
+    margin-bottom: 0.3rem;
   }
 
   .contact-email-phone {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    gap: 1.2rem;
+    justify-content: center;
     align-items: center;
-    gap: 0.4rem;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
   }
 
   .contact-icons-row {
