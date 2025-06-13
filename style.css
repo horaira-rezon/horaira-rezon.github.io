@@ -541,6 +541,14 @@ nav {
     padding: 0.3rem 0 !important;
     justify-content: center !important;
   }
+  
+    .contact-icons-row {
+    display: flex;
+    justify-content: center;
+    gap: 1rem; /* space between icons */
+    flex-wrap: wrap; /* wrap if needed */
+    padding: 1rem 0;
+  }
 
   .contact-email-phone {
     display: flex;
