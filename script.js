@@ -174,29 +174,25 @@ if ('scrollRestoration' in history) {
       });
     });
   }
+  
+    function applyTapGlow(selector) {
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (!isTouchDevice) return;
 
-  // --- MOBILE GLOW ON TAP EFFECT ---
-  function enableMobileGlowTap(selector) {
-    const elements = document.querySelectorAll(selector);
-
-    elements.forEach(el => {
-      el.addEventListener('touchstart', () => {
-        el.classList.add('glow-tap');
-
-        setTimeout(() => {
-          el.classList.remove('glow-tap');
-        }, 300);
+    document.querySelectorAll(selector).forEach((el) => {
+      el.addEventListener('click', () => {
+        el.classList.remove('tap-glow'); // restart animation if tapped again
+        void el.offsetWidth; // force reflow
+        el.classList.add('tap-glow');
       });
     });
   }
 
-  // Add glow on tap for these selectors (adjust as needed)
-  enableMobileGlowTap('.nav-links a');
-  enableMobileGlowTap('.name');
-  enableMobileGlowTap('.clickable-skill');
-  enableMobileGlowTap('.project-title a');
-  enableMobileGlowTap('.contact-icon');
-  enableMobileGlowTap('.certificate-link');
-  enableMobileGlowTap('.project-box');
-  enableMobileGlowTap('.hamburger');
+  applyTapGlow('.nav-links a');
+  applyTapGlow('.name');
+  applyTapGlow('.clickable-skill');
+  applyTapGlow('.project-title a');
+  applyTapGlow('.contact-icon');
+  applyTapGlow('.certificate-link');
+  
 });
