@@ -32,16 +32,26 @@ document.addEventListener('DOMContentLoaded', () => {
   const projectBoxes = document.querySelectorAll('.project-box');
   projectBoxes.forEach(box => {
     box.addEventListener('click', () => {
-      box.classList.toggle("active");
-      const details = box.querySelector(".project-details");
-      if (!details) return;
+  const details = box.querySelector(".project-details");
+  if (!details) return;
 
-      if (box.classList.contains("active")) {
-        details.style.maxHeight = details.scrollHeight + "px";
-      } else {
-        details.style.maxHeight = null;
-      }
-    });
+  const isActive = box.classList.contains("active");
+
+  if (isActive) {
+    // Collapse
+    box.classList.remove("active");
+    details.style.maxHeight = null;
+    // Optional: reset padding or glow if used
+    box.style.paddingBottom = "1rem"; // example fallback
+  } else {
+    // Expand
+    box.classList.add("active");
+    details.style.maxHeight = details.scrollHeight + "px";
+    // Optional: adjust padding or add effect if needed
+    box.style.paddingBottom = "1.5rem"; // example
+  }
+});
+
   });
 
   // Skill circle interaction
