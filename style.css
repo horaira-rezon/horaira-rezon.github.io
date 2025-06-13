@@ -581,12 +581,24 @@ nav {
   }
   
   .project-box {
-    transition: all 0.3s ease;
     padding-bottom: 1rem;
+    box-shadow: none;
+    transition: all 0.3s ease;
   }
 
   .project-box.active {
     padding-bottom: 1.5rem;
-    box-shadow: 0 0 10px rgba(51, 102, 255, 0.6); /* Use the same glow color as PC */
+    box-shadow: 0 0 10px #33f; /* Keep your original glow color here exactly as you had */
+  }
+
+  /* Make sure project-details max-height transition works smoothly */
+  .project-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .project-box.active .project-details {
+    /* max-height is set dynamically by JS inline style */
   }
 }
