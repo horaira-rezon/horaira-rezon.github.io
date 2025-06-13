@@ -30,20 +30,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ✅ Project box toggle with mobile-specific collapse behavior
 const projectBoxes = document.querySelectorAll('.project-box');
+
 projectBoxes.forEach(box => {
   box.addEventListener('click', () => {
     const details = box.querySelector(".project-details");
     if (!details) return;
 
     const isActive = box.classList.contains("active");
+    const isMobile = window.innerWidth <= 768;
 
     if (isActive) {
-      // Collapse
+      // Collapse: remove everything
       box.classList.remove("active");
+      if (isMobile) box.classList.remove("expanded");
       details.style.maxHeight = null;
     } else {
-      // Expand
+      // Expand: add active and expanded class on mobile
       box.classList.add("active");
+      if (isMobile) box.classList.add("expanded");
       details.style.maxHeight = details.scrollHeight + "px";
     }
   });
