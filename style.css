@@ -454,7 +454,7 @@ nav {
 }
 
   .name {
-    font-size: 5vw;
+    font-size: clamp(1.1rem, 6vw, 1.6rem);
     white-space: nowrap;
     line-height: 1.2;
   }
