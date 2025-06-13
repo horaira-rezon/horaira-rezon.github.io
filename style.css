@@ -601,32 +601,30 @@ nav {
     /* max-height will be set inline by JS */
   }
   
-.glow-tap {
-  box-shadow: 0 0 20px 4px rgba(46, 141, 230, 0.5);
-  transition: box-shadow 0.4s ease, transform 0.3s ease;
-  transform: scale(1.05);
+  .tap-glow {
+  animation: glowTapFade 0.6s ease-out;
 }
 
-  
-  .glow-tap, .project-box, .contact-icon {
-  will-change: box-shadow;
-}
-  
-  html, body {
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-}
-
-.nav-links a,
-.name,
-.hamburger,
-.clickable-skill,
-.project-title a,
-.contact-icon,
-.project-box,
-.certificate-link {
-  touch-action: manipulation;
+@keyframes glowTapFade {
+  0% {
+    filter: drop-shadow(0 0 8px #00ffff);
+  }
+  100% {
+    filter: drop-shadow(0 0 0 transparent);
+  }
 }
 
 
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav-links a:hover,
+  .name:hover,
+  .clickable-skill:hover,
+  .project-title a:hover,
+  .contact-icon:hover,
+  .certificate-link:hover {
+    filter: drop-shadow(0 0 8px #00ffff);
+    transition: filter 0.3s ease;
+  }
 }
