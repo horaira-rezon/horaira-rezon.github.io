@@ -29,30 +29,29 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ✅ Project box toggle with mobile-specific collapse behavior
-const projectBoxes = document.querySelectorAll('.project-box');
+  const projectBoxes = document.querySelectorAll('.project-box');
 
-projectBoxes.forEach(box => {
-  box.addEventListener('click', () => {
-    const details = box.querySelector(".project-details");
-    if (!details) return;
+  projectBoxes.forEach(box => {
+    box.addEventListener('click', () => {
+      const details = box.querySelector(".project-details");
+      if (!details) return;
 
-    const isActive = box.classList.contains("active");
-    const isMobile = window.innerWidth <= 768;
+      const isActive = box.classList.contains("active");
+      const isMobile = window.innerWidth <= 768;
 
-    if (isActive) {
-      // Collapse: remove everything
-      box.classList.remove("active");
-      if (isMobile) box.classList.remove("expanded");
-      details.style.maxHeight = null;
-    } else {
-      // Expand: add active and expanded class on mobile
-      box.classList.add("active");
-      if (isMobile) box.classList.add("expanded");
-      details.style.maxHeight = details.scrollHeight + "px";
-    }
+      if (isActive) {
+        // Collapse: remove everything
+        box.classList.remove("active");
+        if (isMobile) box.classList.remove("expanded");
+        details.style.maxHeight = null;
+      } else {
+        // Expand: add active and expanded class on mobile
+        box.classList.add("active");
+        if (isMobile) box.classList.add("expanded");
+        details.style.maxHeight = details.scrollHeight + "px";
+      }
+    });
   });
-});
-
 
 
   // Skill circle interaction
@@ -171,4 +170,29 @@ projectBoxes.forEach(box => {
       });
     });
   }
+
+  // --- MOBILE GLOW ON TAP EFFECT ---
+  function enableMobileGlowTap(selector) {
+    const elements = document.querySelectorAll(selector);
+
+    elements.forEach(el => {
+      el.addEventListener('touchstart', () => {
+        el.classList.add('glow-tap');
+
+        setTimeout(() => {
+          el.classList.remove('glow-tap');
+        }, 300);
+      });
+    });
+  }
+
+  // Add glow on tap for these selectors (adjust as needed)
+  enableMobileGlowTap('.nav-links a');
+  enableMobileGlowTap('.name');
+  enableMobileGlowTap('.clickable-skill');
+  enableMobileGlowTap('.project-title a');
+  enableMobileGlowTap('.contact-icon');
+  enableMobileGlowTap('.certificate-link');
+  enableMobileGlowTap('.project-box');
+  enableMobileGlowTap('.hamburger');
 });
