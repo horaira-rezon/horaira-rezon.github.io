@@ -601,30 +601,35 @@ nav {
     /* max-height will be set inline by JS */
   }
   
-  .tap-glow {
-  animation: glowTapFade 0.6s ease-out;
+.name:hover,
+.name.hover {
+  text-shadow: 0 0 10px cyan;
 }
 
-@keyframes glowTapFade {
-  0% {
-    filter: drop-shadow(0 0 8px #00ffff);
-  }
-  100% {
-    filter: drop-shadow(0 0 0 transparent);
-  }
+.clickable-skill:hover,
+.clickable-skill.hover {
+  text-shadow: 0 0 10px lime;
 }
 
-
+/* Add others similarly */
+.nav-links a:hover,
+.nav-links a.hover {
+  text-shadow: 0 0 10px #00ffff;
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .nav-links a:hover,
-  .name:hover,
-  .clickable-skill:hover,
-  .project-title a:hover,
-  .contact-icon:hover,
-  .certificate-link:hover {
-    filter: drop-shadow(0 0 8px #00ffff);
-    transition: filter 0.3s ease;
-  }
+.project-title a:hover,
+.project-title a.hover {
+  text-shadow: 0 0 10px #ff00ff;
+}
+
+.contact-icon:hover,
+.contact-icon.hover {
+  text-shadow: 0 0 10px #ffaa00;
+}
+
+.certificate-link:hover,
+.certificate-link.hover {
+  text-shadow: 0 0 10px #aaffaa;
+}
+
 }
