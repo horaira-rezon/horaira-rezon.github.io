@@ -61,7 +61,6 @@ nav {
   display: none;
 }
 
-/* Hamburger lines */
 .hamburger span {
   width: 25px;
   height: 3px;
@@ -126,22 +125,11 @@ nav {
   font-size: 1.3rem;
   color: #888;
   margin: 0 0 0.3rem 0;
-  }
+}
   
 .name {
   font-size: 2.5rem;
   font-weight: 500;
-  }
-  
-  @media (max-width: 600px) {
-  .header-container {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .header-text {
-    padding-left: 0;
-  }
 }
 
 .typewriter {
@@ -371,7 +359,7 @@ nav {
 }
 
 .contact-label h2 {
-  font-size: 1.5rem; /* Increased for both PC & mobile */
+  font-size: 1.5rem;
   margin: 0;
   white-space: nowrap;
 }
@@ -435,24 +423,17 @@ nav {
   }
 }
 
-
-
-
-/* Mobile Responsive Overrides for max-width 768px */
-
 @media (max-width: 768px) {
 
-  /* Header container vertical stack */
-  .header-container {
-    flex-direction: column;
-    text-align: center;
-    padding: 0 0rem;
-    width: 100%;
-    max-width: 100%;
-  }
+.header-container {
+  flex-direction: column;
+  text-align: center;
+  padding: 0 0rem;
+  width: 100%;
+  max-width: 100%;
+}
 
-  /* Header text and typewriter on one line with smaller font */
- .header-text {
+.header-text {
   width: 100%;
   padding: 0;
   display: flex;
@@ -461,7 +442,7 @@ nav {
   justify-content: center;
 }
 
-  .greet {
+.greet {
   font-size: 1rem;
   font-weight: 400;
   margin-bottom: 0.3rem;
@@ -469,136 +450,130 @@ nav {
   text-align: center;
 }
 
-  .name {
-    font-size: clamp(1.1rem, 6vw, 1.6rem);
-    white-space: nowrap;
-    line-height: 1.2;
-  }
-  .typewriter {
-    font-size: clamp(0.7rem, 3.2vw, 0.95rem);
-    text-align: center;
-    white-space: nowrap;
-    line-height: 1;
-    margin-top: 0.7rem;
-  }
+.name {
+  font-size: clamp(1.1rem, 6vw, 1.6rem);
+  white-space: nowrap;
+  line-height: 1.2;
+}
+.typewriter {
+  font-size: clamp(0.7rem, 3.2vw, 0.95rem);
+  text-align: center;
+  white-space: nowrap;
+  line-height: 1;
+  margin-top: 0.7rem;
+}
 
-  /* Center profile image below header text */
-  .profile-img {
-    max-width: 180px;
-    width: 40vw;
-    height: auto;
-    margin: 1rem auto 0;
-  }
+.profile-img {
+  max-width: 180px;
+  width: 40vw;
+  height: auto;
+  margin: 1rem auto 0;
+}
 
-  /* Navigation becomes hamburger menu */
-  nav {
-    position: relative;
-    width: 100%;
-    justify-content: space-between;
-    padding: 0.1rem 1.5rem;
-  }
+nav {
+  position: relative;
+  width: 100%;
+  justify-content: space-between;
+  padding: 0.1rem 1.5rem;
+}
 
-  /* Hide nav-links by default */
-  .nav-links {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: #1a1a1a;
-    flex-direction: column;
-    display: none;
-    text-align: center;
-    padding: 0.5rem 0;
-  }
+.nav-links {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #1a1a1a;
+  flex-direction: column;
+  display: none;
+  text-align: center;
+  padding: 0.5rem 0;
+}
 
-  .nav-links.show {
-    display: flex;
-  }
+.nav-links.show {
+  display: flex;
+}
 
-   .nav-links li {
-    margin: 0.5rem 0;
-  }
-  /* Hamburger button */
-  .hamburger {
-    display: flex;
-    flex-direction: column;
-    border: none;
-    background: none;
-    cursor: pointer;
-    padding: 0.5rem;
-    z-index: 1001;
-  }
+.nav-links li {
+  margin: 0.5rem 0;
+}
 
-  .hamburger.active span:nth-child(1) {
-    transform: rotate(45deg) translateY(8px);
-  }
-  .hamburger.active span:nth-child(2) {
-    opacity: 0;
-  }
-  .hamburger.active span:nth-child(3) {
-    transform: rotate(-45deg) translateY(-8px);
-  }
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: 1001;
+}
 
-  /* Stack skill boxes vertically */
-  .skills-container {
-    flex-direction: column;
-  }
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translateY(8px);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translateY(-8px);
+}
 
-  /* Stack skill-boxes vertically with full width */
-  .skill-box {
-    flex: 1 1 100%;
-    min-height: auto;
-  }
+.skills-container {
+  flex-direction: column;
+}
 
-  .contact-row {
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
+.skill-box {
+  flex: 1 1 100%;
+  min-height: auto;
+}
 
-  .contact-label h2 {
-    font-size: 1.3rem;
-    text-align: center;
-  }
+.contact-row {
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
 
-  .contact-email-phone {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    font-size: 0.85rem;
-    gap: 1rem;
-  }
+.contact-label h2 {
+  font-size: 1.3rem;
+  text-align: center;
+}
 
-  .contact-icons-row {
-    justify-content: center;
-    flex-wrap: wrap;
-    padding-top: 0.5rem;
-  }
+.contact-email-phone {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-size: 0.85rem;
+  gap: 1rem;
+}
 
-  .contact-icon img {
-    width: 30px;
-    height: 30px;
-  }
+.contact-icons-row {
+  justify-content: center;
+  flex-wrap: wrap;
+  padding-top: 0.5rem;
+}
+
+.contact-icon img {
+  width: 30px;
+  height: 30px;
+}
   
-  .project-box {
-    padding-bottom: 1rem;
-    transition: all 0.3s ease;
-    box-shadow: none !important; /* No glow when collapsed */
-  }
+.project-box {
+  padding-bottom: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: none !important;
+}
 
-  .project-box.expanded {
-    padding-bottom: 1.5rem;
-    box-shadow: 0 0 20px 4px rgba(46, 141, 230, 0.5) !important; /* Exact same as desktop glow */
-  }
+.project-box.expanded {
+  padding-bottom: 1.5rem;
+  box-shadow: 0 0 20px 4px rgba(46, 141, 230, 0.5) !important;
+}
 
-  .project-details {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-  }
+.project-details {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
 
-  .project-box.active .project-details {
-    /* max-height will be set inline by JS */
-  }
+.project-box.active .project-details {
+}
 
 }
