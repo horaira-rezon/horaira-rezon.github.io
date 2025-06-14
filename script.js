@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
     history.scrollRestoration = 'auto';
   }
 
-  // Smooth scrolling for anchor links starting with #
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener("click", function(e) {
       e.preventDefault();
@@ -14,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Intersection Observer for fade-in and slide-up animations
   const animatedSections = document.querySelectorAll('.fade-in, .slide-up');
   const observer = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
@@ -32,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(section);
   });
 
-  // ✅ Project box toggle with mobile-specific collapse behavior
   const projectBoxes = document.querySelectorAll('.project-box');
 
   projectBoxes.forEach(box => {
@@ -44,12 +41,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const isMobile = window.innerWidth <= 768;
 
       if (isActive) {
-        // Collapse
         box.classList.remove("active");
         if (isMobile) box.classList.remove("expanded");
         details.style.maxHeight = null;
       } else {
-        // Expand
         box.classList.add("active");
         if (isMobile) box.classList.add("expanded");
         details.style.maxHeight = details.scrollHeight + "px";
@@ -57,7 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Skill circle interaction
   const skillSpans = document.querySelectorAll('.clickable-skill');
   const circle = document.querySelector('.circle');
   const percentageText = document.querySelector('.percentage-text');
@@ -96,7 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Typing effect lines
   const lines = [
     "An Agricultural Engineer",
     "I'm specializing in Precision Agriculture",
@@ -157,7 +150,6 @@ document.addEventListener('DOMContentLoaded', () => {
     typeLine();
   }
 
-  // Hamburger menu toggle
   const hamburger = document.querySelector('.hamburger');
   const navLinks = document.querySelector('.nav-links');
 
