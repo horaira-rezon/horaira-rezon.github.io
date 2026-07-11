@@ -1,0 +1,47 @@
+@media (max-width:768px){
+.project-box{
+    background:#e7e7e784;
+}
+.logo:hover{
+  color:#000000;
+}
+.hamburger:hover span{
+    background: #000000;
+}
+.theme-toggle::before{
+left:20px;
+}
+.portal-viewport-content{
+    background-color: white;
+}
+.project-popup-body p{
+color:#353535;
+}
+.project-popup-title{
+color: #000000;
+}
+.project-popup{
+background:#ffffff;
+}
+.link-button a{
+color: #3f3f3f;
+}
+.link-button a:hover{
+color: #3f3f3f;
+letter-spacing: 0rem;
+}
+.pdf-fallback-preview-card .pdf-filename-txt{
+  color:#515151;
+}
+.pdf-fallback-preview-card{
+  background-color:#f4f4f4;
+}
+.pdf-fallback-preview-card:hover {
+  background-color:#f4f4f4;
+  border: 1px solid rgb(188, 188, 188);
+}
+.gallery-wrapper:hover, .auto-link-preview:hover {
+  transform: none;
+  border-color: #ffffff46;
+}
+}

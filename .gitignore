@@ -1,0 +1,12 @@
+# Private working files
+private-drafts/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# VS Code workspace settings
+.vscode/
+
+# Logs
+*.log

@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>.show-more-hidden{display:none!important;}</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Horaira Rezon | AI & Precision Agriculture Researcher</title>
+
+  <link rel="stylesheet" href="assets/css/desktop-dark.css">
+  <link rel="stylesheet" href="assets/css/mobile-dark.css" media="screen and (max-width: 768px)">
+  <link id="theme-style" rel="stylesheet" href="assets/css/desktop-light.css" disabled>
+  <link id="mobile-theme-style" rel="stylesheet" href="assets/css/mobile-light.css" media="screen and (max-width: 768px)" disabled>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <meta property="og:title" content="Horaira Rezon - Portfolio"/>
+  <meta property="og:description" content="Agricultural Engineer specializing in Precision Agriculture, integrating AI, Robotics, Machine Vision, and IoT for sustainable farming."/>
+  <meta property="og:image" content="https://horaira-rezon.github.io/rezon.png"/>
+  <meta property="og:url" content="https://horaira-rezon.github.io"/>
+  <meta property="og:type" content="website"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Horaira Rezon - Portfolio"/>
+  <meta name="twitter:description" content="Agricultural Engineer specializing in Precision Agriculture, integrating AI, Robotics, Machine Vision, and IoT for sustainable farming."/>
+  <meta name="twitter:image" content="https://horaira-rezon.github.io/rezon.png"/>
+</head>
+
+<body>
+<header>
+  <nav>
+    <div class="nav-top">
+      <a href="#header" class="logo">Horaira Rezon</a>
+      <div class="nav-controls">
+        <button id="theme-toggle" class="theme-toggle" type="button">
+        </button>
+        <button class="hamburger" type="button">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#about">About Me</a></li>
+      <li><a href="#technicality">Skills & Interests</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experiences</a></li>
+      <li><a href="#honor">Honor & Awards</a></li>
+      <li><a href="#contact">Contact Me</a></li>
+      <li><div class="cv-pdf clickable-media" data-type="pdf" data-src="Documents/BARI Grand Finale.pdf">CV</div></li>
+    </ul>
+  </nav>
+</header>
+
+<section id="header" class="section fade-in">
+<div class="header-container">
+    <img src="assets/images/profile/horaira-rezon.png" alt="Horaira Rezon" class="profile-img"/>
+    <div class="header-text">
+        <p class="greet">Hello I'm,</p>
+        <p class="name">MD. ABU HORAIRA AL REZON</p>
+        <div class="typewriter">
+            <span id="typing-text"></span>
+        </div>
+    </div>
+</div>
+</section>
+
+<div class="page-content">
+
+<section id="about" class="section slide-up">
+<p class="about-text">I am an aspiring Agricultural Engineer specializing in Precision Agriculture, currently pursuing a B.Sc. in Agricultural Engineering at Bangladesh Agricultural University under the Department of Farm Power and Machinery. I am passionate about integrating technologies like AI, Agricultural Robotics, Machine Vision, and IoT to enhance productivity, efficiency, and sustainability in Agriculture.<br><br>
+I've worked on diverse projects including disease prediction, smart irrigation, farm automation, and non-destructive fruit quality assessment. My expertise includes programming (Python, C/C++), Data Science Frameworks, Computer Vision with OpenCV, Embedded Systems, Mechatronics and geospatial tools like ArcGIS. I enjoy working on tasks like Data Pre-processing, Multivariate Analysis, Statistical Modeling, and exploring data through visualization.</p>
+</section>
+
+<section id="technicality" class="section slide-up">
+  <div class="title" align="center">Skills & Research Interests</div>
+  <hr class="line">
+  <section id="tech-stack" class="tech-stack-section">
+    <div class="logo-loop-container">
+      <div class="logo-track" id="logo-track"></div>
+    </div>
+  </section>
+
+  <div class="technicality-container">
+    <div class="tech-box">
+      <div class="tech-box-title">Technical Skills</div>
+      <ul class="tech-list">
+        <li><span class="skill-label">Programming Languages</span><span class="skill-value">Python, C/C++</span></li>
+        <li><span class="skill-label">Frameworks</span><span class="skill-value">Scikit-learn, TensorFlow, OpenCV, Ultralytics</span></li>
+        <li><span class="skill-label">Software / Tools</span><span class="skill-value">ArcGIS, QGIS, GEE, FreeCAD, MATLAB</span></li>
+        <li><span class="skill-label">Electronics</span><span class="skill-value">Arduino, Raspberry Pi, PLC, VFD</span></li>
+      </ul>
+    </div>
+    <div class="tech-box">
+      <div class="tech-box-title">Research Interests</div>
+      <ul class="interest-list">
+        <li>Autonomous Agri-Robotics for Precision Field Operations</li>
+        <li>Hyperspectral Machine Vision for Non-Destructive Quality Assessment</li>
+        <li>Edge-AI Integration in UAV-based Crop Monitoring Systems</li>
+        <li>Smart Solar-Powered Distribution & Control Systems in Agriculture</li>
+        <li>Intelligent Digital Twin Frameworks for Climate-Smart Agriculture</li>
+        <li>Deep Learning-Optimized Postharvest Sorting and Grading Systems</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="section fade-in">
+  <div class="title" align="center">Projects</div>
+  <hr class="line">
+  <div class="projects-container">
+    <div class="project-box" data-project-popup="true">
+        <div class="project-header">
+            <span class="project-tag">Machine Learning</span>
+            <span class="project-tag">IoT</span>
+            <div class="project-title">
+                <span>Prediction of Early Blight Disease in Potato using Machine Learning</span>
+            </div>
+        </div>
+        <div class="project-details">
+        <p>Potato (Solanum tuberosum L.) is one of the most vital crops in Bangladesh but is highly susceptible to early blight. (Chothani, et al., 2017) found that early blight severity increases significantly under higher temperature (35-38°C), lower evening humidity (30-58%), and moderate wind speed (1.2-2.2 km/h). Relative humidity more than 90% for 5 to 6 hours accelerates spore germination. (Cowgill, et al., 2005) Weather data can be used to predict early blight as the fungal activity majorly depends on the environment.</p>
+        <p>To combat this significant agricultural challenge, our team is developing an advanced predictive model for Early Blight. Our approach aims to empower farmers with timely, data-driven insights for disease management. The main objective of this study is to develop an AI-powered early warning system that predicts the risk of early blight in potato crops using real-time microclimatic data from a portable mini weather station.</p>
+        <p>We've focused on creating a solution that is both practical and scalable, ensuring it can be effectively deployed across diverse farming conditions in Bangladesh. This not only promotes precise disease management decisions but also supports environmental sustainability by potentially reducing the indiscriminate use of fungicides.</p>
+        <ul class="project-list">
+          <li>Practical and scalable solution for managing early blight in potatoes was designed and implemented.</li>
+          <li>Precise, data-driven decision-making was promoted, supporting environmental sustainability.</li>
+        </ul>
+        <br>
+        <span class="link-button"><a href="http://dx.doi.org/10.13140/RG.2.2.15058.88001" target="_blank">Poster Link ⤴</a></span>
+        </div>
+    </div>
+    <div class="project-box" data-project-popup="true">
+        <div class="project-header">
+            <span class="project-tag">Spectroscopy</span>
+            <div class="project-title">
+                <span>AgriSpectro: Affordable Spectroscopic Device for Non-destructive Fruit Quality Analysis</span>
+            </div>
+        </div>
+        <div class="project-details">
+        <p>The farmers of Bangladesh face substantial financial setbacks each year due to inadequate methods for assessing and managing fruit quality. Postharvest losses for fruits in the country are alarmingly high, ranging from 25% to 50% of total production, severely impacting both farmer incomes and the national economy. According to recent studies, the gross monetary loss from poor postharvest handling of fruits in Bangladesh is estimated at Tk. 6,120 to 8,160 million annually. These losses are particularly severe for key fruits like Mango (39.38%), Banana (26.63%), Jackfruit (32%) and Brinjal (22%).</p>
+        <p>At the root of this crisis is the lack of accessible technology and limited awareness among farmers regarding critical quality parameters and proper handling techniques. Assessing internal quality factors like sugar content, acidity, firmness or oil content farmers are forced to rely on manual inspection methods that are often inaccurate and destructive.</p>
+        <p>This project aims to develop an affordable, portable spectroscopic solution that enables non-destructive fruit quality analysis, empowering farmers with the tools they need to make smarter, more profitable decisions.</p>
+        <ul class="project-list">
+          <li>Vis-NIR Spectroscopy was utilized to enable non-destructive assessment of internal fruit quality.</li>
+        </ul>
+        <br>
+        <span class="link-button"><a href="http://dx.doi.org/10.13140/RG.2.2.12466.93122" target="_blank">Poster Link ⤴</a></span>
+        </div>
+    </div>
+    <div class="project-box" data-project-popup="true">
+        <div class="project-header">
+            <span class="project-tag">Embedded Systems</span>
+            <div class="project-title">
+                <span">Automated Watering System for Plants</span>
+            </div>
+        </div>
+        <div class="project-details">
+        <p>This is a design of a system that uses an Arduino to intelligently control motors based on input from either an IR Remote or a Soil Moisture Sensor. Think of it as the brain behind a potential Robot or an Automated Watering System. In fact, this setup also functions as a remote-controlled Robot Car, allowing for manual field navigation to check soil moisture and precisely water specific areas. The LCD Screen provides real-time feedback, making the system interactive and informative.</p>
+        <ul class="project-list">
+          <li>Soil moisture levels are monitored by this system.</li>
+          <li>Automatic water pump activation is enabled when moisture levels fall below a defined threshold.</li>
+          <li>Manual navigation of the Robot Car is facilitated via an IR Remote for checking soil conditions and watering specific areas.</li>
+        </ul>
+        <br>
+        <span class="link-button"><a href="https://github.com/Allsabaab/Automated-Watering-System-for-Plants" target="_blank">Open Project ⤴</a></span>
+        </div>
+    </div>
+    <div class="project-box show-more-hidden" data-project-popup="true">
+        <div class="project-header">
+            <span class="project-tag">Software</span>
+            <span class="project-tag">UI</span>
+            <div class="project-title">
+                <span>Farm Inventory Management System</span>
+            </div>
+        </div>
+        <div class="project-details">
+        <p>The Farm Inventory Management System is a powerful tool designed to streamline and optimize farm operations by digitaliizing the management of farm resources, inputs, and equipments. This system helps farmers and farm managers maintain detailed records of availability, purchase records, and equipment types with their basic information, enabling better resource planning and cost control.</p>
+        <ul class="project-list">
+          <li>Comprehensive inventory tracking for Farm Machineries and Equipments.</li>
+          <li>Automated alerts for low stock levels.</li>
+          <li>User-friendly interface for data input and report generation.</li>
+          <li>Integration with mobile devices for on-field data entry.</li>
+        </ul>
+        <br>
+        <span class="link-button"><a href="https://github.com/Allsabaab/Farm-Inventory-Management-System" target="_blank">Live Project ⤴</a></span>
+        </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience" class="section fade-in">
+  <div class="title" align="center">Professional Experiences</div>
+  <hr class="line">
+  <div class="projects-container">
+    <div class="project-box">
+        <div class="project-header">
+            <div class="project-title">
+                <span>Smart Agro-Technology Innovation Youth Network - SAIYN</span>
+            </div>
+        </div>
+        <div class="project-details">
+          <div class="project-header">
+            <span class="post-tag">Ambassador (Business Competition)</span>
+            <span class="post-date-tag">March 2026 - Present</span>
+          </div>
+        <br>
+        <p>SAIYN is a knowledge-based learning platform for youths where they explore and boost their interests on smart and innovative agro-technologies for sustaining agricultural (crop, fisheries and livestock) production, processing and marketing to ensure food- and nutrition security. This is principally a youth-based network focusing on youth agropreneurship and empowerment. This network is formed in connection with 4-H Illinois approach through the project “Appropriate Scale Mechanization Innovation Hub (ASMIH) Phase II-Bangladesh”, a core component of Appropriate Scale Mechanization Consortium (ASMC) at the University of Illinois at Urbana-Champaign, USA, and financed by the Sustainable Intensification Innovation Lab (SIIL), Kansas State University and Feed the Future, USAID, USA. </p>
+        <p>I joined SAIYN as an ambassador for the business competition. Currently, I am an active member of SAIYN, contributing to its mission of promoting smart agro-technologies among young people in Bangladesh. As of now, I have taken on several leadership roles within the network, helping to organize events and workshops that bring together young agro-entrepreneurs and experts in the field.</p>
+        <ul class="project-list">
+          <li><a class="event-link" href="https://www.facebook.com/share/p/1E9jK42No8/" target="_blank">Agri-Tech Revolution:  Studies and Career Beyond Borders | April 28, 2026</a></li>
+        </ul>
+        <br>
+        <span class="link-button"><a href="https://web.facebook.com/smartagrotechidea" target="_blank">SAIYN Facebook Page ⤴</a></span>
+        <br>
+        <div class="media-grid-container">
+          <div class="gallery-wrapper clickable-media" data-type="image" data-src="Documents/Rezon SAIYN.png">
+            <div class="media-mask-overlay">
+              <span class="media-mask-text">View Image</span>
+            </div>
+            <img src="Documents/Rezon SAIYN.png" alt="Rezon SAIYN" class="standalone-gallery-img" loading="lazy" decoding="async">
+          </div>
+          <div class="gallery-wrapper clickable-media" data-type="image" data-src="Documents/SAIYN Members.png">
+            <div class="media-mask-overlay">
+              <span class="media-mask-text">View Image</span>
+            </div>
+            <img src="Documents/SAIYN Members.png" alt="SAIYN Members" class="standalone-gallery-img" loading="lazy" decoding="async">
+          </div>
+          <div class="gallery-wrapper clickable-media" data-type="image" data-src="Documents/Webinar Poster SAIYN 1.png">
+            <div class="media-mask-overlay">
+              <span class="media-mask-text">View Image</span>
+            </div>
+            <img src="Documents/Webinar Poster SAIYN 1.png" alt="Webinar Poster SAIYN 1" class="standalone-gallery-img" loading="lazy" decoding="async">
+          </div>
+        </div>
+        <br>
+        </div>
+    </div>
+    <div class="project-box">
+        <div class="project-header">
+            <div class="project-title">
+                <span>Bluvia</span>
+            </div>
+        </div>
+        <div class="project-details">
+          <div class="project-header">
+            <span class="post-tag">Co-founder & CTO</span>
+            <span class="post-date-tag">September 2025 - Present</span>
+          </div>
+        <br>
+        <p>Bluvia is an innovative startup founded at Bangladesh Agricultural University that focuses on promoting a healthy, natural lifestyle through its flagship product: a 100% natural, organic, and caffeine-free Blue Tea. Crafted from fresh Butterfly Pea Flowers (Aparajita), this herbal infusion is celebrated for its stunning deep blue color, which is derived from natural antioxidants known as anthocyanins. By utilizing locally sourced ingredients, the startup aims to provide a wellness-focused beverage that offers potential health benefits, such as stress relief, improved digestion, and antioxidant support, while maintaining a commitment to quality and chemical-free production.</p>
+        <p>Bluvia actively participates in diverse campus and professional events to engage directly with our community and promote healthy, plant-based refreshment solutions. These engagements serve as vital platforms for us to test our product's market viability, gather consumer feedback, and strengthen our brand presence within the university ecosystem.</p>
+        <ul class="project-list">
+          <li><a class="event-link" href="https://www.facebook.com/share/p/14hFumPDVDD/" target="_blank">Official Refreshment Partner | 3rd National Career Carnival organized by BAUCC at BAU | November 28, 2025</a></li>
+          <li><a class="event-link" href="https://www.facebook.com/share/18wFAjGCHg/" target="_blank">Beverage Stall | Tea Utshob 3.0 organized by Team Utshob at BAU | January 8, 2026</a></li>
+        </ul>
+        <br>
+        <span class="link-button"><a href="https://www.facebook.com/profile.php?id=61580914606878" target="_blank">Bluvia Facebook Page ⤴</a></span>
+        <br>
+        <div class="media-grid-container">
+          <div class="gallery-wrapper clickable-media" data-type="image" data-src="Documents/BLUVIA Logo.jpg">
+            <div class="media-mask-overlay">
+              <span class="media-mask-text">View Image</span>
+            </div>
+            <img src="Documents/BLUVIA Logo.jpg" alt="BLUVIA Logo" class="standalone-gallery-img" loading="lazy" decoding="async">
+          </div>
+          <div class="gallery-wrapper clickable-media" data-type="image" data-src="Documents/BLUVIA 1.jpg">
+            <div class="media-mask-overlay">
+              <span class="media-mask-text">View Image</span>
+            </div>
+            <img src="Documents/BLUVIA 1.jpg" alt="BLUVIA 1" class="standalone-gallery-img" loading="lazy" decoding="async">
+          </div>
+          <div class="gallery-wrapper clickable-media" data-type="image" data-src="Documents/BLUVIA 3.jpg">
+            <div class="media-mask-overlay">
+              <span class="media-mask-text">View Image</span>
+            </div>
+            <img src="Documents/BLUVIA 3.jpg" alt="BLUVIA 3" class="standalone-gallery-img" loading="lazy" decoding="async">
+          </div>
+          <div class="gallery-wrapper clickable-media" data-type="image" data-src="Documents/BLUVIA 2.jpg">
+            <div class="media-mask-overlay">
+              <span class="media-mask-text">View Image</span>
+            </div>
+            <img src="Documents/BLUVIA 2.jpg" alt="BLUVIA 2" class="standalone-gallery-img" loading="lazy" decoding="async">
+          </div>
+          <div class="gallery-wrapper clickable-media" data-type="image" data-src="Documents/BLUVIA 4.jpg">
+            <div class="media-mask-overlay">
+              <span class="media-mask-text">View Image</span>
+            </div>
+            <img src="Documents/BLUVIA 4.jpg" alt="BLUVIA 4" class="standalone-gallery-img" loading="lazy" decoding="async">
+          </div>
+          <div class="gallery-wrapper clickable-media" data-type="image" data-src="Documents/BLUVIA 5.jpg">
+            <div class="media-mask-overlay">
+              <span class="media-mask-text">View Image</span>
+            </div>
+            <img src="Documents/BLUVIA 5.jpg" alt="BLUVIA 5" class="standalone-gallery-img" loading="lazy" decoding="async">
+          </div>
+          <div class="gallery-wrapper clickable-media" data-type="image" data-src="Documents/BLUVIA 6.jpg">
+            <div class="media-mask-overlay">
+              <span class="media-mask-text">View Image</span>
+            </div>
+            <img src="Documents/BLUVIA 6.jpg" alt="BLUVIA 6" class="standalone-gallery-img" loading="lazy" decoding="async">
+          </div>
+        </div>
+        <br>
+        </div>
+    </div>
+    <div class="project-box">
+        <div class="project-header">
+            <div class="project-title">
+                <span>Bangladesh Agricultural University Career Club - BAUCC</span>
+            </div>
+        </div>
+        <div class="project-details">
+          <div class="project-header">
+            <span class="post-tag">Research & Development</span>
+            <span class="post-date-tag">May 2026 - Present</span>
+          </div>
+          <div class="project-header">
+            <span class="post-tag">Executive Member</span>
+            <span class="post-date-tag">August 2025 - May 2026</span>
+          </div>
+        <br>
+        <p>Bangladesh Agricultural University Career Club (BAUCC) is a non-profit, voluntary organization that is independent of politics, religion, race, caste, and creed. It was formed to provide a platform for students of Bangladesh Agricultural University to enhance their professional skills and explore their potential. BAUCC envisions transforming BAU into a hub of change-makers. Its main objective is to bridge the gap between students and resource persons.</p>
+        <p>I joined BAUCC as an executive member on August 2025. Currently, I am an active member of BAUCC, contributing to its mission of promoting professional development and career opportunities among students at Bangladesh Agricultural University. As of now, I have taken on several leadership roles within the club, helping to organize events and workshops that bring together students and industry professionals.</p>
+        <ul class="project-list">
+          <li><a class="event-link" href="https://fb.me/e/3ErbmTpQt" target="_blank">3rd National Career Carnival at Bangladesh Agricultural University | November 28, 2025 - November 29, 2025</a></li>
+        </ul>
+        <br>
+        <span class="link-button"><a href="https://www.baucc.com/" target="_blank">BAUCC Official Website ⤴</a></span>
+        <br>
+        <div class="media-grid-container">
+          <div class="gallery-wrapper clickable-media" data-type="image" data-src="Documents/BAUCC 1.jpg">
+            <div class="media-mask-overlay">
+              <span class="media-mask-text">View Image</span>
+            </div>
+            <img src="Documents/BAUCC 1.jpg" alt="BAUCC 1" class="standalone-gallery-img" loading="lazy" decoding="async">
+          </div>
+          <div class="gallery-wrapper clickable-media" data-type="image" data-src="Documents/BAUCC 2.jpg">
+            <div class="media-mask-overlay">
+              <span class="media-mask-text">View Image</span>
+            </div>
+            <img src="Documents/BAUCC 2.jpg" alt="BAUCC 2" class="standalone-gallery-img" loading="lazy" decoding="async">
+          </div>
+          <div class="gallery-wrapper clickable-media" data-type="image" data-src="Documents/BAUCC 3.JPG">
+            <div class="media-mask-overlay">
+              <span class="media-mask-text">View Image</span>
+            </div>
+            <img src="Documents/BAUCC 3.JPG" alt="BAUCC 3" class="standalone-gallery-img" loading="lazy" decoding="async">
+          </div>
+          <div class="gallery-wrapper clickable-media" data-type="image" data-src="Documents/BAUCC 4.jpg">
+            <div class="media-mask-overlay">
+              <span class="media-mask-text">View Image</span>
+            </div>
+            <img src="Documents/BAUCC 4.jpg" alt="BAUCC 4" class="standalone-gallery-img" loading="lazy" decoding="async">
+          </div>
+          <div class="gallery-wrapper clickable-media" data-type="image" data-src="Documents/BAUCC 7.JPG">
+            <div class="media-mask-overlay">
+              <span class="media-mask-text">View Image</span>
+            </div>
+            <img src="Documents/BAUCC 7.JPG" alt="BAUCC 7" class="standalone-gallery-img" loading="lazy" decoding="async">
+          </div>
+        </div>
+        <br>
+  </div>
+</section>
+
+<section id="honor" class="section fade-in">
+  <div class="title" align="center">Honors and Awards</div>
+  <hr class="line">
+  <div class="projects-container">
+    <div class="project-box">
+        <div class="project-header">
+            <span class="position-tag">Best Presenter</span>
+            <span class="date-tag">2026</span>
+            <div class="project-title">
+                <span>2nd International Conference 2026 | Weed Science Society of Bangladesh</span>
+            </div>
+        </div>
+        <div class="project-details">
+        <p>On April 12, 2026, my project-mate, Tanvir Hossain, and I participated in the 2nd International Conference organized by the Weed Science Society of Bangladesh, held at ASA University. We presented our research findings within the Technical Section 3, titled "Smart Technologies for Precision Weed Management." Our presentation was honored with the Best Presenter Award, a recognition that reflects the quality of our work and the clarity of our communication. We are deeply grateful to our supervisor, Dr. Anisur Rahman, whose immense support, expert guidance, and continuous encouragement were instrumental in helping us reach this milestone throughout the entire research and presentation process.</p>
+        <p>The International Conference organized by the Weed Science Society of Bangladesh serves as a premier academic forum for researchers, agronomists, and technology developers to discuss advancements in weed management and agricultural protection. The event focuses on bridging the gap between theoretical weed science and practical field applications, particularly through the lens of emerging digital and smart technologies.</p>
+        <div class="media-grid-container">
+          <div class="gallery-wrapper clickable-media" data-type="pdf" data-src="Documents/WSSB Best Presentation Certificate.pdf">
+            <div class="media-mask-overlay">
+              <span class="media-mask-text">View Document</span>
+            </div>
+            <div class="pdf-fallback-preview-card">
+              <span class="pdf-icon-symbol">📄</span>
+              <span class="pdf-filename-txt">WSSB Best Presentation Certificate.pdf</span>
+            </div>
+          </div>
+          <div class="gallery-wrapper clickable-media" data-type="pdf" data-src="Documents/WSSB Best Presentation Award.pdf">
+            <div class="media-mask-overlay">
+              <span class="media-mask-text">View Document</span>
+            </div>
+            <div class="pdf-fallback-preview-card">
+              <span class="pdf-icon-symbol">📄</span>
+              <span class="pdf-filename-txt">WSSB Best Presentation Award.pdf</span>
+            </div>
+          </div>
+          <div class="gallery-wrapper clickable-media" data-type="image" data-src="Documents/WSSB 1.jpg">
+            <div class="media-mask-overlay">
+              <span class="media-mask-text">View Image</span>
+            </div>
+            <img src="Documents/WSSB 1.jpg" alt="Winners from BAU" class="standalone-gallery-img" loading="lazy" decoding="async">
+          </div>
+          <div class="gallery-wrapper clickable-media" data-type="image" data-src="Documents/WSSB 2.jpg">
+            <div class="media-mask-overlay">
+              <span class="media-mask-text">View Image</span>
+            </div>
+            <img src="Documents/WSSB 2.jpg" alt="Winners from BAU" class="standalone-gallery-img" loading="lazy" decoding="async">
+          </div>
+          <div class="gallery-wrapper clickable-media" data-type="image" data-src="Documents/WSSB 3.jpg">
+            <div class="media-mask-overlay">
+              <span class="media-mask-text">View Image</span>
+            </div>
+            <img src="Documents/WSSB 3.jpg" alt="Winners from BAU" class="standalone-gallery-img" loading="lazy" decoding="async">
+          </div>
+        </div>
+        <br>
+        </div>
+    </div>
+    <div class="project-box">
+        <div class="project-header">
+            <span class="position-tag">First (Gold Winner)</span>
+            <span class="date-tag">2026</span>
+            <div class="project-title">
+                <span>International Student Competition 2025-26 | International Commission for Agricultural Engineering and Biosystems Engineering (CIGR)</span>
+            </div>
+        </div>
+        <div class="project-details">
+        <p>On March 17, 2026, our Team Carbon Cure (consisting of me, Amina Arif Riya, and Shoaib Ahmed Sotez) has secured the 1st place in the International Student Competition 2025-26 organized by The International Commission for Agricultural Engineering and Biosystems Engineering (CIGR). We participated in the "Energy in Agriculture" section. The whole team was supervised by Dr. Anisur Rahman, Department of Farm Power and Machinery, Bangladesh Agricultural University.</p>
+        <p>The CIGR Engineering Student International Competition is organized into seven distinct technical sections covering core areas of agricultural engineering, including land and water management, structures, plant production, energy in agriculture, system management, bioprocesses, and information technology. Within each individual section, outstanding undergraduate projects are awarded Gold ($500), Silver ($300), and Bronze ($200) prizes along with official certificates. The Gold winners from all seven sections then advance to a final global evaluation round, where one final champion receives the Platinum Prize, granting them full financing to attend and present their work at the CIGR World Congress in Turin, Italy.</p>
+        <p>The CIGR Engineering Student International Competition is a prestigious global platform where undergraduate students showcase innovative engineering solutions across seven agricultural and biosystems technical sections. Each section challenges students to address real-world issues in agriculture, such as energy efficiency, automation, and sustainability. Winning this competition highlights our team's dedication, creativity, and technical expertise in agricultural engineering, and it is a significant achievement that reflects our commitment to advancing sustainable agricultural practices worldwide.</p>
+        <div class="media-grid-container">
+          <div class="gallery-wrapper clickable-media" data-type="image" data-src="Documents/CIGR 1.jpg">
+            <div class="media-mask-overlay">
+              <span class="media-mask-text">View Image</span>
+            </div>
+            <img src="Documents/CIGR 1.jpg" alt="Result Webview" class="standalone-gallery-img" loading="lazy" decoding="async">
+          </div>
+          <div class="gallery-wrapper clickable-media" data-type="image" data-src="Documents/CIGR Winners.png">
+            <div class="media-mask-overlay">
+              <span class="media-mask-text">View Image</span>
+            </div>
+            <img src="Documents/CIGR Winners.png" alt="Winners from BAU" class="standalone-gallery-img" loading="lazy" decoding="async">
+          </div>
+          <div class="auto-link-preview clickable-media" data-type="link" data-url="https://www.cigrstudentcompetition.org/"></div>
+          <div class="auto-link-preview clickable-media" data-type="link" data-url="https://thedailycampus.com/agri-university/246453?fbclid=IwY2xjawSlJYJleHRuA2FlbQIxMABicmlkETFadEt4T09jemczMDNZSUFzc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHj4D-3SqPNIttoFZsYPQOzSdN-968KtCiYGEsZ_a8O2pZ1bv2EkzhCiutrTC_aem_wXWxHELidp5207t3sER6SA"></div>
+        </div>
+        <br>
+        </div>
+    </div>
+    <div class="project-box">
+        <div class="project-header">
+            <span class="position-tag">Pre-seed Winner</span>
+            <span class="date-tag">2025</span>
+            <div class="project-title">
+                <span>Innovation Cohort 3 (IC3) | University Innovation Hub Program (UIHP)</span>
+            </div>
+        </div>
+        <div class="project-details">
+        <p>On October 25, 2025, our startup, Bluvia, has been awarded a ৳45,000 pre-seed fund from the University Innovation Hub Program (UIHP) at Bangladesh Agricultural University. With this recognition, our team has initiated operations to transform this funding into a commercial reality: a 100% natural, organic, chemical-free, and caffeine-free Blue Tea crafted from fresh Butterfly Pea Flowers (Aparajita).</p>
+        <p>The University Innovation Hub Program (UIHP) is a specialized initiative designed to foster grassroots entrepreneurship, research commercialization, and scalable student-led innovations within the university ecosystem. The program evaluates submissions based on market viability, execution strategy, and societal impact, providing selected cohorts with financial grants, mentorship, and incubator access. By bridges the gap between academic research and commercial industry, UIHP acts as a catalyst for launching sustainable student startups into the broader national economy.</p>
+        <p>Securing funding from UIHP highlights our team's entrepreneurial drive, dedication, and practical execution strategy in the wellness and agricultural processing sector. This milestone validates Bluvia's vision of delivering functional, organic health alternatives while leveraging locally grown crops. It marks a significant foundational step in our journey to scale sustainable agro-based startup models and drive impactful innovation within our campus and beyond.</p>
+        <div class="media-grid-container">
+          <div class="gallery-wrapper clickable-media" data-type="pdf" data-src="Documents/UIHP Pre Seed Winner.pdf">
+            <div class="media-mask-overlay">
+              <span class="media-mask-text">View Document</span>
+            </div>
+            <div class="pdf-fallback-preview-card">
+              <span class="pdf-icon-symbol">📄</span>
+              <span class="pdf-filename-txt">UIHP Pre Seed Winner.pdf</span>
+            </div>
+          </div>
+          <div class="gallery-wrapper clickable-media" data-type="image" data-src="Documents/PXL_20251024_064355560~2.jpg">
+            <div class="media-mask-overlay">
+              <span class="media-mask-text">View Image</span>
+            </div>
+            <img src="Documents/PXL_20251024_064355560~2.jpg" alt="Winners from BAU" class="standalone-gallery-img" loading="lazy" decoding="async">
+          </div>
+          <div class="gallery-wrapper clickable-media" data-type="image" data-src="Documents/IMG-20251024-WA0190~2.jpg">
+            <div class="media-mask-overlay">
+              <span class="media-mask-text">View Image</span>
+            </div>
+            <img src="Documents/IMG-20251024-WA0190~2.jpg" alt="Winners from BAU" class="standalone-gallery-img" loading="lazy" decoding="async">
+          </div>
+          <div class="gallery-wrapper clickable-media" data-type="image" data-src="Documents/IMG-20251024-WA0187.jpg">
+            <div class="media-mask-overlay">
+              <span class="media-mask-text">View Image</span>
+            </div>
+            <img src="Documents/IMG-20251024-WA0187.jpg" alt="Winners from BAU" class="standalone-gallery-img" loading="lazy" decoding="async">
+          </div>
+          <div class="gallery-wrapper clickable-media" data-type="image" data-src="Documents/PXL_20251024_123341491~2.jpg">
+            <div class="media-mask-overlay">
+              <span class="media-mask-text">View Image</span>
+            </div>
+            <img src="Documents/PXL_20251024_123341491~2.jpg" alt="Winners from BAU" class="standalone-gallery-img" loading="lazy" decoding="async">
+          </div>
+          <div class="auto-link-preview clickable-media" data-type="link" data-url="https://dailynewnation.com/news/774413?fbclid=IwY2xjawSmR7pleHRuA2FlbQIxMABicmlkETE0VXhuNXBCTDFianBCWGdSc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHqB5F2aUBnTjlifbQzNGBb0SRx8fYQxX78rb7t6lKC1xZC5R7zmE81Z8SLEp_aem_WIJORtY7JjFDKkXQcdG7Pw"></div>
+        </div>
+        <br>
+        </div>
+    </div>
+    <div class="project-box show-more-hidden">
+        <div class="project-header">
+            <span class="position-tag">Second Place</span>
+            <span class="date-tag">2025</span>
+            <div class="project-title">
+                <span>Farm Mechanization Idea Competition 2025 | Bangladesh Agricultural Research Institure (BARI)</span>
+            </div>
+        </div>
+        <div class="project-details">
+        <p>On August 25, 2025, our team (consisting of me, Md. Mohibur Rahman Doha, Tanvir Hossain, and Shoaib Ahmed Sotez) secured 2nd place in the final round of the Farm Mechanization Idea Competition held at the Bangladesh Agricultural Research Institute (BARI), Gazipur. We initially qualified by placing 3rd in the preliminary round held at the Bangladesh Agricultural University campus. Among the 45 teams that competed in the final round, our project was recognized for its innovation and potential impact on agricultural efficiency.</p>
+        <p>The Farm Mechanization Idea Competition is a prestigious platform designed to foster technological advancements in the agricultural sector by challenging students and researchers to solve real-world farming constraints. The competition evaluates projects based on engineering viability, scalability, and their potential to modernize traditional farming practices.</p>
+        <p>This achievement is a testament to our team's hard work, creativity, and dedication in developing practical solutions for farm mechanization, and we are now focused on leveraging the provided funding and guidance to advance this idea further.</p>
+        <div class="media-grid-container">
+          <div class="gallery-wrapper clickable-media" data-type="pdf" data-src="Documents/BARI Grand Finale.pdf">
+            <div class="media-mask-overlay">
+              <span class="media-mask-text">View Document</span>
+            </div>
+            <div class="pdf-fallback-preview-card">
+              <span class="pdf-icon-symbol">📄</span>
+              <span class="pdf-filename-txt">BARI Grand Finale.pdf</span>
+            </div>
+          </div>
+          <div class="gallery-wrapper clickable-media" data-type="pdf" data-src="Documents/Certificate - BARI.pdf">
+            <div class="media-mask-overlay">
+              <span class="media-mask-text">View Document</span>
+            </div>
+            <div class="pdf-fallback-preview-card">
+              <span class="pdf-icon-symbol">📄</span>
+              <span class="pdf-filename-txt">Certificate - BARI.pdf</span>
+            </div>
+          </div>
+          <div class="gallery-wrapper clickable-media" data-type="image" data-src="Documents/BARI 1.jpg">
+            <div class="media-mask-overlay">
+              <span class="media-mask-text">View Image</span>
+            </div>
+            <img src="Documents/BARI 1.jpg" alt="Winners from BAU" class="standalone-gallery-img" loading="lazy" decoding="async">
+          </div>
+          <div class="gallery-wrapper clickable-media" data-type="image" data-src="Documents/BARI 2.jpg">
+            <div class="media-mask-overlay">
+              <span class="media-mask-text">View Image</span>
+            </div>
+            <img src="Documents/BARI 2.jpg" alt="Winners from BAU" class="standalone-gallery-img" loading="lazy" decoding="async">
+          </div>
+        </div>
+        <br>
+        </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="section fade-in">
+  <div class="title" align="center">Contact Me</div>
+  <hr class="line">
+  <div class="contact-panel">
+    <div class="contact-intro">
+      <span class="contact-eyebrow">Get In Touch</span>
+      <h3 class="contact-heading">Let's Build Something <span class="accent-text">Together</span></h3>
+      <p class="contact-desc">I'm always open to discussing research collaborations, internship opportunities, or new ideas in agri-tech. Reach out and let's start a conversation.</p>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:rezon.2205011@bau.edu.bd" class="contact-link-item" target="_blank">
+        <span class="node-label">Contact</span>
+        <span class="node-value">rezon.2205011@bau.edu.bd</span>
+      </a>
+      <a href="https://wa.me/8801799144788" class="contact-link-item" target="_blank">
+        <span class="node-label">Message</span>
+        <span class="node-value">(+880) 179 9144 788</span>
+      </a>
+      <div class="contact-link-item location-trigger" data-map-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d983.7189139036534!2d90.43551292920199!3d24.72477385944715!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x37564feb52a4e087%3A0x8881f3fcb17535c5!2sPrecision%20Agriculture%20Lab!5e0!3m2!1sen!2sbd!4v1782920971068!5m2!1sen!2sbd">
+        <span class="node-label">Location</span>
+        <span class="node-value">Smart Agriculture Lab</span>
+      </div>
+    </div>
+  </div>
+  <div class="social-row">
+    <a href="https://facebook.com/yourprofile" target="_blank" class="social-link fb" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+    <a href="https://www.instagram.com/allsabaab/" target="_blank" class="social-link ig" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+    <a href="https://www.researchgate.net/profile/Md-Abu-Horaira-Rezon" target="_blank" class="social-link rg" aria-label="ResearchGate"><i class="fa-brands fa-researchgate"></i></a>
+    <a href="https://www.linkedin.com/in/allsabaab/" target="_blank" class="social-link li" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+    <a href="https://github.com/horaira-rezon" target="_blank" class="social-link gh" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+    <a href="https://orcid.org/0009-0008-6732-8891" target="_blank" class="social-link orcid" aria-label="ORCID"><i class="fa-brands fa-orcid"></i></a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-content">
+    <p class="footer-title">
+      © 2026 Md. Abu Horaira Al Rezon
+    </p>
+    <p class="footer-text">
+      All Rights Reserved
+    </p>
+  </div>
+</footer>
+
+<div id="global-media-modal" class="custom-portal-overlay" data-lenis-prevent>
+  <button class="portal-close-trigger" aria-label="Close layout view">&times;</button>
+  <div class="portal-viewport-content"></div>
+</div>
+
+</div>
+
+<script>
+if(localStorage.getItem("theme")==="light"){
+document.documentElement.classList.add("light-loading");
+}
+</script>
+<script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+<script src="https://unpkg.com/lenis@1.3.11/dist/lenis.min.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/mobile.js"></script>
+</body>
+</html>
+
+<!-- Always add "show-more-hidden" class for hidden projects as follows:
+<div class="project-box show-more-hidden">
+Else, if you want to show the project by default; for the 1st, 2nd, and 3rd boxes; just use:
+<div class="project-box">
+You must have to use "show-more-hidden" class for hidden projects to avoid flickering issue while reloading the whole webpage. No exception! -->
