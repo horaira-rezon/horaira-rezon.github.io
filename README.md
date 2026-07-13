@@ -2,7 +2,7 @@
 
 A fast, fully responsive personal portfolio website built with **vanilla HTML, CSS, and JavaScript** and no frameworks, no build tools, no bundlers. Just clean, dependency-light code that anyone can read, fork, and adapt for their own portfolio.
 
-**Live site** ~ [horaira-rezon.github.io](https://horaira-rezon.github.io)
+**Live site:** [horaira-rezon.github.io](https://horaira-rezon.github.io)
 
 ---
 
