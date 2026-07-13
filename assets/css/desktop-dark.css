@@ -498,10 +498,20 @@ display: none !important;
 .project-title:hover{
   color:#2e8de6;
 }
+.link-button-section{
+display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+justify-content: center;
+gap: 1rem;
+width: 100%;
+}
 .link-button{
+  position: relative;
   display:flex;
   justify-content:center;
   transition: all 0.3s ease;
+  flex-shrink: 0;
 }
 .link-button a{
   display:inline-flex;

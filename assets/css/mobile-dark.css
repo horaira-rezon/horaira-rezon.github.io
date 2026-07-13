@@ -698,6 +698,9 @@ border:2px solid #80808026;
 .project-title:hover{
 color:#ffffff;
 }
+.link-button-section{
+flex-direction: column;
+}
 .link-button{
 font-size: 1rem;
 }
