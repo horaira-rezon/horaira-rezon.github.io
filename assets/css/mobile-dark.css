@@ -593,7 +593,7 @@ display:flex;
 justify-content:center;
 align-items:center;
 flex-wrap:wrap;
-gap:2rem;
+gap:1.75rem;
 margin:25px 0px 25px;
 }
 .social-link{
