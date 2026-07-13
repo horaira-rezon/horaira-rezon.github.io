@@ -2,7 +2,7 @@
 
 A fast, fully responsive personal portfolio website built with **vanilla HTML, CSS, and JavaScript** and no frameworks, no build tools, no bundlers. Just clean, dependency-light code that anyone can read, fork, and adapt for their own portfolio.
 
-**Live site:** [horaira-rezon.github.io](https://horaira-rezon.github.io)
+**Live site** >> [horaira-rezon.github.io](https://horaira-rezon.github.io)
 
 ---
 
@@ -47,26 +47,26 @@ horaira-rezon.github.io/
 │
 ├── assets/
 │   ├── css/
-│   │   ├── desktop-dark.css  # Base styles + dark theme (desktop)
-│   │   ├── desktop-light.css # Light theme overrides (desktop)
-│   │   ├── mobile-dark.css   # Base styles + dark theme (mobile)
-│   │   └── mobile-light.css  # Light theme overrides (mobile)
+│   │   ├── desktop-dark.css    # Base styles + dark theme (desktop)
+│   │   ├── desktop-light.css   # Light theme overrides (desktop)
+│   │   ├── mobile-dark.css     # Base styles + dark theme (mobile)
+│   │   └── mobile-light.css    # Light theme overrides (mobile)
 │   │
 │   ├── js/
-│   │   ├── main.js           # Core site logic (theme, nav, scroll,
-│   │   │                     #  typewriter, portals, link previews)
-│   │   └── mobile.js         # Mobile-only interaction handlers
+│   │   ├── main.js             # Core site logic (theme, nav, scroll,
+│   │   │                       #  typewriter, portals, link previews)
+│   │   └── mobile.js           # Mobile-only interaction handlers
 │   │
-│   ├── fonts/                # Self-hosted font files
-│   ├── icons/                # Icon assets
-│   ├── images/               # Site & profile images
-│   └── pdf/                  # Downloadable documents (e.g. CV)
+│   ├── fonts/                  # Self-hosted font files
+│   ├── icons/                  # Icon assets
+│   ├── images/                 # Site & profile images
+│   └── pdf/                    # Downloadable documents (e.g. CV)
 │
-├── private-drafts/           # Local working drafts (not deployed)
-├── favicon.ico               # Site favicon
+├── private-drafts/             # Local working drafts (not deployed)
+├── favicon.ico                 # Site favicon
 ├── .gitignore
-├── index.html                # Single-page site entry point
-└── README.md                 # You are here
+├── index.html                  # Single-page site entry point
+└── README.md                   # You are here
 ```
 
 **How theming works:** `desktop-dark.css` and `mobile-dark.css` are loaded by default and define the complete base styling. `desktop-light.css` and `mobile-light.css` are loaded as `disabled` stylesheets and only contain *overrides* — the theme toggle in `main.js` simply enables/disables these stylesheets and remembers the user's choice in `localStorage`.
