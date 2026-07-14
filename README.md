@@ -80,8 +80,8 @@ horaira-rezon.github.io/
 Built from the ground up using standard HTML5, CSS3, and modern JavaScript, this repository entirely bypasses the need for Node.js, npm, or any complex build tools. This zero-dependency architecture ensures the codebase remains lightning-fast, highly secure, and universally adaptable for anyone who wants a clean starting point for their personal website. You only need:
 
 1. **[Git](https://git-scm.com/downloads):** To easily clone and version-control the project on your machine.
-2. **A Web Browser** – Any modern browser (Chrome, Firefox, Safari, Edge) to run the site.
-3. **A Text Editor** – Such as [VS Code](https://code.visualstudio.com/) or even Notepad to edit the code.
+2. **A Web Browser:** Any modern browser (Chrome, Firefox, Safari, Edge) to run the site.
+3. **A Text Editor:** Such as [VS Code](https://code.visualstudio.com/) or even Notepad to edit the code.
 
 Getting this project up and running locally takes less than a minute. Simply copy the repository URL below and use either HTTPS or SSH to clone the clean, framework-free source code directly to your machine.
 
