@@ -69,7 +69,7 @@ horaira-rezon.github.io/
 └── README.md                   # You are here
 ```
 
-**How theming works:** `desktop-dark.css` and `mobile-dark.css` are loaded by default and define the complete base styling. `desktop-light.css` and `mobile-light.css` are loaded as `disabled` stylesheets and only contain *overrides* — the theme toggle in `main.js` simply enables/disables these stylesheets and remembers the user's choice in `localStorage`.
+**How theming works:** `desktop-dark.css` and `mobile-dark.css` are loaded by default and define the complete base styling. `desktop-light.css` and `mobile-light.css` are loaded as `disabled` stylesheets and only contain overrides; the theme toggle in `main.js` simply enables/disables these stylesheets and remembers the user's choice in `localStorage`.
 
 ---
 
@@ -77,22 +77,28 @@ horaira-rezon.github.io/
 
 ### Prerequisites
 
-- [Git](https://git-scm.com/downloads)
+Built from the ground up using standard HTML5, CSS3, and modern JavaScript, this repository entirely bypasses the need for Node.js, npm, or any complex build tools. This zero-dependency architecture ensures the codebase remains lightning-fast, highly secure, and universally adaptable for anyone who wants a clean starting point for their personal website. You only need:
+
+1. **[Git](https://git-scm.com/downloads):** To easily clone and version-control the project on your machine.
+2. **A Web Browser** – Any modern browser (Chrome, Firefox, Safari, Edge) to run the site.
+3. **A Text Editor** – Such as [VS Code](https://code.visualstudio.com/) or even Notepad to edit the code.
+
+Getting this project up and running locally takes less than a minute. Simply copy the repository URL below and use either HTTPS or SSH to clone the clean, framework-free source code directly to your machine.
 
 ### Clone the Repository
-### Using HTTPS:
+Using HTTPS:
 
 ```bash
 git clone https://github.com/horaira-rezon/horaira-rezon.github.io.git
 ```
 
-### Using SSH:
+Or, Using SSH:
 
 ```bash
 git clone git@github.com:horaira-rezon/horaira-rezon.github.io.git
 ```
 
-Navigate into the project folder:
+Navigate into the Project Folder:
 
 ```bash
 cd horaira-rezon.github.io
@@ -123,10 +129,4 @@ Since this is a static site, it can be deployed anywhere without a build step:
 
 ## 📄 License
 
-This project is open for reference and learning purposes. If you reuse the code structure for your own portfolio, please avoid copying personal content (name, bio, projects, CV, images) as-is. A star ⭐ on the repo is always appreciated if this helped you!
-
----
-
-## 📬 Contact
-
-Feel free to reach out via the contact links on the [live site](https://horaira-rezon.github.io) if you have questions or feedback about the project.
+This project is distributed under the **MIT License** and is fully open for reference and learning purposes. While you are free to adapt the structural code for your own portfolio, please avoid copying personal content (name, bio, projects, CV, images) as-is. If this template helps you kickstart your site, dropping a star ⭐ on the repo is always appreciated!
