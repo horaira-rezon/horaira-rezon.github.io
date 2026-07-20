@@ -75,22 +75,45 @@ document.addEventListener('DOMContentLoaded', () => {
     applyTheme(e.matches?"light":"dark",false);
   });
 
+  let historyLayers = [];
+
+  const pushHistoryLayer = (type) => {
+    historyLayers.push(type);
+    history.pushState({ layer: type }, '');
+  };
+
   const nav = document.querySelector('nav');
   const hamburger = document.querySelector('.hamburger');
   const navLinks = document.querySelector('.nav-links');
+
+  const openNav = () => {
+    if (!nav || !hamburger || !navLinks) return;
+    if (nav.classList.contains('open')) return;
+    nav.classList.add('open');
+    hamburger.classList.add('active');
+    nav.style.height = 40 + navLinks.scrollHeight + 'px';
+    pushHistoryLayer('nav');
+  };
+
+  const closeNavVisual = () => {
+    if (!nav || !hamburger) return;
+    nav.style.height = '40px';
+    nav.classList.remove('open');
+    hamburger.classList.remove('active');
+  };
+
+  const closeNav = () => {
+    if (!nav || !nav.classList.contains('open')) return;
+    history.back();
+  };
 
   if (hamburger && nav && navLinks) {
     hamburger.addEventListener('click', e => {
       e.stopPropagation();
       if (nav.classList.contains('open')) {
-        nav.style.height = '40px';
-        nav.classList.remove('open');
-        hamburger.classList.remove('active');
-        setTimeout(() => {}, 350);
+        closeNav();
       } else {
-        nav.classList.add('open');
-        hamburger.classList.add('active');
-        nav.style.height = 40 + navLinks.scrollHeight + 'px';
+        openNav();
       }
     });
 
@@ -99,10 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
         nav.classList.contains('open') &&
         !nav.contains(e.target)
       ) {
-        nav.style.height = '40px';
-        nav.classList.remove('open');
-        hamburger.classList.remove('active');
-        setTimeout(() => {}, 350);
+        closeNav();
       }
     });
   }
@@ -119,16 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
         duration:0.5,
         easing:(t)=>1-Math.pow(1-t,3)
       });
-      if (nav) {
-        const header = document.querySelector('header');
-        nav.style.height = '40px';
-        nav.classList.remove('open');
-        hamburger.classList.remove('active');
-        
-        setTimeout(() => {}, 350);
-        nav.classList.remove('open');
-        hamburger.classList.remove('active');
-      }
+      closeNav();
     });
   });
 
@@ -381,12 +392,9 @@ document.addEventListener('DOMContentLoaded', () => {
     portalModal.classList.add('active');
     document.body.classList.add('no-scroll');
     lenis.stop();
+    pushHistoryLayer('portal');
   };
 
-  // Like openPortal, but remembers the currently-shown content (and its
-  // scroll position) so closePortal can step back into it instead of
-  // closing the whole modal. Used when a media viewer (image/pdf) is
-  // opened from within an already-open popup.
   const openNestedPortal = (htmlContent, isDocumentType = false, onRestore = null) => {
     portalStack.push({
       html: portalViewport.innerHTML,
@@ -395,9 +403,10 @@ document.addEventListener('DOMContentLoaded', () => {
       onRestore
     });
     renderPortalContent(htmlContent, isDocumentType);
+    pushHistoryLayer('portal');
   };
 
-  const closePortal = () => {
+  const stepBackPortal = () => {
     if (!portalModal.classList.contains('active')) return;
     if (portalStack.length > 0) {
       const prev = portalStack.pop();
@@ -414,6 +423,20 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.remove('no-scroll');
     lenis.start();
   };
+
+  const closePortal = () => {
+    if (!portalModal.classList.contains('active')) return;
+    history.back();
+  };
+
+  window.addEventListener('popstate', () => {
+    const layer = historyLayers.pop();
+    if (layer === 'portal') {
+      stepBackPortal();
+    } else if (layer === 'nav') {
+      closeNavVisual();
+    }
+  });
 
   window.openPortal = openPortal;
   window.openNestedPortal = openNestedPortal;
@@ -444,21 +467,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (portalModal.classList.contains('active')) {
         closePortal();
       } else if (nav && hamburger) {
-        const header = document.querySelector('header');
-        
         if (nav.classList.contains('open')) {
-          const header = document.querySelector('header');
-          nav.style.height = '40px';
-          nav.classList.remove('open');
-          hamburger.classList.remove('active');
-          
-          setTimeout(() => {}, 350);
-          nav.classList.remove('open');
-          hamburger.classList.remove('active');
+          closeNav();
         } else {
-          nav.classList.add('open');
-          hamburger.classList.add('active');
-          nav.style.height = 40 + navLinks.scrollHeight + 'px';
+          openNav();
         }
       }
     }
@@ -489,9 +501,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Builds a link that hands off to the device's own maps app (Apple Maps on
-  // iOS, or a geo: intent on Android) using the lat/lng embedded in the
-  // Google Maps embed URL's pb parameter.
   const getNativeMapUrl = (mapSrc) => {
     const coordMatch = mapSrc.match(/!2d(-?\d+\.?\d*)!3d(-?\d+\.?\d*)/);
     const nameMatch = mapSrc.match(/!2s([^!]+)!5e/);
