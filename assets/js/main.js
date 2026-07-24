@@ -683,7 +683,7 @@ document.addEventListener('DOMContentLoaded', () => {
       {name: "MATLAB", type: "image", src: "https://upload.wikimedia.org/wikipedia/commons/2/21/Matlab_Logo.png"},
       {name: "QGIS", type: "image", src: "https://dl.flathub.org/media/org/qgis/qgis.desktop/7035c8f06da487a2a289a2320c6d55b2/icons/128x128@2/org.qgis.qgis.desktop.png"},
       {name: "GEE", type: "image", src: "https://images.icon-icons.com/1508/PNG/512/googleearth-engine_104576.png"},
-      {name: "FreeCAD", type: "image", src: "https://upload.wikimedia.org/wikipedia/commons/f/f7/FreeCAD_logo.svg"}
+      {name: "FreeCAD", type: "image", src: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/FreeCAD-symbol.svg/1280px-FreeCAD-symbol.svg.png"}
     ];
     
     function createLogoGroup() {
