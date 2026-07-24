@@ -228,7 +228,7 @@ margin-bottom:4.5rem;
 .logo-group{
 gap: 0.5rem;
 height: 50px;
-padding: none;
+padding-right: 0.5rem;
 }
 .logo-item i,
 .logo-item img,
