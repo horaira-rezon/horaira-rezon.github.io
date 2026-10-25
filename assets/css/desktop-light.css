@@ -251,3 +251,32 @@ header{
   background:rgba(46, 141, 230, 0.10);
   border-color:#2e8de6;
 }
+.gallery-line{
+  background:#bcbcbc84;
+}
+.gallery-count{
+  color:#00000079;
+}
+.project-popup .gallery-wrapper,
+.project-popup .auto-link-preview{
+  background:#f4f4f4;
+  border-color:#bcbcbc;
+}
+.project-popup .gallery-wrapper:hover,
+.project-popup .auto-link-preview:hover{
+  box-shadow:0 14px 30px rgba(0, 0, 0, 0.12);
+}
+.project-popup .gallery-wrapper img{
+  border:none;
+  border-radius:0;
+}
+.project-popup .pdf-fallback-preview-card{
+  background:linear-gradient(160deg, #ffffff, #eeeeee);
+  border:none;
+}
+.project-popup .pdf-fallback-preview-card .pdf-filename-txt{
+  color:#333333;
+}
+.project-popup .auto-link-preview .link-preview-card{
+  background:#ffffff;
+}

@@ -1775,3 +1775,205 @@ html.js .slide-up.visible .technicality-container .tech-box{
 .project-popup .link-button{
   justify-content:flex-start;
 }
+
+/* ---------- Gallery (inside popups) ---------- */
+.gallery-head{
+  display:flex;
+  align-items:center;
+  gap:0.9rem;
+  margin-top:0.6rem;
+  font-size:0.78rem;
+  font-weight:300;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+}
+.gallery-label{
+  color:#2e8de6;
+}
+.gallery-line{
+  flex:1;
+  height:1px;
+  background:#80808033;
+}
+.gallery-count{
+  color:#ffffff79;
+  letter-spacing:0.15em;
+}
+.project-popup .media-grid-container{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:14px;
+  margin-top:0;
+}
+.project-popup .gallery-wrapper,
+.project-popup .auto-link-preview{
+  position:relative;
+  display:block;
+  flex:0 0 230px;
+  width:230px !important;
+  max-width:none;
+  height:auto;
+  aspect-ratio:4 / 3;
+  border-radius:10px;
+  border:1px solid #80808033;
+  background:#141414;
+  overflow:hidden;
+  transition:transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease, box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.project-popup .gallery-wrapper:hover,
+.project-popup .auto-link-preview:hover{
+  transform:translateY(-3px);
+  border-color:#2e8de680;
+  box-shadow:0 14px 30px rgba(0, 0, 0, 0.4);
+}
+.project-popup .standalone-gallery-img{
+  display:block;
+  width:100%;
+  height:100%;
+  max-width:none;
+  object-fit:cover;
+  border:none;
+  border-radius:0;
+  transition:transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.project-popup .gallery-wrapper:hover .standalone-gallery-img{
+  transform:scale(1.06);
+}
+.project-popup .media-mask-overlay{
+  background:linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1));
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+}
+.project-popup .media-mask-overlay i{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(46, 141, 230, 0.92);
+  color:#ffffff;
+  font-size:0.95rem;
+  transform:scale(0.8);
+  transition:transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.project-popup .gallery-wrapper:hover .media-mask-overlay i,
+.project-popup .link-preview-card:hover .media-mask-overlay i{
+  transform:scale(1);
+}
+.project-popup .pdf-fallback-preview-card{
+  width:100%;
+  height:100%;
+  padding:18px;
+  gap:12px;
+  border:none;
+  border-radius:0;
+  background:linear-gradient(160deg, #1d1d1d, #121212);
+}
+.project-popup .pdf-icon-symbol{
+  font-size:2.4rem;
+  color:#2e8de6;
+  line-height:1;
+}
+.project-popup .pdf-fallback-preview-card .pdf-filename-txt{
+  font-size:0.85rem;
+  color:#d0d0d0;
+  line-height:1.4;
+  white-space:normal;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+}
+.pdf-badge{
+  position:absolute;
+  top:10px;
+  left:10px;
+  z-index:11;
+  font-size:0.62rem;
+  font-weight:500;
+  letter-spacing:0.15em;
+  color:#2e8de6;
+  border:1px solid #2e8de666;
+  border-radius:20px;
+  padding:0.05rem 0.5rem;
+  pointer-events:none;
+}
+.project-popup .auto-link-preview .link-preview-card{
+  width:100% !important;
+  height:100%;
+  min-width:0;
+  border:none;
+  border-radius:0;
+  background:#141414;
+}
+.project-popup .auto-link-preview .link-preview-card:hover{
+  transform:none;
+}
+.project-popup .link-preview-image-wrapper{
+  height:64%;
+}
+.project-popup .link-preview-info{
+  height:36%;
+  padding:8px 12px;
+}
+
+/* Image viewer: previous / next and a counter */
+.gallery-nav{
+  position:fixed;
+  top:50%;
+  z-index:6;
+  width:48px;
+  height:48px;
+  margin-top:-24px;
+  border-radius:50%;
+  border:1px solid rgba(255, 255, 255, 0.18);
+  background:rgba(0, 0, 0, 0.45);
+  color:#ffffff;
+  font-size:1rem;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:background-color 0.3s ease, border-color 0.3s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.gallery-prev{
+  left:24px;
+}
+.gallery-next{
+  right:24px;
+}
+.gallery-nav:hover{
+  background:#2e8de6;
+  border-color:#2e8de6;
+}
+.gallery-prev:hover{
+  transform:translateX(-2px);
+}
+.gallery-next:hover{
+  transform:translateX(2px);
+}
+.gallery-nav:focus{
+  outline:none;
+}
+.gallery-counter{
+  position:fixed;
+  bottom:20px;
+  left:50%;
+  z-index:6;
+  transform:translateX(-50%);
+  font-size:0.82rem;
+  letter-spacing:0.15em;
+  color:#ffffffcc;
+  background:rgba(0, 0, 0, 0.45);
+  border:1px solid rgba(255, 255, 255, 0.12);
+  border-radius:20px;
+  padding:0.2rem 0.85rem;
+  font-variant-numeric:tabular-nums;
+}
+.media-stage .portal-fullscreen-img.is-switching{
+  opacity:0.35;
+}
+.media-stage .portal-fullscreen-img{
+  transition:transform 0.2s ease-out, opacity 0.25s ease;
+}

@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // content: the element shown in the window. Clicks outside any element
   // matching `inside` (the panel, or the image itself) close the window.
-  const openModal = ({ content, label, variant = '', inside = '.modal-panel' }) => {
+  const openModal = ({ content, label, variant = '', inside = '.modal-panel', onKeydown = null }) => {
     const trigger = document.activeElement;
     const openedByKeyboard = lastInput === 'keyboard';
     const overlay = el('div', `modal-overlay ${variant}`.trim());
@@ -265,6 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
     pushLayer({
       type: 'modal',
       overlay,
+      onKeydown,
       close: () => {
         overlay.classList.remove('is-open');
         overlay.classList.add('is-closing');
@@ -373,6 +374,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const body = details.cloneNode(true);
     body.classList.add('project-popup-body');
     body.querySelectorAll('br').forEach(br => br.remove());
+    body.querySelectorAll('.media-grid-container').forEach(grid => {
+      const count = grid.children.length;
+      const head = el('div', 'gallery-head');
+      head.append(el('span', 'gallery-label', 'Gallery'), el('span', 'gallery-line'), el('span', 'gallery-count', `${count} item${count === 1 ? '' : 's'}`));
+      grid.before(head);
+      grid.querySelectorAll('.clickable-media[data-type="image"] .media-mask-overlay').forEach(mask => {
+        mask.innerHTML = '<i class="fa-solid fa-expand" aria-hidden="true"></i>';
+      });
+      grid.querySelectorAll('.clickable-media[data-type="pdf"]').forEach(item => {
+        const mask = item.querySelector('.media-mask-overlay');
+        if (mask) mask.innerHTML = '<i class="fa-solid fa-expand" aria-hidden="true"></i>';
+        const icon = item.querySelector('.pdf-icon-symbol');
+        if (icon) icon.innerHTML = '<i class="fa-regular fa-file-pdf" aria-hidden="true"></i>';
+        item.appendChild(el('span', 'pdf-badge', 'PDF'));
+      });
+    });
     body.querySelectorAll('.auto-link-preview').forEach(renderLinkPreview);
     if (tags.children.length) popup.appendChild(tags);
     popup.append(el('div', 'project-popup-title', title), el('div', 'project-popup-divider'), body);
@@ -417,18 +434,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- Media: images, documents, maps ---------- */
 
-  const openImage = (src) => {
+  // gallery: every image source in the same gallery, so the viewer can step
+  // through them with the arrows, the arrow keys or a swipe.
+  const openImage = (src, gallery = [src]) => {
+    let current = Math.max(0, gallery.indexOf(src));
     const stage = el('div', 'media-stage');
     const img = el('img', 'portal-fullscreen-img');
     img.src = src;
     img.alt = '';
     stage.appendChild(img);
+
+    const hasGallery = gallery.length > 1;
+    const counter = el('div', 'gallery-counter');
+    const navButton = (direction, label, icon) => {
+      const button = el('button', `gallery-nav gallery-${direction}`);
+      button.type = 'button';
+      button.setAttribute('aria-label', label);
+      button.innerHTML = `<i class="fa-solid ${icon}"></i>`;
+      return button;
+    };
+    const prev = navButton('prev', 'Previous image', 'fa-chevron-left');
+    const next = navButton('next', 'Next image', 'fa-chevron-right');
+
+    let showAt = () => {};
     const overlay = openModal({
       content: stage,
       label: 'Image viewer',
       variant: 'media-variant',
-      inside: '.portal-fullscreen-img'
+      inside: '.portal-fullscreen-img, .gallery-nav, .gallery-counter',
+      onKeydown: (e) => {
+        if (!hasGallery) return false;
+        if (e.key === 'ArrowLeft') { showAt(current - 1); return true; }
+        if (e.key === 'ArrowRight') { showAt(current + 1); return true; }
+        return false;
+      }
     });
+    if (hasGallery) overlay.append(prev, next, counter);
     // Zoom with the wheel (or a pinch), and drag to move around a zoomed image.
     let scale = 1;
     let x = 0;
@@ -449,6 +490,25 @@ document.addEventListener('DOMContentLoaded', () => {
       img.classList.toggle('is-zoomed', scale > 1);
     };
 
+    showAt = (index) => {
+      current = (index + gallery.length) % gallery.length;
+      scale = 1;
+      x = 0;
+      y = 0;
+      apply();
+      img.classList.add('is-switching');
+      const nextImage = new Image();
+      nextImage.onload = nextImage.onerror = () => {
+        img.src = gallery[current];
+        img.classList.remove('is-switching');
+      };
+      nextImage.src = gallery[current];
+      counter.textContent = `${current + 1} / ${gallery.length}`;
+    };
+    counter.textContent = `${current + 1} / ${gallery.length}`;
+    prev.addEventListener('click', (e) => { e.stopPropagation(); showAt(current - 1); });
+    next.addEventListener('click', (e) => { e.stopPropagation(); showAt(current + 1); });
+
     const setScale = (next) => {
       const previous = scale;
       scale = Math.min(Math.max(MIN_SCALE, next), MAX_SCALE);
@@ -467,6 +527,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const pointers = new Map();
     let drag = null;
     let pinch = null;
+    let swipe = null;
 
     const pinchDistance = () => {
       const [a, b] = Array.from(pointers.values());
@@ -483,7 +544,9 @@ document.addEventListener('DOMContentLoaded', () => {
         pinch = { distance: pinchDistance(), scale };
       } else if (pointers.size === 1) {
         drag = { startX: e.clientX, startY: e.clientY, x, y };
+        swipe = { x: e.clientX, y: e.clientY };
       }
+      if (pointers.size > 1) swipe = null;
       e.preventDefault();
     });
 
@@ -501,6 +564,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const endPointer = (e) => {
       if (!pointers.delete(e.pointerId)) return;
+      // A quick sideways swipe on an un-zoomed image moves through the gallery.
+      if (swipe && hasGallery && scale === 1 && e.type === 'pointerup') {
+        const dx = e.clientX - swipe.x;
+        const dy = e.clientY - swipe.y;
+        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) showAt(current + (dx < 0 ? 1 : -1));
+      }
+      swipe = null;
       pinch = null;
       if (pointers.size === 1) {
         const [rest] = pointers.values();
@@ -833,7 +903,7 @@ document.addEventListener('DOMContentLoaded', () => {
     preview.innerHTML = '<div class="link-preview-card flex-skeleton-loader"><div class="preview-loading-shimmer"></div></div>';
     fetchPreview(url).then(meta => {
       const card = el('div', 'link-preview-card');
-      card.innerHTML = '<div class="media-mask-overlay"><span class="media-mask-text">Open Link</span></div>';
+      card.innerHTML = '<div class="media-mask-overlay"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></div>';
       const imageWrap = el('div', 'link-preview-image-wrapper');
       if (meta.image) {
         const img = el('img', 'link-preview-image');
@@ -872,7 +942,11 @@ document.addEventListener('DOMContentLoaded', () => {
       e.stopPropagation();
       const type = media.dataset.type;
       if (type === 'image') {
-        openImage(media.dataset.src);
+        const grid = media.closest('.media-grid-container');
+        const gallery = grid
+          ? Array.from(grid.querySelectorAll('.clickable-media[data-type="image"]')).map(item => item.dataset.src)
+          : [media.dataset.src];
+        openImage(media.dataset.src, gallery);
       } else if (type === 'pdf') {
         openDocument(media.dataset.src, mediaTitle(media));
       } else if (type === 'link' && media.dataset.url) {
@@ -913,6 +987,11 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         openNav();
       }
+      return;
+    }
+
+    if (top && top.onKeydown && top.onKeydown(e)) {
+      e.preventDefault();
       return;
     }
 

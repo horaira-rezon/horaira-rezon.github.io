@@ -913,4 +913,59 @@ align-items:stretch;
 .technicality-container .tech-box:hover::before{
 transform:scaleY(0);
 }
+.project-popup .media-grid-container{
+gap:8px;
+}
+.project-popup .gallery-wrapper,
+.project-popup .auto-link-preview{
+flex:0 0 calc(50% - 4px);
+width:calc(50% - 4px) !important;
+}
+.project-popup .gallery-wrapper,
+.project-popup .auto-link-preview,
+.project-popup .link-preview-card{
+max-width:none;
+height:auto;
+}
+.project-popup .auto-link-preview .link-preview-card{
+height:100%;
+}
+.project-popup .gallery-wrapper:hover,
+.project-popup .auto-link-preview:hover{
+transform:none;
+box-shadow:none;
+border-color:#80808033;
+}
+.project-popup .gallery-wrapper:hover .standalone-gallery-img{
+transform:none;
+}
+.project-popup .pdf-icon-symbol{
+font-size:1.8rem;
+}
+.project-popup .pdf-fallback-preview-card .pdf-filename-txt{
+font-size:.75rem;
+}
+.gallery-head{
+font-size:.72rem;
+}
+.gallery-nav{
+top:auto;
+bottom:14px;
+margin-top:0;
+width:40px;
+height:40px;
+}
+.gallery-prev{
+left:16px;
+}
+.gallery-next{
+right:16px;
+}
+.gallery-nav:hover{
+background:rgba(0,0,0,.45);
+border-color:rgba(255,255,255,.18);
+}
+.gallery-counter{
+bottom:22px;
+}
 }
