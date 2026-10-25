@@ -193,9 +193,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typingText) type();
 
   /* ---------- Hero network ----------
-     Points drift behind the name and link up with fine lines when they
-     come close, like a neural network; near the mouse they connect to the
-     cursor and are gently pushed aside. */
+     Faint points drift behind the name and are linked by fine lines when
+     close, like a sensor or neural network; now and then a small pulse of
+     light travels along one of the links. */
 
   const heroSection = document.getElementById('header');
   const heroCanvas = heroSection && heroSection.querySelector('.hero-canvas');
@@ -203,12 +203,13 @@ document.addEventListener('DOMContentLoaded', () => {
   if (heroCanvas && heroCanvas.getContext) {
     const ctx = heroCanvas.getContext('2d');
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const LINK = 130;
-    const MOUSE_LINK = 170;
+    const LINK = 140;
+    const PULSE_EVERY = 650;
     let width = 0;
     let height = 0;
     let points = [];
-    let mouse = null;
+    let pulses = [];
+    let lastPulse = 0;
     let running = false;
     let frame = null;
     let inView = true;
@@ -220,67 +221,77 @@ document.addEventListener('DOMContentLoaded', () => {
       heroCanvas.width = Math.round(width * ratio);
       heroCanvas.height = Math.round(height * ratio);
       ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-      const count = Math.max(24, Math.min(90, Math.round(width * height / 9000)));
+      const count = Math.max(22, Math.min(70, Math.round(width * height / 11000)));
       points = Array.from({ length: count }, () => {
         const angle = Math.random() * Math.PI * 2;
-        const speed = 0.12 + Math.random() * 0.22;
+        const speed = 0.08 + Math.random() * 0.14;
         return {
           x: Math.random() * width,
           y: Math.random() * height,
           vx: Math.cos(angle) * speed,
           vy: Math.sin(angle) * speed,
-          r: 0.8 + Math.random() * 1.3
+          r: 0.7 + Math.random() * 1.1
         };
       });
+      pulses = [];
+    };
+
+    const spawnPulse = () => {
+      const a = Math.floor(Math.random() * points.length);
+      const near = [];
+      points.forEach((p, i) => {
+        if (i !== a && Math.hypot(p.x - points[a].x, p.y - points[a].y) < LINK) near.push(i);
+      });
+      if (near.length) pulses.push({ a, b: near[Math.floor(Math.random() * near.length)], t: 0 });
     };
 
     const draw = () => {
       ctx.clearRect(0, 0, width, height);
+      ctx.lineWidth = 0.7;
       for (let i = 0; i < points.length; i++) {
         const a = points[i];
         for (let j = i + 1; j < points.length; j++) {
           const b = points[j];
           const d = Math.hypot(a.x - b.x, a.y - b.y);
           if (d < LINK) {
-            ctx.strokeStyle = `rgba(46, 141, 230, ${(1 - d / LINK) * 0.35})`;
-            ctx.lineWidth = 0.8;
+            ctx.strokeStyle = `rgba(46, 141, 230, ${(1 - d / LINK) * 0.22})`;
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
             ctx.stroke();
           }
         }
-        if (mouse) {
-          const d = Math.hypot(a.x - mouse.x, a.y - mouse.y);
-          if (d < MOUSE_LINK) {
-            ctx.strokeStyle = `rgba(108, 191, 255, ${(1 - d / MOUSE_LINK) * 0.55})`;
-            ctx.lineWidth = 0.9;
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(mouse.x, mouse.y);
-            ctx.stroke();
-          }
-        }
       }
+      ctx.fillStyle = 'rgba(176, 198, 222, 0.55)';
       points.forEach(p => {
-        ctx.fillStyle = 'rgba(219, 233, 244, 0.75)';
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fill();
       });
+      pulses.forEach(pulse => {
+        const a = points[pulse.a];
+        const b = points[pulse.b];
+        // the link lights up a little while the pulse runs along it
+        ctx.strokeStyle = `rgba(46, 141, 230, ${0.35 * Math.sin(pulse.t * Math.PI)})`;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.stroke();
+        const x = a.x + (b.x - a.x) * pulse.t;
+        const y = a.y + (b.y - a.y) * pulse.t;
+        const glow = ctx.createRadialGradient(x, y, 0, x, y, 7);
+        glow.addColorStop(0, 'rgba(108, 191, 255, 0.9)');
+        glow.addColorStop(1, 'rgba(108, 191, 255, 0)');
+        ctx.fillStyle = glow;
+        ctx.beginPath();
+        ctx.arc(x, y, 7, 0, Math.PI * 2);
+        ctx.fill();
+      });
     };
 
-    const step = () => {
+    const step = (time) => {
       points.forEach(p => {
-        if (mouse) {
-          const dx = p.x - mouse.x;
-          const dy = p.y - mouse.y;
-          const d = Math.hypot(dx, dy);
-          if (d < 90 && d > 0) {
-            p.x += (dx / d) * 0.6;
-            p.y += (dy / d) * 0.6;
-          }
-        }
         p.x += p.vx;
         p.y += p.vy;
         if (p.x < 0 || p.x > width) p.vx *= -1;
@@ -288,6 +299,13 @@ document.addEventListener('DOMContentLoaded', () => {
         p.x = Math.min(Math.max(p.x, 0), width);
         p.y = Math.min(Math.max(p.y, 0), height);
       });
+      if (time - lastPulse > PULSE_EVERY && pulses.length < 4) {
+        spawnPulse();
+        lastPulse = time;
+      }
+      pulses.forEach(pulse => { pulse.t += 0.012; });
+      pulses = pulses.filter(pulse => pulse.t < 1
+        && Math.hypot(points[pulse.a].x - points[pulse.b].x, points[pulse.a].y - points[pulse.b].y) < LINK);
       draw();
       frame = requestAnimationFrame(step);
     };
@@ -317,13 +335,6 @@ document.addEventListener('DOMContentLoaded', () => {
       update();
     }).observe(heroSection);
     document.addEventListener('visibilitychange', update);
-
-    heroSection.addEventListener('pointermove', (e) => {
-      if (e.pointerType !== 'mouse') return;
-      const rect = heroCanvas.getBoundingClientRect();
-      mouse = { x: e.clientX - rect.left, y: e.clientY - rect.top };
-    });
-    heroSection.addEventListener('pointerleave', () => { mouse = null; });
   }
 
   /* ---------- Popup windows ---------- */
