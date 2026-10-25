@@ -10,122 +10,115 @@ document.addEventListener('DOMContentLoaded', () => {
     syncTouch: false
   });
 
-  const themeToggle=document.getElementById("theme-toggle");
-  const themeStyle=document.getElementById("theme-style");
-  const mobileThemeStyle = document.getElementById("mobile-theme-style");
+  const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
 
-  let themeAnimating=false;
+  const storage = {
+    get: (key) => { try { return localStorage.getItem(key); } catch (e) { return null; } },
+    set: (key, value) => { try { localStorage.setItem(key, value); } catch (e) {} }
+  };
 
-  const applyTheme=(theme,save=true)=>{
-    if(themeAnimating)return;
-    themeAnimating=true;
-    if(theme==="light"){
-      themeStyle.disabled=false;
-      mobileThemeStyle.disabled=false;
-    }else{
-      themeStyle.disabled=true;
-      mobileThemeStyle.disabled=true;
-    }
-    
-    if(save){
-      localStorage.setItem("theme",theme);
-    }
+  /* ---------- Theme ---------- */
 
-  document.body.animate([{
-    opacity:.96
-  },
-  {
-    opacity:1
-  }],
-  {
-    duration:260,
-    easing:"ease-out"
-  });
+  const themeToggle = document.getElementById('theme-toggle');
+  const themeStyle = document.getElementById('theme-style');
+  const mobileThemeStyle = document.getElementById('mobile-theme-style');
 
-  themeToggle.animate([
-    {transform:"scale(1)"},
-    {transform:"scale(.92)"},
-    {transform:"scale(1)"}
-  ],{
-    duration:180,
-    easing:"ease-out"
-  });
+  let themeAnimating = false;
 
-  setTimeout(()=>{
-    themeAnimating=false;
-  },260);};
+  const applyTheme = (theme, save = true) => {
+    if (themeAnimating) return;
+    themeAnimating = true;
+    const light = theme === 'light';
+    themeStyle.disabled = !light;
+    mobileThemeStyle.disabled = !light;
+    if (save) storage.set('theme', theme);
+    themeToggle.animate([
+      { transform: 'scale(1)' },
+      { transform: 'scale(.92)' },
+      { transform: 'scale(1)' }
+    ], { duration: 180, easing: 'ease-out' });
+    setTimeout(() => { themeAnimating = false; }, 260);
+  };
 
-  const savedTheme=localStorage.getItem("theme");
-
-  if(savedTheme){
-    applyTheme(savedTheme,false);
-  }else{
-    const prefersLight=window.matchMedia("(prefers-color-scheme: light)").matches;
-    applyTheme(prefersLight?"light":"dark",false);
+  const savedTheme = storage.get('theme');
+  if (savedTheme) {
+    applyTheme(savedTheme, false);
+  } else {
+    applyTheme(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark', false);
   }
 
-  themeToggle.addEventListener("click",()=>{
-
-  const nextTheme=themeStyle.disabled?"light":"dark";
-
-  applyTheme(nextTheme);});
-
-  window.matchMedia("(prefers-color-scheme: light)").addEventListener("change",(e)=>{
-    if(localStorage.getItem("theme"))return;
-    applyTheme(e.matches?"light":"dark",false);
+  themeToggle.addEventListener('click', () => {
+    applyTheme(themeStyle.disabled ? 'light' : 'dark');
   });
 
-  let historyLayers = [];
+  window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
+    if (storage.get('theme')) return;
+    applyTheme(e.matches ? 'light' : 'dark', false);
+  });
 
-  const pushHistoryLayer = (type) => {
-    historyLayers.push(type);
-    history.pushState({ layer: type }, '');
+  /* ---------- History-backed layers ----------
+     Every menu / popup pushes a history entry, so the browser or phone
+     back button closes the top layer instead of leaving the site. All UI
+     closes go through history.back() and the popstate handler does the
+     actual closing, which keeps the stack and the history in sync. */
+
+  const layers = [];
+  let pendingBacks = 0;
+
+  const pushLayer = (layer) => {
+    layers.push(layer);
+    history.pushState({ layer: layer.type, depth: layers.length }, '');
   };
+
+  const topLayer = () => layers[layers.length - 1 - pendingBacks] || null;
+
+  const requestClose = () => {
+    if (layers.length - pendingBacks <= 0) return;
+    pendingBacks++;
+    history.back();
+  };
+
+  window.addEventListener('popstate', () => {
+    if (pendingBacks > 0) pendingBacks--;
+    const layer = layers.pop();
+    if (layer) layer.close();
+  });
+
+  /* ---------- Navigation ---------- */
 
   const nav = document.querySelector('nav');
   const hamburger = document.querySelector('.hamburger');
   const navLinks = document.querySelector('.nav-links');
 
+  const closeNavVisual = () => {
+    nav.style.height = '';
+    nav.classList.remove('open');
+    hamburger.classList.remove('active');
+    hamburger.setAttribute('aria-expanded', 'false');
+  };
+
   const openNav = () => {
-    if (!nav || !hamburger || !navLinks) return;
     if (nav.classList.contains('open')) return;
     nav.classList.add('open');
     hamburger.classList.add('active');
-    nav.style.height = 40 + navLinks.scrollHeight + 'px';
-    pushHistoryLayer('nav');
-  };
-
-  const closeNavVisual = () => {
-    if (!nav || !hamburger) return;
-    nav.style.height = '40px';
-    nav.classList.remove('open');
-    hamburger.classList.remove('active');
+    hamburger.setAttribute('aria-expanded', 'true');
+    nav.style.height = nav.querySelector('.nav-top').offsetHeight + navLinks.scrollHeight + 'px';
+    pushLayer({ type: 'nav', close: closeNavVisual });
   };
 
   const closeNav = () => {
-    if (!nav || !nav.classList.contains('open')) return;
-    history.back();
+    if (!nav.classList.contains('open')) return;
+    if (topLayer() && topLayer().type === 'nav') requestClose();
   };
 
-  if (hamburger && nav && navLinks) {
-    hamburger.addEventListener('click', e => {
-      e.stopPropagation();
-      if (nav.classList.contains('open')) {
-        closeNav();
-      } else {
-        openNav();
-      }
-    });
-
-    document.addEventListener('click', e => {
-      if (
-        nav.classList.contains('open') &&
-        !nav.contains(e.target)
-      ) {
-        closeNav();
-      }
-    });
-  }
+  hamburger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (nav.classList.contains('open')) {
+      closeNav();
+    } else {
+      openNav();
+    }
+  });
 
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', function (e) {
@@ -134,20 +127,16 @@ document.addEventListener('DOMContentLoaded', () => {
       const target = document.querySelector(targetId);
       if (!target) return;
       e.preventDefault();
-      lenis.scrollTo(target,{
-        offset:-70,
-        duration:0.5,
-        easing:(t)=>1-Math.pow(1-t,3)
+      lenis.scrollTo(target, {
+        offset: -70,
+        duration: 0.5,
+        easing: (t) => 1 - Math.pow(1 - t, 3)
       });
       closeNav();
     });
   });
 
-  const observerOptions = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.1
-  };
+  /* ---------- Reveal on scroll ---------- */
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -156,9 +145,11 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.unobserve(entry.target);
       }
     });
-  }, observerOptions);
+  }, { root: null, rootMargin: '0px', threshold: 0.08 });
 
   document.querySelectorAll('.fade-in, .slide-up').forEach(el => observer.observe(el));
+
+  /* ---------- Typewriter ---------- */
 
   const typingText = document.getElementById('typing-text');
 
@@ -197,309 +188,261 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (typingText) type();
 
-  const initShowMore = (container) => {
-    const boxes = Array.from(container.querySelectorAll('.project-box'));
-    if (boxes.length <= 3) return;
-    const hiddenBoxes = boxes.slice(3);
-    const collapseWrapper = document.createElement('div');
-    collapseWrapper.className = 'show-more-collapse-wrapper';
-    collapseWrapper.style.cssText = 'overflow:hidden;height:0;display:flex;flex-direction:column;gap:1rem;margin-top:-1rem;';
-    const firstHidden = hiddenBoxes[0];
-    container.insertBefore(collapseWrapper, firstHidden);
-    hiddenBoxes.forEach(box => {
-      box.classList.remove('show-more-hidden');
-      collapseWrapper.appendChild(box);
-    });
-    const wrapper = document.createElement('div');
-    wrapper.className = 'show-more-btn-wrapper';
-    const btn = document.createElement('button');
-    btn.className = 'show-more-btn';
-    btn.textContent = 'Show More';
-    wrapper.appendChild(btn);
-    container.appendChild(wrapper);
-    let expanded = false;
-    let animating = false;
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (animating) return;
-      if (!expanded) {
-        animating = true;
-        hiddenBoxes.forEach(box => {
-          box.style.transition = 'none';
-          box.style.opacity = '0';
-          box.style.transform = 'translateY(-10px)';
-        });
-        void collapseWrapper.offsetHeight;
-        const fullHeight = collapseWrapper.scrollHeight;
-        collapseWrapper.style.marginTop = '0';
-        collapseWrapper.style.transition = 'height 0.22s cubic-bezier(0.4,0,0.2,1)';
-        collapseWrapper.style.height = fullHeight + 'px';
-        collapseWrapper.style.overflow = 'clip';
-        hiddenBoxes.forEach((box, i) => {
-          box.style.transition = `opacity 0.18s ease ${0.08 + i * 0.05}s, transform 0.18s ease ${0.08 + i * 0.05}s`;
-          box.style.opacity = '1';
-          box.style.transform = 'translateY(0)';
-        });
-        btn.style.transition = 'opacity 0.1s ease';
-        btn.style.opacity = '0';
-        setTimeout(() => {
-          btn.textContent = 'Show Less';
-          void btn.offsetHeight;
-          btn.style.opacity = '1';
-          btn.style.transition = 'opacity 0.1s ease';
-        }, 110);
-        setTimeout(() => {
-          collapseWrapper.style.transition = '';
-          collapseWrapper.style.height = 'auto';
-          collapseWrapper.style.overflow = 'visible';
-          hiddenBoxes.forEach(box => {
-            box.style.transition = '';
-            box.style.opacity = '';
-            box.style.transform = '';
-          });
-          btn.style.transition = '';
-          btn.style.opacity = '';
-          animating = false;
-        }, 240 + hiddenBoxes.length * 35);
-        expanded = true;
-      } else {
-        animating = true;
-        const fullHeight = collapseWrapper.scrollHeight;
-        collapseWrapper.style.overflow = 'hidden';
-        collapseWrapper.style.transition = 'none';
-        collapseWrapper.style.height = fullHeight + 'px';
-        hiddenBoxes.forEach(box => {
-          box.style.transition = 'none';
-          box.style.opacity = '1';
-          box.style.transform = 'translateY(0)';
-        });
-        void collapseWrapper.offsetHeight;
-        const reversedBoxes = hiddenBoxes.slice().reverse();
-        reversedBoxes.forEach((box, i) => {
-          box.style.transition = `opacity 0.1s ease ${i * 0.025}s, transform 0.1s ease ${i * 0.025}s`;
-          box.style.opacity = '0';
-          box.style.transform = 'translateY(-10px)';
-        });
-        const fadeDuration = 80 + (hiddenBoxes.length - 1) * 25;
-        setTimeout(() => {
-          collapseWrapper.style.transition = 'height 0.16s cubic-bezier(0.4,0,0.2,1), margin-top 0.16s cubic-bezier(0.4,0,0.2,1)';
-          collapseWrapper.style.height = '0';
-          collapseWrapper.style.marginTop = '-1rem';
-          setTimeout(() => {
-            collapseWrapper.style.transition = '';
-            btn.textContent = 'Show More';
-            animating = false;
-          }, 170);
-        }, fadeDuration);
-        expanded = false;
-      }
-    });
+  /* ---------- Popup windows ---------- */
+
+  const el = (tag, className, text) => {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text != null) node.textContent = text;
+    return node;
   };
 
-  document.querySelectorAll('.projects-container').forEach(initShowMore);
+  let scrollLocks = 0;
+  const lockScroll = () => {
+    if (scrollLocks++ === 0) {
+      lenis.stop();
+      document.body.classList.add('no-scroll');
+    }
+  };
+  const unlockScroll = () => {
+    if (--scrollLocks === 0) {
+      lenis.start();
+      document.body.classList.remove('no-scroll');
+    }
+  };
 
-  const boxCloseControllers = new Map();
+  // content: the element shown in the window. Clicks outside any element
+  // matching `inside` (the panel, or the image itself) close the window.
+  const openModal = ({ content, label, variant = '', inside = '.modal-panel', closeInPanel = true }) => {
+    const trigger = document.activeElement;
+    const overlay = el('div', `modal-overlay ${variant}`.trim());
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    if (label) overlay.setAttribute('aria-label', label);
+    overlay.setAttribute('data-lenis-prevent', '');
 
-  document.querySelectorAll('.project-box').forEach(box => {
+    const closeBtn = el('button', 'modal-close');
+    closeBtn.type = 'button';
+    closeBtn.setAttribute('aria-label', 'Close');
+    closeBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+    closeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      requestClose();
+    });
+
+    if (closeInPanel) {
+      content.insertBefore(closeBtn, content.firstChild);
+      overlay.appendChild(content);
+    } else {
+      overlay.appendChild(closeBtn);
+      overlay.appendChild(content);
+    }
+
+    // Only treat it as an outside click if the press also started outside,
+    // so selecting text and releasing over the backdrop doesn't close it.
+    let pressedOutside = false;
+    overlay.addEventListener('pointerdown', (e) => {
+      pressedOutside = !e.target.closest(inside);
+    });
+    overlay.addEventListener('click', (e) => {
+      if (pressedOutside && !e.target.closest(inside)) requestClose();
+      pressedOutside = false;
+    });
+
+    document.body.appendChild(overlay);
+    lockScroll();
+    void overlay.offsetWidth;
+    overlay.classList.add('is-open');
+    closeBtn.focus({ preventScroll: true });
+
+    pushLayer({
+      type: 'modal',
+      overlay,
+      close: () => {
+        overlay.classList.remove('is-open');
+        overlay.classList.add('is-closing');
+        unlockScroll();
+        setTimeout(() => overlay.remove(), 220);
+        if (trigger && trigger.isConnected && typeof trigger.focus === 'function') {
+          trigger.focus({ preventScroll: true });
+        }
+      }
+    });
+    return overlay;
+  };
+
+  const panelWindow = (className = '') => {
+    const panel = el('div', `modal-panel ${className}`.trim());
+    const scroll = el('div', 'modal-scroll');
+    panel.appendChild(scroll);
+    return { panel, scroll };
+  };
+
+  /* ---------- Cards ---------- */
+
+  const sourceBoxes = Array.from(document.querySelectorAll('.page-content .project-box'));
+
+  sourceBoxes.forEach((box, i) => {
+    box.dataset.boxId = i;
+    box.tabIndex = 0;
+    box.setAttribute('role', 'button');
+    box.setAttribute('aria-haspopup', 'dialog');
+    const details = box.querySelector('.project-details');
+    const firstParagraph = details && details.querySelector('p');
+    if (firstParagraph) {
+      box.insertBefore(el('p', 'card-excerpt', firstParagraph.textContent.trim()), details);
+    }
+    const cta = el('span', 'card-cta', 'View details ');
+    cta.insertAdjacentHTML('beforeend', '<i class="fa-solid fa-arrow-right"></i>');
+    box.insertBefore(cta, details);
+  });
+
+  const openDetail = (box) => {
     const header = box.querySelector('.project-header');
     const details = box.querySelector('.project-details');
     if (!header || !details) return;
-    const openBox = () => {
-      box.classList.add('open');
-      details.style.transition = 'none';
-      details.style.height = 'auto';
-      const fullHeight = details.scrollHeight;
-      details.style.height = '0';
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          details.style.transition = 'height 0.22s cubic-bezier(0.4,0,0.2,1), margin-top 0.22s ease, padding-top 0.22s ease, border-color 0.22s ease';
-          details.style.height = fullHeight + 'px';
-          details.style.marginTop = '1rem';
-          details.style.paddingTop = '1rem';
-          details.style.borderTopColor = '#2e8de6';
-          setTimeout(() => {
-            details.style.height = 'auto';
-            lenis.resize();
-          }, 230);
-        });
-      });
-    };
-    const closeBox = () => {
-      const h = details.offsetHeight;
-      details.style.transition = 'none';
-      details.style.height = h + 'px';
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          details.style.transition = 'height 0.22s cubic-bezier(0.4,0,0.2,1), margin-top 0.22s ease, padding-top 0.22s ease, border-color 0.22s ease';
-          details.style.height = '0';
-          details.style.marginTop = '0';
-          details.style.paddingTop = '0';
-          details.style.borderTopColor = 'transparent';
-          setTimeout(() => {
-            box.classList.remove('open');
-            details.style.transition = '';
-            details.style.height = '';
-            lenis.resize();
-          }, 230);
-        });
-      });
-    };
-    boxCloseControllers.set(box, closeBox);
-    box.addEventListener('click', (e) => {
-      if (window.innerWidth <= 768) return;
-      if (e.target.tagName === 'A' || e.target.closest('a')) return;
-      if (e.target.closest('.project-details')) return;
+    const { panel, scroll } = panelWindow('modal-detail');
+    const head = el('div', 'modal-head');
+    head.appendChild(header.cloneNode(true));
+    const body = details.cloneNode(true);
+    body.querySelectorAll('.auto-link-preview').forEach(renderLinkPreview);
+    scroll.append(head, body);
+    const title = box.querySelector('.project-title');
+    openModal({ content: panel, label: title ? title.textContent.trim() : 'Details' });
+  };
+
+  const openList = (container) => {
+    const section = container.closest('section');
+    const sectionTitle = section && section.querySelector('.title');
+    const boxes = Array.from(container.querySelectorAll(':scope > .project-box'));
+    const { panel, scroll } = panelWindow('modal-list');
+    const head = el('div', 'modal-head');
+    head.append(
+      el('div', 'modal-eyebrow', `${boxes.length} entries`),
+      el('h2', 'modal-heading', sectionTitle ? sectionTitle.textContent.trim() : '')
+    );
+    const list = el('div', 'projects-container');
+    boxes.forEach(box => {
+      const card = box.cloneNode(true);
+      card.classList.remove('show-more-hidden');
+      const details = card.querySelector('.project-details');
+      if (details) details.remove();
+      list.appendChild(card);
+    });
+    scroll.append(head, list);
+    openModal({ content: panel, label: sectionTitle ? sectionTitle.textContent.trim() : 'All entries' });
+  };
+
+  document.querySelectorAll('.page-content .projects-container').forEach(container => {
+    const boxes = Array.from(container.querySelectorAll(':scope > .project-box'));
+    if (boxes.length <= 3) return;
+    boxes.slice(3).forEach(box => box.classList.add('show-more-hidden'));
+    const wrapper = el('div', 'show-more-btn-wrapper');
+    const btn = el('button', 'show-more-btn', 'Show More');
+    btn.type = 'button';
+    btn.setAttribute('aria-haspopup', 'dialog');
+    btn.appendChild(el('span', 'show-more-count', String(boxes.length)));
+    btn.addEventListener('click', (e) => {
       e.stopPropagation();
-      if (box.classList.contains('open')) {
-        closeBox();
-      } else {
-        boxCloseControllers.forEach((otherClose, otherBox) => {
-          if (otherBox !== box && otherBox.classList.contains('open')) {
-            otherClose();
-          }
-        });
-        openBox();
-      }
+      openList(container);
     });
-      details.addEventListener('click', (e) => e.stopPropagation());
+    wrapper.appendChild(btn);
+    container.appendChild(wrapper);
+  });
+
+  /* ---------- Media: images, documents, maps ---------- */
+
+  const openImage = (src) => {
+    const stage = el('div', 'media-stage');
+    const img = el('img', 'portal-fullscreen-img');
+    img.src = src;
+    img.alt = '';
+    stage.appendChild(img);
+    const overlay = openModal({
+      content: stage,
+      label: 'Image viewer',
+      variant: 'media-variant',
+      inside: '.portal-fullscreen-img',
+      closeInPanel: false
     });
-
-  const portalModal = document.getElementById('global-media-modal');
-  const portalViewport = portalModal.querySelector('.portal-viewport-content');
-  const portalClose = portalModal.querySelector('.portal-close-trigger');
-
-  let scale = 1;
-  let portalStack = [];
-
-  const getPortalScrollTarget = () => portalViewport.querySelector('.project-popup') || portalViewport;
-
-  const renderPortalContent = (htmlContent, isDocumentType) => {
-    portalViewport.innerHTML = '';
-    scale = 1;
-    if (isDocumentType) {
-      portalModal.classList.add('document-layout-variant');
-    } else {
-      portalModal.classList.remove('document-layout-variant');
-    }
-    portalViewport.innerHTML = htmlContent;
-    const img = portalViewport.querySelector('.portal-fullscreen-img');
-    if (img) img.style.transform = `scale(${scale})`;
+    let scale = 1;
+    overlay.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      scale = Math.min(Math.max(1, scale + (e.deltaY > 0 ? -0.15 : 0.15)), 4);
+      img.style.transform = `scale(${scale})`;
+    }, { passive: false });
   };
 
-  const openPortal = (htmlContent, isDocumentType = false) => {
-    portalStack = [];
-    renderPortalContent(htmlContent, isDocumentType);
-    portalModal.classList.add('active');
-    document.body.classList.add('no-scroll');
-    lenis.stop();
-    pushHistoryLayer('portal');
-  };
+  const PDFJS_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+  const PDFJS_WORKER = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  let pdfjsReady = null;
 
-  const openNestedPortal = (htmlContent, isDocumentType = false, onRestore = null) => {
-    portalStack.push({
-      html: portalViewport.innerHTML,
-      isDocumentType: portalModal.classList.contains('document-layout-variant'),
-      scrollTop: getPortalScrollTarget().scrollTop,
-      onRestore
-    });
-    renderPortalContent(htmlContent, isDocumentType);
-    pushHistoryLayer('portal');
-  };
-
-  const stepBackPortal = () => {
-    if (!portalModal.classList.contains('active')) return;
-    if (portalStack.length > 0) {
-      const prev = portalStack.pop();
-      renderPortalContent(prev.html, prev.isDocumentType);
-      if (typeof prev.onRestore === 'function') prev.onRestore();
-      requestAnimationFrame(() => {
-        getPortalScrollTarget().scrollTop = prev.scrollTop || 0;
+  const loadPdfJs = () => {
+    if (!pdfjsReady) {
+      pdfjsReady = new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = PDFJS_SRC;
+        script.onload = () => {
+          window.pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS_WORKER;
+          resolve(window.pdfjsLib);
+        };
+        script.onerror = () => {
+          pdfjsReady = null;
+          reject(new Error('pdf.js failed to load'));
+        };
+        document.head.appendChild(script);
       });
-      return;
     }
-    portalModal.classList.remove('active');
-    portalModal.classList.remove('document-layout-variant');
-    portalViewport.innerHTML = '';
-    document.body.classList.remove('no-scroll');
-    lenis.start();
+    return pdfjsReady;
   };
 
-  const closePortal = () => {
-    if (!portalModal.classList.contains('active')) return;
-    history.back();
+  // Phone browsers (and some desktop ones) can't show PDFs in an iframe,
+  // so render the pages ourselves for the same view everywhere.
+  const renderPdfPages = async (body, src) => {
+    const pages = el('div', 'doc-pages');
+    const status = el('div', 'doc-status', 'Loading document…');
+    pages.appendChild(status);
+    body.appendChild(pages);
+    try {
+      const pdfjsLib = await loadPdfJs();
+      const doc = await pdfjsLib.getDocument(src).promise;
+      status.remove();
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      for (let n = 1; n <= doc.numPages; n++) {
+        if (!body.isConnected) return;
+        const page = await doc.getPage(n);
+        const width = Math.min(pages.clientWidth - 24, 900);
+        const viewport = page.getViewport({ scale: (width / page.getViewport({ scale: 1 }).width) * ratio });
+        const canvas = document.createElement('canvas');
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        pages.appendChild(canvas);
+        await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
+      }
+    } catch (err) {
+      status.textContent = 'This document could not be displayed here. ';
+      const link = el('a', '', 'Open it in a new tab');
+      link.href = src;
+      link.target = '_blank';
+      link.rel = 'noopener';
+      status.appendChild(link);
+    }
   };
 
-  window.addEventListener('popstate', () => {
-    const layer = historyLayers.pop();
-    if (layer === 'portal') {
-      stepBackPortal();
-    } else if (layer === 'nav') {
-      closeNavVisual();
-    }
-  });
-
-  window.openPortal = openPortal;
-  window.openNestedPortal = openNestedPortal;
-  window.closePortal = closePortal;
-
-  portalModal.addEventListener('wheel', (e) => {
-    const img = portalViewport.querySelector('.portal-fullscreen-img');
-    if (!img) return;
-    e.preventDefault();
-    const delta = e.deltaY > 0 ? -0.1 : 0.1;
-    scale = Math.min(Math.max(0.5, scale + delta), 4);
-    img.style.transform = `scale(${scale})`;
-  }, { passive: false });
-
-  portalClose.addEventListener('click', (e) => {
-    e.stopPropagation();
-    closePortal();
-  });
-
-  portalModal.addEventListener('click', (e) => {
-    if (!e.target.closest('.portal-viewport-content')) {
-      closePortal();
-    }
-  });
-
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' || e.keyCode === 27) {
-      if (portalModal.classList.contains('active')) {
-        closePortal();
-      } else if (nav && hamburger) {
-        if (nav.classList.contains('open')) {
-          closeNav();
-        } else {
-          openNav();
-        }
-      }
-    }
-  });
-
-  document.querySelectorAll('.clickable-media').forEach(element => {
-    element.addEventListener('click', (e) => {
-      if (e.target.closest('.media-mask-overlay') || e.target.closest('.cv-pdf') || e.target.closest('.pdf-fallback-preview-card') || e.target.tagName === 'IMG') {
-        e.stopPropagation();
-        const type = element.dataset.type;
-        const src = element.dataset.src;
-        if (type === 'image') {
-          openPortal(`<img src="${src}" class="portal-fullscreen-img" alt="Enlarged Reference View">`, false);
-        } else if (type === 'pdf') {
-          if (window.innerWidth <= 768) {
-            window.open(src, '_blank');
-            return;
-          }
-          openPortal(`
-            <object data="${src}" type="application/pdf" class="portal-fullscreen-pdf">
-              <iframe src="${src}">
-                <p>Your browser downscaled this component view. <a href="${src}" target="_blank">Click here to download raw resource file directly.</a></p>
-              </iframe>
-            </object>
-          `, true);
-        }
-      }
-    });
-  });
+  const openDocument = (src, title) => {
+    const panel = el('div', 'modal-panel doc-panel');
+    const toolbar = el('div', 'doc-toolbar');
+    const open = el('a', 'doc-action');
+    open.href = src;
+    open.target = '_blank';
+    open.rel = 'noopener';
+    open.innerHTML = '<i class="fa-solid fa-arrow-up-right-from-square"></i><span>Open in new tab</span>';
+    toolbar.append(el('div', 'doc-title', title), open);
+    const body = el('div', 'doc-body');
+    panel.append(toolbar, body);
+    openModal({ content: panel, label: title, variant: 'doc-variant' });
+    renderPdfPages(body, src);
+  };
 
   const getNativeMapUrl = (mapSrc) => {
     const coordMatch = mapSrc.match(/!2d(-?\d+\.?\d*)!3d(-?\d+\.?\d*)/);
@@ -519,159 +462,173 @@ document.addEventListener('DOMContentLoaded', () => {
       : `geo:${lat},${lng}?q=${lat},${lng}(${encodeURIComponent(label)})`;
   };
 
-  document.querySelectorAll('.location-trigger').forEach(element => {
-    element.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const mapSrc = element.dataset.mapSrc;
+  const openMap = (mapSrc) => {
+    if (isMobile()) {
+      window.location.href = getNativeMapUrl(mapSrc);
+      return;
+    }
+    const panel = el('div', 'modal-panel map-panel');
+    const frame = el('iframe');
+    frame.src = mapSrc;
+    frame.loading = 'lazy';
+    frame.referrerPolicy = 'no-referrer-when-downgrade';
+    frame.title = 'Map';
+    panel.appendChild(frame);
+    openModal({ content: panel, label: 'Location map' });
+  };
 
-      if (window.innerWidth <= 768) {
-        window.location.href = getNativeMapUrl(mapSrc);
-        return;
-      }
+  const mediaTitle = (element) => {
+    const name = element.querySelector('.pdf-filename-txt');
+    if (name) return name.textContent.trim();
+    if (element.classList.contains('cv-pdf')) return 'Curriculum Vitae';
+    return 'Document';
+  };
 
-      openPortal(`
-        <div class="portal-map-container">
-          <div class="portal-map-frame">
-            <iframe src="${mapSrc}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-          </div>
-        </div>
-      `, true);
-    });
-  });
+  /* ---------- Link previews ---------- */
 
-  document.querySelectorAll('.auto-link-preview').forEach(async (preview) => {
+  const previewCache = new Map();
+
+  const fetchPreview = (url) => {
+    if (!previewCache.has(url)) {
+      const domain = new URL(url).hostname.replace('www.', '');
+      const request = fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`)
+        .then(response => response.json())
+        .then(data => {
+          const doc = new DOMParser().parseFromString(data.contents || '', 'text/html');
+          const getMeta = (property) => {
+            const meta = doc.querySelector(`meta[property="${property}"], meta[name="${property}"]`);
+            return meta ? meta.getAttribute('content') : null;
+          };
+          let image = getMeta('og:image');
+          if (image && !image.startsWith('http')) {
+            image = new URL(image, url).href;
+          }
+          const title = getMeta('og:title') || (doc.querySelector('title') || {}).textContent || domain;
+          return { title: title.trim(), image, domain };
+        })
+        .catch(() => ({ title: domain, image: null, domain }));
+      previewCache.set(url, request);
+    }
+    return previewCache.get(url);
+  };
+
+  function renderLinkPreview(preview) {
     const url = preview.dataset.url;
     if (!url) return;
-    try {
-      preview.innerHTML = `
-        <div class="link-preview-card flex-skeleton-loader" style="width: 240px;">
-          <div class="preview-loading-shimmer"></div>
-        </div>
-      `;
-      const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
-      const data = await response.json();
-      const html = data.contents;
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
-      const getMeta = (property) => {
-        const el = doc.querySelector(`meta[property="${property}"], meta[name="${property}"]`);
-        return el ? el.getAttribute('content') : null;
-      };
-      const title = getMeta('og:title') || doc.querySelector('title')?.textContent || 'Special Achievement Reference';
-      let image = getMeta('og:image');
-      if (image && !image.startsWith('http')) {
-        const urlObj = new URL(url);
-        image = urlObj.origin + (image.startsWith('/') ? '' : '/') + image;
-      }
-      const domain = new URL(url).hostname.replace('www.', '');
-      preview.innerHTML = `
-        <div class="link-preview-card">
-          <div class="media-mask-overlay">
-            <span class="media-mask-text">Open Link</span>
-          </div>
-          ${image ? `<div class="link-preview-image-wrapper"><img src="${image}" alt="${title}" class="link-preview-image"></div>` : '<div class="link-preview-image-wrapper"><img src="Images/CIGR 2.jpg" class="link-preview-image"></div>'}
-          <div class="link-preview-info">
-            <div class="link-preview-title">${title}</div>
-            <div class="link-preview-domain">${domain}</div>
-          </div>
-        </div>
-      `;
-      preview.querySelector('.link-preview-card').addEventListener('click', (e) => {
-        e.stopPropagation();
-        window.open(url, '_blank');
-      });
-      const imgElement = preview.querySelector('.link-preview-image');
-      if (imgElement) {
-        imgElement.addEventListener('load', () => {
-          const aspect = imgElement.naturalWidth / imgElement.naturalHeight;
-          if (aspect && !isNaN(aspect)) {
-            const card = preview.querySelector('.link-preview-card');
-            if (card) {
-              const proportionalWidth = Math.min(Math.max(Math.round(200 * aspect), 240), 450);
-              card.style.width = proportionalWidth + 'px';
-              preview.style.width = proportionalWidth + 'px';
-            }
-          }
+    preview.innerHTML = '<div class="link-preview-card flex-skeleton-loader"><div class="preview-loading-shimmer"></div></div>';
+    fetchPreview(url).then(meta => {
+      const card = el('div', 'link-preview-card');
+      card.innerHTML = '<div class="media-mask-overlay"><span class="media-mask-text">Open Link</span></div>';
+      const imageWrap = el('div', 'link-preview-image-wrapper');
+      if (meta.image) {
+        const img = el('img', 'link-preview-image');
+        img.src = meta.image;
+        img.alt = '';
+        img.addEventListener('error', () => {
+          imageWrap.innerHTML = '<i class="fa-solid fa-link"></i>';
         });
+        imageWrap.appendChild(img);
+      } else {
+        imageWrap.innerHTML = '<i class="fa-solid fa-link"></i>';
       }
-    } catch (err) {
-      const domain = new URL(url).hostname.replace('www.', '');
-      preview.classList.add('preview-failed');
-      preview.innerHTML = `
-        <div class="link-preview-card" style="width: 240px;">
-          <div class="media-mask-overlay">
-            <span class="media-mask-text">Open Link</span>
-          </div>
-          <div class="link-preview-image-wrapper"><img src="Images/CIGR 2.jpg" class="link-preview-image"></div>
-          <div class="link-preview-info">
-            <div class="link-preview-title">${url}</div>
-            <div class="link-preview-domain">${domain}</div>
-          </div>
-        </div>
-      `;
-      preview.style.width = '240px';
-      preview.querySelector('.link-preview-card').addEventListener('click', (e) => {
-        e.stopPropagation();
-        window.open(url, '_blank');
-      });
-    }
-  });
+      const info = el('div', 'link-preview-info');
+      info.append(el('div', 'link-preview-title', meta.title), el('div', 'link-preview-domain', meta.domain));
+      card.append(imageWrap, info);
+      preview.replaceChildren(card);
+    });
+  }
+
+  const prefetchPreviews = () => {
+    document.querySelectorAll('.page-content .auto-link-preview').forEach(preview => {
+      if (preview.dataset.url) fetchPreview(preview.dataset.url);
+    });
+  };
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(prefetchPreviews, { timeout: 3000 });
+  } else {
+    setTimeout(prefetchPreviews, 1500);
+  }
+
+  /* ---------- Click routing ---------- */
 
   document.addEventListener('click', (e) => {
-    if (!e.target.closest('.project-box')) {
-      document.querySelectorAll('.project-box.open').forEach(box => {
-        const details = box.querySelector('.project-details');
-        const h = details.offsetHeight;
-        
-        details.style.transition = 'none';
-        details.style.height = h + 'px';
-        
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            details.style.transition =
-            'height 0.22s cubic-bezier(0.4,0,0.2,1), margin-top 0.22s ease, padding-top 0.22s ease, border-color 0.22s ease';
-            
-            details.style.height = '0';
-            details.style.marginTop = '0';
-            details.style.paddingTop = '0';
-            details.style.borderTopColor = 'transparent';
-            
-            setTimeout(() => {
-              box.classList.remove('open');
-              details.style.transition = '';
-              details.style.height = '';
-              lenis.resize();
-            }, 230);
-          });
-        });
-      });
-    }
-  });
-
-  document.querySelectorAll('.standalone-gallery-img').forEach(img => {
-    const update = () => {
-      if (img.decode) {
-        img.decode().catch(() => {}).finally(() => lenis.resize());
-      } else {
-        lenis.resize();
+    const media = e.target.closest('.clickable-media');
+    if (media) {
+      e.stopPropagation();
+      const type = media.dataset.type;
+      if (type === 'image') {
+        openImage(media.dataset.src);
+      } else if (type === 'pdf') {
+        openDocument(media.dataset.src, mediaTitle(media));
+      } else if (type === 'link' && media.dataset.url) {
+        window.open(media.dataset.url, '_blank', 'noopener');
       }
-    };
-    if (img.complete) {
-      update();
-    } else {
-      img.addEventListener('load', update, { once: true });
+      return;
+    }
+
+    const location = e.target.closest('.location-trigger');
+    if (location) {
+      openMap(location.dataset.mapSrc);
+      return;
+    }
+
+    const box = e.target.closest('.project-box');
+    if (box && !e.target.closest('a')) {
+      const source = sourceBoxes[box.dataset.boxId];
+      if (source) openDetail(source);
+      return;
+    }
+
+    if (nav.classList.contains('open') && !nav.contains(e.target)) {
+      closeNav();
     }
   });
 
-  requestAnimationFrame(() => {
-    document.querySelectorAll('.project-details').forEach(details => {
-      details.style.height = '0';
-    });
-    lenis.resize();
+  /* ---------- Keyboard ---------- */
+
+  const focusable = 'a[href], button:not([disabled]), iframe, [tabindex]:not([tabindex="-1"])';
+
+  window.addEventListener('keydown', (e) => {
+    const top = topLayer();
+
+    if (e.key === 'Escape' || e.keyCode === 27) {
+      if (top) {
+        e.preventDefault();
+        requestClose();
+      } else {
+        openNav();
+      }
+      return;
+    }
+
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('project-box')) {
+      e.preventDefault();
+      e.target.click();
+      return;
+    }
+
+    if (e.key === 'Tab' && top && top.type === 'modal') {
+      const items = Array.from(top.overlay.querySelectorAll(focusable)).filter(node => node.offsetParent !== null);
+      if (!items.length) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (!top.overlay.contains(document.activeElement)) {
+        e.preventDefault();
+        first.focus();
+      } else if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
   });
+
+  /* ---------- Logo loop ---------- */
 
   const logoTrack = document.getElementById("logo-track");
-  
+
   if (logoTrack) {
     const technologies = [
       { name: "HTML5", icon: "devicon:html5"},
@@ -694,7 +651,7 @@ document.addEventListener('DOMContentLoaded', () => {
       {name: "GEE", type: "image", src: "https://images.icon-icons.com/1508/PNG/512/googleearth-engine_104576.png"},
       {name: "FreeCAD", type: "image", src: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/FreeCAD-symbol.svg/1280px-FreeCAD-symbol.svg.png"}
     ];
-    
+
     function createLogoGroup() {
       const group = document.createElement("div");
       group.className = "logo-group";
@@ -715,26 +672,26 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       return group;
     }
-    
+
     logoTrack.innerHTML = "";
     logoTrack.appendChild(createLogoGroup());
     logoTrack.appendChild(createLogoGroup());
-    
+
     const firstGroup = logoTrack.firstElementChild;
 
     let offset = 0;
-    let currentSpeed = 175;
-    let targetSpeed = 175;
+    let currentSpeed = 60;
+    let targetSpeed = 60;
     let lastTime = performance.now();
 
     const container = logoTrack.parentElement;
-    
+
     container.addEventListener("mouseenter", () => {
       targetSpeed = 0;
     });
 
     container.addEventListener("mouseleave", () => {
-      targetSpeed = 175;
+      targetSpeed = 60;
     });
 
     function animate(time) {
@@ -745,14 +702,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const width = firstGroup.offsetWidth;
       if (offset >= width) {
-        offset -= width;}
-        
-        logoTrack.style.transform = `translate3d(${-offset}px,0,0)`;
-        requestAnimationFrame(animate);
+        offset -= width;
       }
+
+      logoTrack.style.transform = `translate3d(${-offset}px,0,0)`;
       requestAnimationFrame(animate);
-      new ResizeObserver(() => {
-        offset %= firstGroup.offsetWidth;
-      }).observe(firstGroup);
     }
+    requestAnimationFrame(animate);
+    new ResizeObserver(() => {
+      offset %= firstGroup.offsetWidth;
+    }).observe(firstGroup);
+  }
 });

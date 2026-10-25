@@ -20,8 +20,8 @@ I'm open-sourcing the structure and documenting how it's put together so that ot
 - **Fully Responsive:** Distinct, purpose-built stylesheets and scripts for desktop and mobile breakpoints rather than a one-size-fits-all layout, keeping each experience clean and intentional.
 - **Smooth Scrolling:** Buttery scroll experience powered by Lenis.
 - **Typewriter Effect:** Animated typing intro built with plain JavaScript, no external typing library required.
-- **Expandable Project Cards:** Click-to-expand project details with a modal/portal system for viewing full write-ups, images, and PDFs without cluttering the main layout.
-- **Media Lightbox & Gallery:** Custom lightweight portal system for viewing images and PDFs without leaving the page.
+- **Popup Project Cards:** Projects, experiences and awards open in popup windows; "Show More" opens a window listing every card. Windows close with the close button, the Esc key, a click outside, or the browser / phone back button.
+- **Media Lightbox & Gallery:** Images and PDFs open in stacked popup windows without leaving the page (PDFs are rendered with pdf.js on phones).
 - **Dynamic Link Previews:** Auto-generated Open Graph link preview cards for external references, rendered on the fly.
 - **Scroll Reveal Animations:** Section fade-in / slide-up animations driven by the IntersectionObserver API for a smooth, progressive reveal as you scroll.
 - **Accessible Mobile Navigation:** Animated hamburger menu with outside-click and keyboard (Esc) handling for a polished mobile experience.
@@ -36,7 +36,8 @@ I'm open-sourcing the structure and documenting how it's put together so that ot
 - **[Lenis](https://github.com/darkroomengineering/lenis)** - Smooth-scroll library
 - **[Iconify](https://iconify.design/)** - Icon rendering
 - **[Font Awesome](https://fontawesome.com/)** - Icon set
-- **Google Fonts** (Poppins) - Typography
+- **Google Fonts** (Inter) - Typography
+- **[pdf.js](https://mozilla.github.io/pdf.js/)** - In-page PDF rendering on mobile (loaded on demand)
 
 ---
 
@@ -53,9 +54,8 @@ horaira-rezon.github.io/
 │   │   └── mobile-light.css    # Light theme overrides (mobile)
 │   │
 │   ├── js/
-│   │   ├── main.js             # Core site logic (theme, nav, scroll,
-│   │   │                       #  typewriter, portals, link previews)
-│   │   └── mobile.js           # Mobile-only interaction handlers
+│   │   └── main.js             # Core site logic (theme, nav, scroll,
+│   │                           #  typewriter, popups, link previews)
 │   │
 │   ├── fonts/                  # Self-hosted font files
 │   ├── icons/                  # Icon assets
