@@ -1111,28 +1111,20 @@ body.no-scroll {
 /* Logo strip: tiles, centre spotlight, names on hover, drag to move */
 .tech-stack-section{
   position:relative;
+  overflow:visible;
 }
+/* soft glow behind the middle logos; fades to nothing in every direction */
 .tech-stack-section::before{
   content:"";
   position:absolute;
   left:50%;
   top:50%;
-  width:360px;
-  height:150px;
+  width:460px;
+  height:240px;
   transform:translate(-50%, -58%);
-  background:radial-gradient(ellipse at center, rgba(46, 141, 230, 0.22), transparent 70%);
+  background:radial-gradient(closest-side, rgba(46, 141, 230, 0.2), rgba(46, 141, 230, 0.08) 55%, transparent);
   pointer-events:none;
   z-index:0;
-}
-.tech-stack-section::after{
-  content:"";
-  position:absolute;
-  left:10%;
-  right:10%;
-  bottom:20px;
-  height:1px;
-  background:linear-gradient(90deg, transparent, #2e8de666, transparent);
-  pointer-events:none;
 }
 .logo-loop-container{
   z-index:1;

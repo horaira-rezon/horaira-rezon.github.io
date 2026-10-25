@@ -998,11 +998,11 @@ opacity:1;
 .logo-name{
 display:none;
 }
-.tech-stack-section::before{
-width:200px;
-height:100px;
+.tech-stack-section{
+overflow:visible;
 }
-.tech-stack-section::after{
-bottom:14px;
+.tech-stack-section::before{
+width:280px;
+height:170px;
 }
 }

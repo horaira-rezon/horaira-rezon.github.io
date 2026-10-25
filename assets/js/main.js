@@ -1076,7 +1076,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const firstGroup = logoTrack.firstElementChild;
     const container = logoTrack.parentElement;
     const items = Array.from(logoTrack.querySelectorAll(".logo-item"));
-    const SPEED = 90;
+    const SPEED = 120;
 
     let offset = 0;
     let currentSpeed = SPEED;

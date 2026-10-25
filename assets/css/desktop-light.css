@@ -292,5 +292,5 @@ header{
   color:#000000a9;
 }
 .tech-stack-section::before{
-  background:radial-gradient(ellipse at center, rgba(46, 141, 230, 0.14), transparent 70%);
+  background:radial-gradient(closest-side, rgba(46, 141, 230, 0.14), rgba(46, 141, 230, 0.05) 55%, transparent);
 }
