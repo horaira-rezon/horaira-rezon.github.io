@@ -498,6 +498,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const sheetWidth = () => `${Math.round(fitWidth * zoom)}px`;
 
+    // Each sheet is a page: the drawn canvas, an invisible text layer on top
+    // so text can be selected and copied, and a layer of clickable links.
+    const sizeSheet = (sheet) => {
+      const unscaled = sheet.page.getViewport({ scale: 1 });
+      sheet.wrap.style.width = sheetWidth();
+      sheet.wrap.style.setProperty('--scale-factor', fitWidth * zoom / unscaled.width);
+    };
+
     const drawSheet = async (sheet) => {
       const unscaled = sheet.page.getViewport({ scale: 1 });
       // Cap the backing canvas so very high zoom levels don't exhaust memory.
@@ -506,7 +514,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const canvas = document.createElement('canvas');
       canvas.width = viewport.width;
       canvas.height = viewport.height;
-      canvas.style.aspectRatio = `${unscaled.width} / ${unscaled.height}`;
       if (sheet.task) sheet.task.cancel();
       sheet.task = sheet.page.render({ canvasContext: canvas.getContext('2d'), viewport });
       try {
@@ -514,9 +521,45 @@ document.addEventListener('DOMContentLoaded', () => {
       } catch (err) {
         return;
       }
-      canvas.style.width = sheet.canvas.style.width;
       sheet.canvas.replaceWith(canvas);
       sheet.canvas = canvas;
+    };
+
+    const addTextLayer = async (pdfjsLib, sheet) => {
+      const layer = el('div', 'textLayer');
+      sheet.wrap.appendChild(layer);
+      const textContent = await sheet.page.getTextContent();
+      await pdfjsLib.renderTextLayer({
+        textContentSource: textContent,
+        container: layer,
+        viewport: sheet.page.getViewport({ scale: fitWidth * zoom / sheet.page.getViewport({ scale: 1 }).width }),
+        textDivs: []
+      }).promise;
+      const end = el('div', 'endOfContent');
+      layer.appendChild(end);
+    };
+
+    const addLinkLayer = async (sheet) => {
+      const annotations = await sheet.page.getAnnotations();
+      const unscaled = sheet.page.getViewport({ scale: 1 });
+      const layer = el('div', 'doc-link-layer');
+      annotations.forEach(annotation => {
+        const url = annotation.subtype === 'Link' && (annotation.url || annotation.unsafeUrl);
+        if (!url) return;
+        const [x1, y1, x2, y2] = unscaled.convertToViewportRectangle(annotation.rect);
+        const link = el('a', 'doc-link');
+        link.href = url;
+        link.target = '_blank';
+        link.rel = 'noopener';
+        link.title = url;
+        // Percentages keep the links lined up at every zoom level.
+        link.style.left = `${Math.min(x1, x2) / unscaled.width * 100}%`;
+        link.style.top = `${Math.min(y1, y2) / unscaled.height * 100}%`;
+        link.style.width = `${Math.abs(x2 - x1) / unscaled.width * 100}%`;
+        link.style.height = `${Math.abs(y2 - y1) / unscaled.height * 100}%`;
+        layer.appendChild(link);
+      });
+      if (layer.children.length) sheet.wrap.appendChild(layer);
     };
 
     const setZoom = (next, anchor) => {
@@ -528,7 +571,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const ay = anchor ? anchor.y - rect.top : pages.clientHeight / 2;
       const contentX = pages.scrollLeft + ax;
       const contentY = pages.scrollTop + ay;
-      sheets.forEach(sheet => { sheet.canvas.style.width = sheetWidth(); });
+      sheets.forEach(sizeSheet);
       // Keep the point under the cursor (or the middle) in place.
       pages.scrollLeft = contentX * (zoom / previous) - ax;
       pages.scrollTop = contentY * (zoom / previous) - ay;
@@ -547,6 +590,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let drag = null;
     pages.addEventListener('pointerdown', (e) => {
       if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      // Dragging on text selects it and links stay clickable; anywhere else pans.
+      if (e.target.closest('.textLayer span, .doc-link')) return;
       // Leave the scrollbars alone.
       if (e.offsetX >= pages.clientWidth || e.offsetY >= pages.clientHeight) return;
       drag = { x: e.clientX, y: e.clientY, left: pages.scrollLeft, top: pages.scrollTop };
@@ -599,13 +644,19 @@ document.addEventListener('DOMContentLoaded', () => {
           if (!body.isConnected) return;
           const page = await doc.getPage(n);
           const unscaled = page.getViewport({ scale: 1 });
+          const wrap = el('div', 'doc-sheet');
+          wrap.style.aspectRatio = `${unscaled.width} / ${unscaled.height}`;
           const placeholder = document.createElement('canvas');
-          placeholder.style.width = sheetWidth();
-          placeholder.style.aspectRatio = `${unscaled.width} / ${unscaled.height}`;
-          pages.appendChild(placeholder);
-          const sheet = { page, canvas: placeholder, task: null };
+          wrap.appendChild(placeholder);
+          pages.appendChild(wrap);
+          const sheet = { page, wrap, canvas: placeholder, task: null };
+          sizeSheet(sheet);
           sheets.push(sheet);
-          await drawSheet(sheet);
+          await Promise.all([
+            drawSheet(sheet),
+            addTextLayer(pdfjsLib, sheet).catch(() => {}),
+            addLinkLayer(sheet).catch(() => {})
+          ]);
         }
       } catch (err) {
         status.textContent = 'This document could not be displayed here. ';
