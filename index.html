@@ -138,6 +138,103 @@ I've worked on diverse projects including disease prediction, smart irrigation, 
   <div class="projects-container">
     <div class="project-box">
         <div class="project-header">
+            <span class="project-tag">GPS</span>
+            <div class="project-title">
+                <span>Harvester Coverage Tracker - A Mobile GPS Tracker</span>
+            </div>
+        </div>
+        <div class="project-details">
+        <p>A mobile-first, installable PWA that turns a phone mounted on a combine harvester into a live GPS coverage-mapping tool; tracking exactly which part of a field has been harvested, deduplicating overlapping passes, and reporting total area covered in real time.</p>
+        <p>Mount a phone at the center of the harvester's cutting header, set the header's cutting width, optionally trace the field's boundary on a satellite map, then hit start. As the harvester moves, the app builds a live coverage map. Overlapping passes are automatically merged (never double-counted), and any pass that strays outside the field boundary (e.g. during a turn) is automatically excluded.</p>
+        <ul class="project-list">
+          <li>Esri World Imagery satellite view alongside a standard street map, so field edges are actually visible when drawing a boundary.</li>
+          <li>Continuous location tracking (watchPosition) with GPS accuracy filtering.</li>
+          <li>Each new path segment is buffered to the cutting width and merged into a running coverage polygon using geometric union preventing overlaps.</li>
+          <li>Any coverage that falls outside the marked field boundary (turns, overshoot) is automatically subtracted from the total.</li>
+          <li>Running total area (hectares/acres), GPS accuracy indicator, and session controls (start/pause/resume/stop/reset).</li>
+        </ul>
+        <br>
+        <div class="link-button-section">
+          <span class="link-button"><a href="https://github.com/horaira-rezon/harvestor-area-measurement" target="_blank">Open Project ⤴</a></span>
+        <span class="link-button"><a href="https://horaira-rezon.github.io/harvestor-area-measurement/" target="_blank">Live Website ⤴</a></span>
+        </div>
+        <br>
+        </div>
+    </div>
+    <div class="project-box">
+        <div class="project-header">
+            <span class="project-tag">API Integration</span>
+            <span class="project-tag">Artificial Intelligence</span>
+            <div class="project-title">
+                <span>An Agricultural Intelligence Platform Between Farmers and Researchers</span>
+            </div>
+        </div>
+        <div class="project-details">
+        <p>AgriBridge Intelligence is a comprehensive digital agriculture ecosystem designed to connect smallholder farmers, agronomists, and agricultural researchers. By combining multilingual voice and text processing with advanced AI diagnostics (powered by Google Gemini), AgriBridge captures real-world crop distress signals directly from the field and turns them into actionable research intelligence and localized agricultural support.</p>
+        <p>The core idea behind this project is connecting agricultural problems with agricultural literature and research intelligence. The central philosophy of AgriBridge is the Two-Way Agricultural Intelligence Loop:</p>
+        <ul class="project-list">
+          <li>Farmer to Research: Raw field reports are submitted via voice or text in native languages (including Bangla and English) are translated, parsed, and converted into structured diagnostic datasets.</li>
+          <li>Research to Farmer: Actionable research insights and localized agricultural recommendations are delivered back to farmers through the platform.</li>
+        </ul>
+        <br>
+        <div class="link-button-section">
+          <span class="link-button"><a href="https://github.com/horaira-rezon/AgriBridge-Intelligence" target="_blank">Open Project ⤴</a></span>
+        <span class="link-button"><a href="https://agribridge-intelligence.vercel.app/" target="_blank">Live Website ⤴</a></span>
+        </div>
+        <br>
+        </div>
+    </div>
+    <div class="project-box">
+        <div class="project-header">
+            <span class="project-tag">Object Detection</span>
+            <span class="project-tag">Deep Learning</span>
+            <div class="project-title">
+                <span>A Browser-based Object Detection Platform with COCO Dataset</span>
+            </div>
+        </div>
+        <div class="project-details">
+        <p>A browser-based real-time object detection application powered by YOLO26N and the COCO dataset. The application uses the user's webcam to perform object detection directly inside the browser, with no Python backend, server-side inference, or local model installation required. The YOLO26N ONNX model is loaded from a remote model repository when detection starts. The application does not send frames to a Python server. Instead, the pipeline runs locally inside the user's browser.</p>
+        <p>Object Detection with COCO provides a simple interface for real-time webcam object detection using the 80 classes of the COCO dataset. Users can:</p>
+        <ul class="project-list">
+          <li>Select or deselect individual COCO classes.</li>
+          <li>Start webcam-based object detection.</li>
+          <li>Select an object tracking algorithm.</li>
+          <li>Run the entire pipeline directly in the browser.</li>
+        </ul>
+        <br>
+        <div class="link-button-section">
+          <span class="link-button"><a href="https://github.com/horaira-rezon/Object-Detection-with-Coco" target="_blank">Open Project ⤴</a></span>
+        <span class="link-button"><a href="https://horaira-rezon.github.io/Object-Detection-with-Coco/" target="_blank">Live Website ⤴</a></span>
+        </div>
+        <br>
+        </div>
+    </div>
+    <div class="project-box">
+        <div class="project-header">
+            <span class="project-tag">Computer Vision</span>
+            <span class="project-tag">Deep Learning</span>
+            <div class="project-title">
+                <span>Vision Inference Studio - Real-Time Computer Vision App</span>
+            </div>
+        </div>
+        <div class="project-details">
+        <p>Vision Inference Studio is a desktop app for running computer vision models against a live camera, a video file, or a still image, and watching the results overlaid on the stream in real time. It's built around a simple idea: pick a Vision Task (Classification, Detection, Segmentation, Pose Estimation), pick an Architecture for that task, point it at a Model Weight, and the app handles the rest.</p>
+        <p>It's written in Python with a CustomTkinter interface and OpenCV underneath, and is designed to run comfortably on a laptop as well as lower-power devices like a Raspberry Pi.</p>
+        <ul class="project-list">
+          <li>Run 5 kinds of vision tasks: Image Classification, Object Detection, Instance Segmentation, Semantic Segmentation, and 2D Pose Estimation</li>
+          <li>Feed it from 3 kinds of input (live USB camera/webcam, depth camera, video file, or image file).</li>
+          <li>Track objects across frames with a choice of algorithm among ByteTrack, BotSORT, OC-SORT, and DeepOC-SORT.</li>
+          <li>Filter results by a customizable confidence threshold that governs what's drawn on screen.</li>
+          <li>Isolated R/G/B channel, grayscale, different thresholding techniques, an HSV or HSL mask, or a raw depth view (depth camera).</li>
+          <li>Overlay reference axis lines on the stream (user can nudge the horizontal line up or down).</li>
+          <li>Record video or take screenshots of what's on screen, in three distinct perspectives.</li>
+        </ul>
+        <br>
+        <span class="link-button"><a href="https://github.com/horaira-rezon/Vision-Inference-Studio" target="_blank">Open Project ⤴</a></span>
+        </div>
+    </div>
+    <div class="project-box">
+        <div class="project-header">
             <span class="project-tag">Machine Learning</span>
             <span class="project-tag">IoT</span>
             <div class="project-title">
@@ -160,7 +257,7 @@ I've worked on diverse projects including disease prediction, smart irrigation, 
         <div class="project-header">
             <span class="project-tag">Spectroscopy</span>
             <div class="project-title">
-                <span>AgriSpectro: Affordable Spectroscopic Device for Non-destructive Fruit Quality Analysis</span>
+                <span>Affordable Spectroscopic Device for Non-destructive Fruit Quality Analysis</span>
             </div>
         </div>
         <div class="project-details">
