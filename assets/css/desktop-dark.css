@@ -1240,7 +1240,7 @@ body.no-scroll {
   will-change:opacity;
 }
 .modal-overlay:not(.media-variant){
-  padding:40px 9%;
+  padding:20px 9%;
 }
 .modal-overlay.is-open{
   opacity:1;
@@ -1293,7 +1293,7 @@ body.no-scroll {
 }
 .modal-close{
   position:fixed;
-  top:40px;
+  top:20px;
   right:max(12px, calc(9% - 54px));
   background:rgba(0, 0, 0, 0.5);
   box-shadow:0 4px 12px rgba(0, 0, 0, 0.3);

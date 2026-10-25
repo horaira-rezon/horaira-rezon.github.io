@@ -763,7 +763,7 @@ overflow:hidden;
 
 .modal-overlay,
 .modal-overlay:not(.media-variant){
-padding:60px 16px 16px;
+padding:58px 16px 10px;
 }
 .modal-scroll{
 padding:1rem;
