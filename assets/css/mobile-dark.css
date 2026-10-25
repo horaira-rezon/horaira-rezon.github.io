@@ -763,16 +763,16 @@ overflow:hidden;
 
 .modal-overlay,
 .modal-overlay:not(.media-variant){
-padding:16px;
+padding:60px 16px 16px;
 }
 .modal-scroll{
 padding:1rem;
 }
 .modal-close{
-top:10px;
-right:10px;
-width:32px;
-height:32px;
+top:12px;
+right:12px;
+width:36px;
+height:36px;
 }
 .modal-close::before,
 .modal-close::after{
@@ -782,21 +782,14 @@ width:14px;
 color:#ffffff;
 background:rgba(0,0,0,.5);
 }
-.media-variant .modal-close{
-position:fixed;
-top:10px;
-right:10px;
-}
 .media-stage .portal-fullscreen-img{
 max-width:100%;
 max-height:85vh;
 }
 .project-popup-tags,
-.project-popup-title{
-padding:0 2rem;
-}
+.project-popup-title,
 .modal-list .title{
-padding:0 2rem;
+padding:0;
 }
 .modal-list .projects-container{
 padding:0;
@@ -807,7 +800,7 @@ width:100%;
 }
 .doc-toolbar{
 min-height:50px;
-padding:0 3rem 0 1rem;
+padding:0 1rem;
 }
 .doc-title{
 font-size:1rem;

@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // content: the element shown in the window. Clicks outside any element
   // matching `inside` (the panel, or the image itself) close the window.
-  const openModal = ({ content, label, variant = '', inside = '.modal-panel', closeInPanel = true }) => {
+  const openModal = ({ content, label, variant = '', inside = '.modal-panel' }) => {
     const trigger = document.activeElement;
     const overlay = el('div', `modal-overlay ${variant}`.trim());
     overlay.setAttribute('role', 'dialog');
@@ -233,13 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
       requestClose();
     });
 
-    if (closeInPanel) {
-      content.insertBefore(closeBtn, content.firstChild);
-      overlay.appendChild(content);
-    } else {
-      overlay.appendChild(closeBtn);
-      overlay.appendChild(content);
-    }
+    overlay.append(closeBtn, content);
 
     // Only treat it as an outside click if the press also started outside,
     // so selecting text and releasing over the backdrop doesn't close it.
@@ -361,8 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
       content: stage,
       label: 'Image viewer',
       variant: 'media-variant',
-      inside: '.portal-fullscreen-img',
-      closeInPanel: false
+      inside: '.portal-fullscreen-img'
     });
     let scale = 1;
     overlay.addEventListener('wheel', (e) => {

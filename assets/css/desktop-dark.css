@@ -1203,9 +1203,9 @@ body.no-scroll {
   border-radius:8px;
 }
 .modal-close{
-  position:absolute;
-  top:16px;
-  right:22px;
+  position:fixed;
+  top:20px;
+  right:20px;
   background:rgba(0, 0, 0, 0.5);
   box-shadow:0 4px 12px rgba(0, 0, 0, 0.3);
   border:1px solid #80808033;
@@ -1265,7 +1265,7 @@ body.no-scroll {
   align-items:center;
   gap:0.6rem;
   margin-bottom:0.6rem;
-  padding:0 3rem;
+  padding:0;
 }
 .project-popup-title{
   color:#ffffff;
@@ -1274,7 +1274,7 @@ body.no-scroll {
   letter-spacing:0.05em;
   line-height:1.45;
   text-align:center;
-  padding:0 3rem;
+  padding:0;
 }
 .project-popup-divider{
   width:100%;
@@ -1302,15 +1302,10 @@ body.no-scroll {
   margin-top:0;
 }
 .modal-list .title{
-  padding:0 3rem;
+  padding:0;
 }
 .modal-list .projects-container{
   padding:0 0.5rem;
-}
-.media-variant .modal-close{
-  position:fixed;
-  top:25px;
-  right:30px;
 }
 .media-stage{
   display:flex;
@@ -1340,7 +1335,7 @@ body.no-scroll {
   align-items:center;
   gap:1rem;
   min-height:68px;
-  padding:0 4.5rem 0 1.5rem;
+  padding:0 1.5rem;
   border-bottom:1px solid #2e8de6;
   flex-shrink:0;
 }
@@ -1371,9 +1366,6 @@ body.no-scroll {
   color:#000000;
   background-color:#a8a8a8b5;
   border-color:transparent;
-}
-.doc-panel .modal-close{
-  top:12px;
 }
 .doc-body{
   flex:1;
