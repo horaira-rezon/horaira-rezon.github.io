@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   const lenis = new Lenis({
     autoRaf: true,
-    lerp: 0.12,
+    lerp: 0.24,
     smoothWheel: true,
     wheelMultiplier: 1,
     syncTouch: false
@@ -133,8 +133,8 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       lenis.scrollTo(target, {
         offset: -70,
-        duration: 1,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+        duration: 0.5,
+        easing: (t) => 1 - Math.pow(1 - t, 3)
       });
       closeNav();
     });
