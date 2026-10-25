@@ -479,35 +479,145 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Phone browsers (and some desktop ones) can't show PDFs in an iframe,
   // so render the pages ourselves for the same view everywhere.
-  const renderPdfPages = async (body, src) => {
+  const renderPdfPages = (body, src, zoomLabel) => {
     const pages = el('div', 'doc-pages');
     const status = el('div', 'doc-status', 'Loading document…');
     pages.appendChild(status);
     body.appendChild(pages);
-    try {
-      const pdfjsLib = await loadPdfJs();
-      const doc = await pdfjsLib.getDocument(src).promise;
-      status.remove();
-      const ratio = Math.min(window.devicePixelRatio || 1, 2);
-      for (let n = 1; n <= doc.numPages; n++) {
-        if (!body.isConnected) return;
-        const page = await doc.getPage(n);
-        const width = Math.min(pages.clientWidth - 24, 900);
-        const viewport = page.getViewport({ scale: (width / page.getViewport({ scale: 1 }).width) * ratio });
-        const canvas = document.createElement('canvas');
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
-        pages.appendChild(canvas);
-        await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
+
+    // Zoom (buttons, Ctrl + wheel / trackpad pinch, two-finger pinch) and
+    // drag-to-pan. Pages resize instantly while zooming, then re-render
+    // sharply once zooming pauses.
+    const MIN_ZOOM = 0.5;
+    const MAX_ZOOM = 4;
+    const ratio = Math.min(window.devicePixelRatio || 1, 2);
+    const sheets = [];
+    let zoom = 1;
+    let fitWidth = 0;
+    let redrawTimer = null;
+
+    const sheetWidth = () => `${Math.round(fitWidth * zoom)}px`;
+
+    const drawSheet = async (sheet) => {
+      const unscaled = sheet.page.getViewport({ scale: 1 });
+      // Cap the backing canvas so very high zoom levels don't exhaust memory.
+      const scale = Math.min((fitWidth * zoom / unscaled.width) * ratio, 4096 / unscaled.width);
+      const viewport = sheet.page.getViewport({ scale });
+      const canvas = document.createElement('canvas');
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+      canvas.style.aspectRatio = `${unscaled.width} / ${unscaled.height}`;
+      if (sheet.task) sheet.task.cancel();
+      sheet.task = sheet.page.render({ canvasContext: canvas.getContext('2d'), viewport });
+      try {
+        await sheet.task.promise;
+      } catch (err) {
+        return;
       }
-    } catch (err) {
-      status.textContent = 'This document could not be displayed here. ';
-      const link = el('a', '', 'Open it in a new tab');
-      link.href = src;
-      link.target = '_blank';
-      link.rel = 'noopener';
-      status.appendChild(link);
-    }
+      canvas.style.width = sheet.canvas.style.width;
+      sheet.canvas.replaceWith(canvas);
+      sheet.canvas = canvas;
+    };
+
+    const setZoom = (next, anchor) => {
+      const previous = zoom;
+      zoom = Math.min(Math.max(MIN_ZOOM, next), MAX_ZOOM);
+      if (zoom === previous || !fitWidth) return;
+      const rect = pages.getBoundingClientRect();
+      const ax = anchor ? anchor.x - rect.left : pages.clientWidth / 2;
+      const ay = anchor ? anchor.y - rect.top : pages.clientHeight / 2;
+      const contentX = pages.scrollLeft + ax;
+      const contentY = pages.scrollTop + ay;
+      sheets.forEach(sheet => { sheet.canvas.style.width = sheetWidth(); });
+      // Keep the point under the cursor (or the middle) in place.
+      pages.scrollLeft = contentX * (zoom / previous) - ax;
+      pages.scrollTop = contentY * (zoom / previous) - ay;
+      if (zoomLabel) zoomLabel.textContent = `${Math.round(zoom * 100)}%`;
+      pages.classList.toggle('is-zoomed', zoom > 1);
+      clearTimeout(redrawTimer);
+      redrawTimer = setTimeout(() => sheets.forEach(drawSheet), 200);
+    };
+
+    pages.addEventListener('wheel', (e) => {
+      if (!e.ctrlKey && !e.metaKey) return;
+      e.preventDefault();
+      setZoom(zoom * (e.deltaY < 0 ? 1.1 : 1 / 1.1), { x: e.clientX, y: e.clientY });
+    }, { passive: false });
+
+    let drag = null;
+    pages.addEventListener('pointerdown', (e) => {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      // Leave the scrollbars alone.
+      if (e.offsetX >= pages.clientWidth || e.offsetY >= pages.clientHeight) return;
+      drag = { x: e.clientX, y: e.clientY, left: pages.scrollLeft, top: pages.scrollTop };
+      pages.classList.add('is-dragging');
+      try { pages.setPointerCapture(e.pointerId); } catch (err) {}
+      e.preventDefault();
+    });
+    pages.addEventListener('pointermove', (e) => {
+      if (!drag) return;
+      pages.scrollLeft = drag.left - (e.clientX - drag.x);
+      pages.scrollTop = drag.top - (e.clientY - drag.y);
+    });
+    const endDrag = () => {
+      drag = null;
+      pages.classList.remove('is-dragging');
+    };
+    pages.addEventListener('pointerup', endDrag);
+    pages.addEventListener('pointercancel', endDrag);
+
+    let pinch = null;
+    const touchInfo = (touches) => {
+      const [a, b] = [touches[0], touches[1]];
+      return {
+        distance: Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY),
+        x: (a.clientX + b.clientX) / 2,
+        y: (a.clientY + b.clientY) / 2
+      };
+    };
+    pages.addEventListener('touchstart', (e) => {
+      if (e.touches.length === 2) pinch = { ...touchInfo(e.touches), zoom };
+    }, { passive: true });
+    pages.addEventListener('touchmove', (e) => {
+      if (!pinch || e.touches.length !== 2) return;
+      e.preventDefault();
+      const now = touchInfo(e.touches);
+      setZoom(pinch.zoom * now.distance / pinch.distance, now);
+    }, { passive: false });
+    pages.addEventListener('touchend', (e) => {
+      if (e.touches.length < 2) pinch = null;
+    });
+
+    (async () => {
+      try {
+        const pdfjsLib = await loadPdfJs();
+        const doc = await pdfjsLib.getDocument(src).promise;
+        status.remove();
+        const padding = parseFloat(getComputedStyle(pages).paddingLeft) || 0;
+        fitWidth = Math.min(pages.clientWidth - padding * 2, 900);
+        for (let n = 1; n <= doc.numPages; n++) {
+          if (!body.isConnected) return;
+          const page = await doc.getPage(n);
+          const unscaled = page.getViewport({ scale: 1 });
+          const placeholder = document.createElement('canvas');
+          placeholder.style.width = sheetWidth();
+          placeholder.style.aspectRatio = `${unscaled.width} / ${unscaled.height}`;
+          pages.appendChild(placeholder);
+          const sheet = { page, canvas: placeholder, task: null };
+          sheets.push(sheet);
+          await drawSheet(sheet);
+        }
+      } catch (err) {
+        status.textContent = 'This document could not be displayed here. ';
+        const link = el('a', '', 'Open it in a new tab');
+        link.href = src;
+        link.target = '_blank';
+        link.rel = 'noopener';
+        status.appendChild(link);
+      }
+    })();
+
+    return { zoomIn: () => setZoom(zoom * 1.25), zoomOut: () => setZoom(zoom / 1.25), reset: () => setZoom(1) };
   };
 
   const openDocument = (src, title) => {
@@ -517,12 +627,25 @@ document.addEventListener('DOMContentLoaded', () => {
     open.href = src;
     open.target = '_blank';
     open.rel = 'noopener';
-    open.textContent = 'Open in new tab ⤴';
-    toolbar.append(el('div', 'doc-title', title), open);
+    open.setAttribute('aria-label', 'Open in new tab');
+    open.innerHTML = '<span class="doc-action-text">Open in new tab </span>⤴';
+    const zoomGroup = el('div', 'doc-zoom');
+    const zoomOut = el('button', 'doc-action doc-zoom-btn', '−');
+    const zoomLevel = el('button', 'doc-action doc-zoom-level', '100%');
+    const zoomIn = el('button', 'doc-action doc-zoom-btn', '+');
+    zoomOut.type = zoomLevel.type = zoomIn.type = 'button';
+    zoomOut.setAttribute('aria-label', 'Zoom out');
+    zoomIn.setAttribute('aria-label', 'Zoom in');
+    zoomLevel.setAttribute('aria-label', 'Reset zoom');
+    zoomGroup.append(zoomOut, zoomLevel, zoomIn);
+    toolbar.append(el('div', 'doc-title', title), zoomGroup, open);
     const body = el('div', 'doc-body');
     panel.append(toolbar, body);
     openModal({ content: panel, label: title, variant: 'doc-variant' });
-    renderPdfPages(body, src);
+    const controls = renderPdfPages(body, src, zoomLevel);
+    zoomOut.addEventListener('click', controls.zoomOut);
+    zoomIn.addEventListener('click', controls.zoomIn);
+    zoomLevel.addEventListener('click', controls.reset);
   };
 
   const getNativeMapUrl = (mapSrc) => {

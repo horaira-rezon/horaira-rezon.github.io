@@ -220,3 +220,6 @@ header{
 .modal-scroll::-webkit-scrollbar-thumb{
   background:#bcbcbc;
 }
+.doc-pages{
+  scrollbar-color:#bcbcbc transparent;
+}
