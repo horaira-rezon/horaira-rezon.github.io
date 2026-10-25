@@ -1065,12 +1065,6 @@ padding:0;
 #site-header .logo{
 gap:.55rem;
 }
-#site-header .logo-mark{
-width:30px;
-height:30px;
-border-radius:9px;
-font-size:.8rem;
-}
 #site-header .logo-text{
 font-size:1.1rem;
 }

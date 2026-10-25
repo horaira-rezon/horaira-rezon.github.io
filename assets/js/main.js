@@ -113,10 +113,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeNavVisual = () => {
     nav.classList.remove('open');
     siteHeader.classList.remove('menu-open');
+    document.documentElement.classList.remove('nav-open');
     hamburger.classList.remove('active');
     hamburger.setAttribute('aria-expanded', 'false');
     hamburger.setAttribute('aria-label', 'Open menu');
-    unlockScroll();
+    // Light lock: stop smooth scrolling only, so the page isn't re-laid out
+    // (no scrollbar jump) while the menu slides.
+    if (scrollLocks === 0) lenis.start();
     if (pendingScroll) {
       scrollToSection(pendingScroll);
       pendingScroll = null;
@@ -127,11 +130,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (nav.classList.contains('open')) return;
     nav.classList.add('open');
     siteHeader.classList.add('menu-open');
-    siteHeader.classList.remove('is-hidden');
+    document.documentElement.classList.add('nav-open');
     hamburger.classList.add('active');
     hamburger.setAttribute('aria-expanded', 'true');
     hamburger.setAttribute('aria-label', 'Close menu');
-    lockScroll();
+    lenis.stop();
     pushLayer({ type: 'nav', close: closeNavVisual });
   };
 
@@ -165,18 +168,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // The bar is transparent over the hero and turns into frosted glass once
-  // the page scrolls; it slides away while scrolling down and comes back
-  // as soon as the visitor scrolls up.
-  let lastScrollY = window.scrollY;
+  // The bar stays black while the black hero is under it and turns into
+  // frosted glass once the rest of the page reaches it.
+  const heroBlock = document.getElementById('header');
   const updateHeader = () => {
-    const y = window.scrollY;
-    siteHeader.classList.toggle('is-scrolled', y > 8);
-    if (!nav.classList.contains('open')) {
-      if (y > lastScrollY + 4 && y > 160) siteHeader.classList.add('is-hidden');
-      else if (y < lastScrollY - 4 || y <= 160) siteHeader.classList.remove('is-hidden');
-    }
-    lastScrollY = y;
+    const overHero = heroBlock && heroBlock.getBoundingClientRect().bottom > siteHeader.offsetHeight;
+    siteHeader.classList.toggle('is-scrolled', !overHero);
   };
   window.addEventListener('scroll', updateHeader, { passive: true });
   updateHeader();
@@ -377,6 +374,9 @@ document.addEventListener('DOMContentLoaded', () => {
     setup();
     draw();
     new ResizeObserver(() => {
+      // ignore tiny changes (e.g. a scrollbar appearing) so the network
+      // isn't rebuilt for nothing
+      if (Math.abs(heroCanvas.clientWidth - width) < 24 && Math.abs(heroCanvas.clientHeight - height) < 24) return;
       setup();
       draw();
     }).observe(heroCanvas);
@@ -418,7 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   const unlockScroll = () => {
     if (--scrollLocks === 0) {
-      lenis.start();
+      if (!nav.classList.contains('open')) lenis.start();
       document.body.classList.remove('no-scroll');
     }
   };

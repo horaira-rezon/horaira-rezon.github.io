@@ -330,7 +330,7 @@ header{
   background:#111111;
 }
 #site-header .nav-links{
-  background:rgba(255, 255, 255, 0.96);
+  background:#ffffff;
   border-left-color:rgba(0, 0, 0, 0.06);
   box-shadow:-30px 0 60px rgba(0, 0, 0, 0.15);
 }
