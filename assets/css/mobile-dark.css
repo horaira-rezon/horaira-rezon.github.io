@@ -891,35 +891,6 @@ width:32px;
 height:32px;
 font-size:.8rem;
 }
-.technicality-container .tech-box{
-padding:1.35rem;
-}
-.technicality-container .tech-box:hover{
-transform:none;
-box-shadow:none;
-border-color:#80808026;
-}
-.technicality-container .tech-box:hover::before,
-.technicality-container .tech-box:hover::after{
-transform:scaleY(0);
-opacity:0;
-}
-.technicality-container .tech-box:hover .tech-box-title::after{
-width:56px;
-}
-.technicality-container .tech-box-title{
-font-size:1.2rem;
-}
-.technicality-container .tech-list li{
-grid-template-columns:1fr;
-row-gap:.5rem;
-}
-.skill-chip{
-font-size:.9rem;
-}
-.technicality-container .interest-list li{
-grid-template-columns:2.4rem minmax(0,1fr);
-}
 .link-button a.link-pro{
 width:100%;
 justify-content:flex-start;

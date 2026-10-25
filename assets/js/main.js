@@ -326,20 +326,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Skills: each skill becomes a small tag, and research interests are numbered.
+  // Skill boxes rise in one after another, like the cards.
   document.querySelectorAll('.technicality-container .tech-box').forEach((box, i) => {
     box.style.setProperty('--i', i);
-  });
-  document.querySelectorAll('.tech-list .skill-value').forEach(value => {
-    const skills = value.textContent.split(',').map(skill => skill.trim()).filter(Boolean);
-    value.replaceChildren(...skills.map(skill => el('span', 'skill-chip', skill)));
-  });
-  document.querySelectorAll('.interest-list li').forEach((item, i) => {
-    const index = el('span', 'interest-index', String(i + 1).padStart(2, '0'));
-    index.setAttribute('aria-hidden', 'true');
-    const text = el('span', 'interest-text');
-    text.append(...item.childNodes);
-    item.append(index, text);
   });
 
   // Link buttons: an icon matching the destination, the label, and an arrow.
@@ -362,7 +351,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Soft glow that follows the mouse across a card.
   document.addEventListener('pointermove', (e) => {
     if (e.pointerType !== 'mouse') return;
-    const box = e.target.closest && e.target.closest('.projects-container > .project-box, .technicality-container .tech-box');
+    const box = e.target.closest && e.target.closest('.projects-container > .project-box');
     if (!box) return;
     const rect = box.getBoundingClientRect();
     box.style.setProperty('--mx', `${e.clientX - rect.left}px`);
