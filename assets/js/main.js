@@ -192,6 +192,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (typingText) type();
 
+  // Hero: the rings and glow behind the name drift slightly with the mouse.
+  const hero = document.getElementById('header');
+  if (hero) {
+    hero.addEventListener('pointermove', (e) => {
+      if (e.pointerType !== 'mouse') return;
+      const rect = hero.getBoundingClientRect();
+      hero.style.setProperty('--px', ((e.clientX - rect.left) / rect.width * 2 - 1).toFixed(3));
+      hero.style.setProperty('--py', ((e.clientY - rect.top) / rect.height * 2 - 1).toFixed(3));
+    });
+    hero.addEventListener('pointerleave', () => {
+      hero.style.setProperty('--px', 0);
+      hero.style.setProperty('--py', 0);
+    });
+  }
+
   /* ---------- Popup windows ---------- */
 
   const el = (tag, className, text) => {
@@ -863,6 +878,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const mediaTitle = (element) => {
+    if (element.dataset.title) return element.dataset.title;
     const name = element.querySelector('.pdf-filename-txt');
     if (name) return name.textContent.trim();
     if (element.classList.contains('cv-pdf')) return 'Curriculum Vitae';

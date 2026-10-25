@@ -1005,4 +1005,46 @@ overflow:visible;
 width:280px;
 height:170px;
 }
+.hero-grid{
+left:0;
+top:45%;
+background-size:20px 20px;
+-webkit-mask-image:radial-gradient(ellipse 60% 50% at 50% 40%, #000 0%, rgba(0,0,0,.5) 45%, transparent 75%);
+mask-image:radial-gradient(ellipse 60% 50% at 50% 40%, #000 0%, rgba(0,0,0,.5) 45%, transparent 75%);
+}
+.hero-backdrop{
+width:420px;
+height:420px;
+}
+.hero-orbit.orbit-1{
+width:220px;
+height:220px;
+}
+.hero-orbit.orbit-2{
+width:310px;
+height:310px;
+}
+.hero-orbit.orbit-3{
+width:400px;
+height:400px;
+}
+#header .greet::before,
+#header .greet::after{
+width:28px;
+}
+.hero-actions{
+gap:.7rem;
+margin-top:1.4rem;
+}
+.hero-btn{
+padding:.65rem 1.2rem;
+font-size:.95rem;
+}
+.hero-btn-primary:hover,
+.hero-btn-ghost:hover{
+transform:none;
+}
+.hero-scroll{
+display:none;
+}
 }
