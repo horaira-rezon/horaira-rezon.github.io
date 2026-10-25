@@ -228,7 +228,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeBtn = el('button', 'modal-close');
     closeBtn.type = 'button';
     closeBtn.setAttribute('aria-label', 'Close');
-    closeBtn.innerHTML = '&times;';
     closeBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       requestClose();

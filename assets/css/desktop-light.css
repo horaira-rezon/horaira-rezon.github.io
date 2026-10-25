@@ -214,3 +214,9 @@ header{
 .doc-pages canvas{
   border:1px solid rgb(188, 188, 188);
 }
+.modal-scroll{
+  scrollbar-color:#bcbcbc transparent;
+}
+.modal-scroll::-webkit-scrollbar-thumb{
+  background:#bcbcbc;
+}

@@ -761,7 +761,8 @@ body.no-scroll{
 overflow:hidden;
 }
 
-.modal-overlay{
+.modal-overlay,
+.modal-overlay:not(.media-variant){
 padding:16px;
 }
 .modal-scroll{
@@ -770,10 +771,12 @@ padding:1rem;
 .modal-close{
 top:10px;
 right:10px;
-width:30px;
-height:30px;
-line-height:30px;
-font-size:1.4rem;
+width:32px;
+height:32px;
+}
+.modal-close::before,
+.modal-close::after{
+width:14px;
 }
 .modal-close:hover{
 color:#ffffff;

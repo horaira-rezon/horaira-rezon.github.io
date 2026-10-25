@@ -1149,6 +1149,9 @@ body.no-scroll {
   opacity:0;
   transition:opacity 0.22s ease;
 }
+.modal-overlay:not(.media-variant){
+  padding:40px 7.5%;
+}
 .modal-overlay.is-open{
   opacity:1;
 }
@@ -1161,7 +1164,6 @@ body.no-scroll {
   display:flex;
   flex-direction:column;
   width:100%;
-  max-width:920px;
   max-height:100%;
   background:#131313;
   border:2px solid #80808026;
@@ -1179,27 +1181,51 @@ body.no-scroll {
   overscroll-behavior:contain;
   -webkit-overflow-scrolling:touch;
   padding:1.8rem 2rem;
+  scrollbar-width:thin;
+  scrollbar-color:#4a4a4a transparent;
+}
+.modal-scroll::-webkit-scrollbar{
+  width:8px;
+}
+.modal-scroll::-webkit-scrollbar-track{
+  background:transparent;
+}
+.modal-scroll::-webkit-scrollbar-thumb{
+  background:#4a4a4a;
+  border-radius:8px;
 }
 .modal-close{
   position:absolute;
-  top:12px;
-  right:12px;
+  top:16px;
+  right:22px;
   background:rgba(0, 0, 0, 0.5);
   box-shadow:0 4px 12px rgba(0, 0, 0, 0.3);
-  border:none;
+  border:1px solid #80808033;
   border-radius:50%;
   color:#ffffff;
-  font-family:'Poppins',sans-serif;
-  font-size:3rem;
-  font-weight:300;
   cursor:pointer;
   z-index:5;
-  width:44px;
-  height:44px;
-  line-height:44px;
-  text-align:center;
+  width:40px;
+  height:40px;
   padding:0;
   transition:all 0.3s ease;
+}
+.modal-close::before,
+.modal-close::after{
+  content:"";
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:18px;
+  height:2px;
+  border-radius:2px;
+  background:currentColor;
+}
+.modal-close::before{
+  transform:translate(-50%,-50%) rotate(45deg);
+}
+.modal-close::after{
+  transform:translate(-50%,-50%) rotate(-45deg);
 }
 .modal-close:hover{
   color:#000000;
@@ -1294,8 +1320,7 @@ body.no-scroll {
 }
 .modal-panel.doc-panel,
 .modal-panel.map-panel{
-  max-width:none;
-  width:90%;
+  width:100%;
   height:100%;
   background-color:rgba(0, 0, 0, 0.5);
   border:1px solid rgba(255,255,255,0.15);
