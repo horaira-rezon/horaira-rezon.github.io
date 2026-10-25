@@ -371,15 +371,12 @@ header{
 #site-header .nav-links > li.nav-foot > a.nav-mail:hover{
   color:#1f6fc4;
 }
-#site-header.is-scrolled .logo,
-#site-header.menu-open .logo,
 #site-header.is-scrolled .theme-toggle,
 #site-header.menu-open .theme-toggle,
 #site-header.is-scrolled .hamburger,
 #site-header.menu-open .hamburger{
   border-color:rgba(0, 0, 0, 0.25);
 }
-#site-header.is-scrolled .logo:hover,
 #site-header.is-scrolled .theme-toggle:hover,
 #site-header.is-scrolled .hamburger:hover{
   border-color:#2e8de6;
