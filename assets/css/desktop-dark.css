@@ -2082,11 +2082,11 @@ html.js .slide-up.visible .technicality-container .tech-box{
   margin-bottom:0;
 }
 #header .profile-img{
-  align-self:flex-end;
+  align-self:center;
   width:auto;
   height:auto;
   max-width:500px;
-  max-height:calc(100% - 24px);
+  max-height:calc(100% - 64px);
 }
 /* drifting network of points behind the name (drawn by main.js) */
 .hero-canvas{
@@ -2105,9 +2105,9 @@ html.js .slide-up.visible .technicality-container .tech-box{
 /* the photo melts into the black background */
 #header .profile-img{
   position:relative;
-  -webkit-mask-image:linear-gradient(to bottom, #000 70%, transparent 97%), linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
+  -webkit-mask-image:linear-gradient(to bottom, #000 80%, transparent 100%), linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
   -webkit-mask-composite:source-in;
-  mask-image:linear-gradient(to bottom, #000 70%, transparent 97%), linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
+  mask-image:linear-gradient(to bottom, #000 80%, transparent 100%), linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
   mask-composite:intersect;
 }
 #header .header-text{
