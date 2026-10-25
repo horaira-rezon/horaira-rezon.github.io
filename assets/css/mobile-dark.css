@@ -1033,10 +1033,6 @@ max-height:50svh;
 flex:0 0 auto;
 margin:0;
 }
-#header .greet::before,
-#header .greet::after{
-width:28px;
-}
 .hero-actions{
 gap:.7rem;
 margin-top:1.4rem;
@@ -1113,5 +1109,14 @@ opacity:0;
 margin-top:56px;
 height:calc(100vh - 56px);
 height:calc(100svh - 56px);
+}
+#site-header .theme-toggle{
+width:48px;
+height:24px;
+padding:0 6px;
+}
+#site-header .theme-toggle::before{
+width:16px;
+height:16px;
 }
 }

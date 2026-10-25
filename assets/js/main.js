@@ -1181,6 +1181,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const top = topLayer();
 
     if (e.key === 'Escape' || e.keyCode === 27) {
+      // Pressing Esc after using the mouse shouldn't leave a keyboard focus
+      // outline on whatever was clicked last.
+      if (lastInput === 'pointer' && document.activeElement && document.activeElement !== document.body) {
+        document.activeElement.blur();
+      }
       if (top) {
         e.preventDefault();
         requestClose();

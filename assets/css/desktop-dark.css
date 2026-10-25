@@ -2113,23 +2113,6 @@ html.js .slide-up.visible .technicality-container .tech-box{
 #header .header-text{
   overflow:visible;
 }
-/* greeting with fine accent lines either side */
-#header .greet{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:1rem;
-}
-#header .greet::before,
-#header .greet::after{
-  content:"";
-  width:44px;
-  height:1px;
-  background:linear-gradient(90deg, transparent, #2e93f1);
-}
-#header .greet::after{
-  background:linear-gradient(90deg, #2e93f1, transparent);
-}
 #header .name{
   text-shadow:0 0 42px rgba(46, 141, 230, 0.22);
 }
@@ -2606,7 +2589,7 @@ html.nav-open.lenis-stopped{
 }
 /* clearer rounded outlines on the logo, theme switch and menu button */
 #site-header .theme-toggle{
-  border:1.5px solid rgba(255, 255, 255, 0.3);
+  border:1.5px solid rgba(255, 255, 255, 0.14);
 }
 #site-header .theme-toggle:hover{
   border-color:#2e8de6;
@@ -2650,4 +2633,17 @@ html.nav-open.lenis-stopped{
 }
 #site-header .hamburger.active span:nth-child(3){
   transform:rotate(-45deg);
+}
+/* slimmer theme switch */
+#site-header .theme-toggle{
+  width:52px;
+  height:26px;
+  padding:0 7px;
+  font-size:0.65rem;
+}
+#site-header .theme-toggle::before{
+  top:2.5px;
+  left:2.5px;
+  width:18px;
+  height:18px;
 }

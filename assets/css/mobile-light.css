@@ -76,4 +76,7 @@ background:#111111;
 #site-header .nav-links > li > a:hover{
 color:#1a1a1a;
 }
+#site-header .theme-toggle::before{
+left:26.5px;
+}
 }

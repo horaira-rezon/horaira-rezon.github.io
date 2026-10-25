@@ -366,8 +366,11 @@ header{
   color:#1f6fc4;
 }
 #site-header.is-scrolled .theme-toggle{
-  border-color:rgba(0, 0, 0, 0.25);
+  border-color:rgba(0, 0, 0, 0.14);
 }
 #site-header.is-scrolled .theme-toggle:hover{
   border-color:#2e8de6;
+}
+#site-header .theme-toggle::before{
+  left:28.5px;
 }
