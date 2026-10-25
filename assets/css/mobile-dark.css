@@ -1085,20 +1085,19 @@ width:38px;
 height:38px;
 align-self:center;
 }
-#site-header .hamburger span:nth-child(1){ top:12px; }
-#site-header .hamburger span:nth-child(2){ top:18px; }
-#site-header .hamburger span:nth-child(3){ top:24px; }
-#site-header .hamburger.active span:nth-child(1),
-#site-header .hamburger.active span:nth-child(3){
-top:18px;
-}
 #site-header .hamburger:hover span{
 background:#f2f2f2;
 }
 #site-header .nav-links{
+top:56px;
 width:100%;
-padding:84px 1.5rem 1.5rem;
+height:calc(100vh - 56px);
+height:calc(100dvh - 56px);
+padding:28px 1.5rem 1.5rem;
 border-left:none;
+}
+#site-header::after{
+top:56px;
 }
 #site-header .nav-links > li > a{
 font-size:1.35rem;

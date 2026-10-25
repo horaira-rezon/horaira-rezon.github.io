@@ -310,23 +310,17 @@ header{
 #site-header .theme-toggle .fa-sun{
   color:#ffffff;
 }
-#site-header.is-scrolled .logo-text,
-#site-header.menu-open .logo-text{
+#site-header.is-scrolled .logo-text{
   color:#111111;
 }
-#site-header.is-scrolled .theme-toggle,
-#site-header.menu-open .theme-toggle,
-#site-header.is-scrolled .hamburger,
-#site-header.menu-open .hamburger{
+#site-header.is-scrolled .theme-toggle{
   background:rgba(0, 0, 0, 0.04);
   border-color:rgba(0, 0, 0, 0.12);
 }
-#site-header.is-scrolled .theme-toggle .fa-moon,
-#site-header.menu-open .theme-toggle .fa-moon{
+#site-header.is-scrolled .theme-toggle .fa-moon{
   color:rgba(0, 0, 0, 0.4);
 }
-#site-header.is-scrolled .hamburger span,
-#site-header.menu-open .hamburger span{
+#site-header.is-scrolled .hamburger span{
   background:#111111;
 }
 #site-header .nav-links{
@@ -371,13 +365,9 @@ header{
 #site-header .nav-links > li.nav-foot > a.nav-mail:hover{
   color:#1f6fc4;
 }
-#site-header.is-scrolled .theme-toggle,
-#site-header.menu-open .theme-toggle,
-#site-header.is-scrolled .hamburger,
-#site-header.menu-open .hamburger{
+#site-header.is-scrolled .theme-toggle{
   border-color:rgba(0, 0, 0, 0.25);
 }
-#site-header.is-scrolled .theme-toggle:hover,
-#site-header.is-scrolled .hamburger:hover{
+#site-header.is-scrolled .theme-toggle:hover{
   border-color:#2e8de6;
 }
