@@ -1204,8 +1204,8 @@ body.no-scroll {
 }
 .modal-close{
   position:fixed;
-  top:20px;
-  right:20px;
+  top:40px;
+  right:max(12px, calc(7.5% - 54px));
   background:rgba(0, 0, 0, 0.5);
   box-shadow:0 4px 12px rgba(0, 0, 0, 0.3);
   border:1px solid #80808033;
