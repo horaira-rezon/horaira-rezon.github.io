@@ -910,4 +910,7 @@ transform:none;
 flex-direction:column;
 align-items:stretch;
 }
+.technicality-container .tech-box:hover::before{
+transform:scaleY(0);
+}
 }

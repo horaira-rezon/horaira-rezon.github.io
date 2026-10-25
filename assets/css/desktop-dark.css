@@ -1701,6 +1701,26 @@ html.js .fade-in.visible .projects-container > .project-box{
   border:2px solid #80808026;
   transform:none;
 }
+/* blue line that grows down the left edge on hover and retracts on leave */
+.technicality-container .tech-box{
+  position:relative;
+  overflow:hidden;
+}
+.technicality-container .tech-box::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:3px;
+  background:linear-gradient(180deg, #2e8de6, #6cbfff);
+  transform:scaleY(0);
+  transform-origin:top;
+  transition:transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.technicality-container .tech-box:hover::before{
+  transform:scaleY(1);
+}
 html.js .slide-up:not(.visible) .technicality-container .tech-box{
   opacity:0;
 }
