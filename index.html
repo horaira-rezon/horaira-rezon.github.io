@@ -37,26 +37,39 @@
 </head>
 
 <body>
-<header>
+<header id="site-header">
   <nav>
     <div class="nav-top">
-      <a href="#header" class="logo">Horaira Rezon</a>
+      <a href="#header" class="logo"><span class="logo-mark" aria-hidden="true">HR</span><span class="logo-text">Horaira Rezon</span></a>
       <div class="nav-controls">
         <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle color theme">
+          <i class="fa-solid fa-moon" aria-hidden="true"></i>
+          <i class="fa-solid fa-sun" aria-hidden="true"></i>
         </button>
-        <button class="hamburger" type="button" aria-label="Open menu">
+        <button class="hamburger" type="button" aria-label="Open menu" aria-controls="nav-panel" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
       </div>
     </div>
-    <ul class="nav-links">
+    <ul class="nav-links" id="nav-panel">
+      <li class="nav-eyebrow" aria-hidden="true">Menu</li>
       <li><a href="#about">About Me</a></li>
       <li><a href="#technicality">Skills & Interests</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#experience">Experiences</a></li>
       <li><a href="#honor">Honor & Awards</a></li>
       <li><a href="#contact">Contact Me</a></li>
-      <li><div class="cv-pdf clickable-media" data-type="pdf" data-src="assets/pdf/CV-horaira-rezon.pdf">CV</div></li>
+      <li class="nav-cv"><button type="button" class="cv-pdf clickable-media" data-type="pdf" data-src="assets/pdf/CV-horaira-rezon.pdf" data-title="Curriculum Vitae"><i class="fa-regular fa-file-lines" aria-hidden="true"></i> View CV</button></li>
+      <li class="nav-foot">
+        <span class="nav-foot-label">Get in touch</span>
+        <a href="mailto:rezon.2205011@bau.edu.bd" class="nav-mail">rezon.2205011@bau.edu.bd</a>
+        <div class="nav-social">
+          <a href="https://www.linkedin.com/in/allsabaab/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="https://github.com/horaira-rezon" target="_blank" rel="noopener" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+          <a href="https://www.researchgate.net/profile/Md-Abu-Horaira-Rezon" target="_blank" rel="noopener" aria-label="ResearchGate"><i class="fa-brands fa-researchgate"></i></a>
+          <a href="https://orcid.org/0009-0008-6732-8891" target="_blank" rel="noopener" aria-label="ORCID"><i class="fa-brands fa-orcid"></i></a>
+        </div>
+      </li>
     </ul>
   </nav>
 </header>

@@ -67,4 +67,14 @@ color:#000000c9;
 background:#ffffff80;
 border-color:#bcbcbc;
 }
+#site-header .theme-toggle::before{
+left:27px;
+}
+#site-header.is-scrolled .hamburger:hover span,
+#site-header.menu-open .hamburger:hover span{
+background:#111111;
+}
+#site-header .nav-links > li > a:hover{
+color:#1a1a1a;
+}
 }

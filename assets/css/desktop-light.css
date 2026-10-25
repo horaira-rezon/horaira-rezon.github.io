@@ -294,3 +294,80 @@ header{
 .tech-stack-section::before{
   background:radial-gradient(closest-side, rgba(46, 141, 230, 0.14), rgba(46, 141, 230, 0.05) 55%, transparent);
 }
+/* navigation: light glass once scrolled or with the menu open */
+#site-header::before{
+  background:rgba(255, 255, 255, 0.8);
+}
+#site-header.is-scrolled{
+  border-bottom-color:rgba(0, 0, 0, 0.08);
+}
+#site-header .theme-toggle::before{
+  left:29px;
+}
+#site-header .theme-toggle .fa-moon{
+  color:rgba(255, 255, 255, 0.55);
+}
+#site-header .theme-toggle .fa-sun{
+  color:#ffffff;
+}
+#site-header.is-scrolled .logo-text,
+#site-header.menu-open .logo-text{
+  color:#111111;
+}
+#site-header.is-scrolled .theme-toggle,
+#site-header.menu-open .theme-toggle,
+#site-header.is-scrolled .hamburger,
+#site-header.menu-open .hamburger{
+  background:rgba(0, 0, 0, 0.04);
+  border-color:rgba(0, 0, 0, 0.12);
+}
+#site-header.is-scrolled .theme-toggle .fa-moon,
+#site-header.menu-open .theme-toggle .fa-moon{
+  color:rgba(0, 0, 0, 0.4);
+}
+#site-header.is-scrolled .hamburger span,
+#site-header.menu-open .hamburger span{
+  background:#111111;
+}
+#site-header .nav-links{
+  background:rgba(255, 255, 255, 0.96);
+  border-left-color:rgba(0, 0, 0, 0.06);
+  box-shadow:-30px 0 60px rgba(0, 0, 0, 0.15);
+}
+#site-header .nav-eyebrow,
+#site-header .nav-foot-label{
+  color:rgba(0, 0, 0, 0.4);
+}
+#site-header .nav-links > li > a{
+  color:#1a1a1a;
+  border-bottom-color:rgba(0, 0, 0, 0.07);
+}
+#site-header .nav-links > li > a:hover{
+  color:#000000;
+}
+#site-header .nav-links > li > a.active{
+  color:#1f6fc4;
+}
+#site-header .nav-cv .cv-pdf{
+  color:#1f6fc4;
+  background:rgba(46, 141, 230, 0.08);
+}
+#site-header .nav-cv .cv-pdf:hover{
+  color:#ffffff;
+}
+#site-header .nav-mail{
+  color:#555555;
+}
+#site-header .nav-social a{
+  border-color:rgba(0, 0, 0, 0.14);
+  color:#333333;
+}
+#site-header .nav-social a:hover{
+  color:#ffffff;
+}
+#site-header .nav-links > li.nav-foot > a.nav-mail{
+  color:#555555;
+}
+#site-header .nav-links > li.nav-foot > a.nav-mail:hover{
+  color:#1f6fc4;
+}

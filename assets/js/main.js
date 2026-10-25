@@ -90,23 +90,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- Navigation ---------- */
 
-  const nav = document.querySelector('nav');
-  const hamburger = document.querySelector('.hamburger');
-  const navLinks = document.querySelector('.nav-links');
+  const siteHeader = document.getElementById('site-header');
+  const nav = siteHeader.querySelector('nav');
+  const hamburger = siteHeader.querySelector('.hamburger');
+  const navLinks = siteHeader.querySelector('.nav-links');
+
+  // Menu items slide in one after another.
+  navLinks.querySelectorAll(':scope > li').forEach((item, i) => item.style.setProperty('--n', i));
+
+  // A section picked from the menu is scrolled to once the menu has closed
+  // and the page is unlocked again.
+  let pendingScroll = null;
+
+  const scrollToSection = (target) => {
+    lenis.scrollTo(target, {
+      offset: -70,
+      duration: 0.5,
+      easing: (t) => 1 - Math.pow(1 - t, 3)
+    });
+  };
 
   const closeNavVisual = () => {
-    nav.style.height = '';
     nav.classList.remove('open');
+    siteHeader.classList.remove('menu-open');
     hamburger.classList.remove('active');
     hamburger.setAttribute('aria-expanded', 'false');
+    hamburger.setAttribute('aria-label', 'Open menu');
+    unlockScroll();
+    if (pendingScroll) {
+      scrollToSection(pendingScroll);
+      pendingScroll = null;
+    }
   };
 
   const openNav = () => {
     if (nav.classList.contains('open')) return;
     nav.classList.add('open');
+    siteHeader.classList.add('menu-open');
+    siteHeader.classList.remove('is-hidden');
     hamburger.classList.add('active');
     hamburger.setAttribute('aria-expanded', 'true');
-    nav.style.height = nav.querySelector('.nav-top').offsetHeight + navLinks.scrollHeight + 'px';
+    hamburger.setAttribute('aria-label', 'Close menu');
+    lockScroll();
     pushLayer({ type: 'nav', close: closeNavVisual });
   };
 
@@ -131,13 +156,42 @@ document.addEventListener('DOMContentLoaded', () => {
       const target = document.querySelector(targetId);
       if (!target) return;
       e.preventDefault();
-      lenis.scrollTo(target, {
-        offset: -70,
-        duration: 0.5,
-        easing: (t) => 1 - Math.pow(1 - t, 3)
-      });
-      closeNav();
+      if (nav.classList.contains('open')) {
+        pendingScroll = target;
+        closeNav();
+      } else {
+        scrollToSection(target);
+      }
     });
+  });
+
+  // The bar is transparent over the hero and turns into frosted glass once
+  // the page scrolls; it slides away while scrolling down and comes back
+  // as soon as the visitor scrolls up.
+  let lastScrollY = window.scrollY;
+  const updateHeader = () => {
+    const y = window.scrollY;
+    siteHeader.classList.toggle('is-scrolled', y > 8);
+    if (!nav.classList.contains('open')) {
+      if (y > lastScrollY + 4 && y > 160) siteHeader.classList.add('is-hidden');
+      else if (y < lastScrollY - 4 || y <= 160) siteHeader.classList.remove('is-hidden');
+    }
+    lastScrollY = y;
+  };
+  window.addEventListener('scroll', updateHeader, { passive: true });
+  updateHeader();
+
+  // Highlight the menu link of the section being read.
+  const menuLinks = Array.from(navLinks.querySelectorAll('a[href^="#"]'));
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      menuLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`));
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  menuLinks.forEach(link => {
+    const section = document.querySelector(link.getAttribute('href'));
+    if (section) sectionObserver.observe(section);
   });
 
   /* ---------- Reveal on scroll ---------- */
