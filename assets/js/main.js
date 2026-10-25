@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   const lenis = new Lenis({
     autoRaf: true,
-    lerp: 0.24,
+    lerp: 0.12,
     smoothWheel: true,
     wheelMultiplier: 1,
     syncTouch: false
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.animate([
       { opacity: .96 },
       { opacity: 1 }
-    ], { duration: 260, easing: 'ease-out' });
+    ], { duration: 360, easing: 'ease-out' });
     themeToggle.animate([
       { transform: 'scale(1)' },
       { transform: 'scale(.92)' },
@@ -133,8 +133,8 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       lenis.scrollTo(target, {
         offset: -70,
-        duration: 0.5,
-        easing: (t) => 1 - Math.pow(1 - t, 3)
+        duration: 1,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
       });
       closeNav();
     });
@@ -265,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
         overlay.classList.remove('is-open');
         overlay.classList.add('is-closing');
         unlockScroll();
-        setTimeout(() => overlay.remove(), 220);
+        setTimeout(() => overlay.remove(), 300);
         if (trigger && trigger.isConnected && typeof trigger.focus === 'function') {
           trigger.focus({ preventScroll: true });
         }
@@ -696,7 +696,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function animate(time) {
       const delta = (time - lastTime) / 1000;
       lastTime = time;
-      currentSpeed += (targetSpeed - currentSpeed) * 0.1;
+      currentSpeed += (targetSpeed - currentSpeed) * 0.05;
       offset += currentSpeed * delta;
 
       const width = firstGroup.offsetWidth;

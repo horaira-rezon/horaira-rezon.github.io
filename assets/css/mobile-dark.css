@@ -403,7 +403,7 @@ border:1px solid #2e8de6;
 color:#2e8de6;
 text-decoration:none;
 font-size:.9rem;
-transition:.25s;
+transition:0.33s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .project-popup-link:hover{
 transition: none;
@@ -660,7 +660,7 @@ transform:none;
 .gallery-wrapper,
 .auto-link-preview,
 .link-preview-card{
-transition:all .25s ease;
+transition:all 0.33s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .project-box:hover,
 .tech-box:hover,
