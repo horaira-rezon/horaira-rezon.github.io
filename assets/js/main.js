@@ -32,6 +32,10 @@ document.addEventListener('DOMContentLoaded', () => {
     themeStyle.disabled = !light;
     mobileThemeStyle.disabled = !light;
     if (save) storage.set('theme', theme);
+    document.body.animate([
+      { opacity: .96 },
+      { opacity: 1 }
+    ], { duration: 260, easing: 'ease-out' });
     themeToggle.animate([
       { transform: 'scale(1)' },
       { transform: 'scale(.92)' },
@@ -224,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeBtn = el('button', 'modal-close');
     closeBtn.type = 'button';
     closeBtn.setAttribute('aria-label', 'Close');
-    closeBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+    closeBtn.innerHTML = '&times;';
     closeBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       requestClose();
@@ -287,14 +291,6 @@ document.addEventListener('DOMContentLoaded', () => {
     box.tabIndex = 0;
     box.setAttribute('role', 'button');
     box.setAttribute('aria-haspopup', 'dialog');
-    const details = box.querySelector('.project-details');
-    const firstParagraph = details && details.querySelector('p');
-    if (firstParagraph) {
-      box.insertBefore(el('p', 'card-excerpt', firstParagraph.textContent.trim()), details);
-    }
-    const cta = el('span', 'card-cta', 'View details ');
-    cta.insertAdjacentHTML('beforeend', '<i class="fa-solid fa-arrow-right"></i>');
-    box.insertBefore(cta, details);
   });
 
   const openDetail = (box) => {
@@ -302,13 +298,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const details = box.querySelector('.project-details');
     if (!header || !details) return;
     const { panel, scroll } = panelWindow('modal-detail');
-    const head = el('div', 'modal-head');
-    head.appendChild(header.cloneNode(true));
+    const popup = el('div', 'project-popup');
+    const tags = el('div', 'project-popup-tags');
+    header.querySelectorAll(':scope > .project-tag, :scope > .position-tag, :scope > .date-tag, :scope > .post-tag, :scope > .post-date-tag').forEach(tag => {
+      tags.appendChild(tag.cloneNode(true));
+    });
+    const titleElement = header.querySelector('.project-title');
+    const title = titleElement ? titleElement.textContent.trim() : '';
     const body = details.cloneNode(true);
+    body.classList.add('project-popup-body');
+    body.querySelectorAll('br').forEach(br => br.remove());
     body.querySelectorAll('.auto-link-preview').forEach(renderLinkPreview);
-    scroll.append(head, body);
-    const title = box.querySelector('.project-title');
-    openModal({ content: panel, label: title ? title.textContent.trim() : 'Details' });
+    if (tags.children.length) popup.appendChild(tags);
+    popup.append(el('div', 'project-popup-title', title), el('div', 'project-popup-divider'), body);
+    scroll.appendChild(popup);
+    openModal({ content: panel, label: title || 'Details' });
   };
 
   const openList = (container) => {
@@ -316,11 +320,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const sectionTitle = section && section.querySelector('.title');
     const boxes = Array.from(container.querySelectorAll(':scope > .project-box'));
     const { panel, scroll } = panelWindow('modal-list');
-    const head = el('div', 'modal-head');
-    head.append(
-      el('div', 'modal-eyebrow', `${boxes.length} entries`),
-      el('h2', 'modal-heading', sectionTitle ? sectionTitle.textContent.trim() : '')
-    );
+    const heading = el('div', 'title', sectionTitle ? sectionTitle.textContent.trim() : '');
+    heading.setAttribute('align', 'center');
     const list = el('div', 'projects-container');
     boxes.forEach(box => {
       const card = box.cloneNode(true);
@@ -329,7 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (details) details.remove();
       list.appendChild(card);
     });
-    scroll.append(head, list);
+    scroll.append(heading, el('hr', 'line'), list);
     openModal({ content: panel, label: sectionTitle ? sectionTitle.textContent.trim() : 'All entries' });
   };
 
@@ -341,7 +342,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const btn = el('button', 'show-more-btn', 'Show More');
     btn.type = 'button';
     btn.setAttribute('aria-haspopup', 'dialog');
-    btn.appendChild(el('span', 'show-more-count', String(boxes.length)));
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
       openList(container);
@@ -436,7 +436,7 @@ document.addEventListener('DOMContentLoaded', () => {
     open.href = src;
     open.target = '_blank';
     open.rel = 'noopener';
-    open.innerHTML = '<i class="fa-solid fa-arrow-up-right-from-square"></i><span>Open in new tab</span>';
+    open.textContent = 'Open in new tab ⤴';
     toolbar.append(el('div', 'doc-title', title), open);
     const body = el('div', 'doc-body');
     panel.append(toolbar, body);
@@ -680,8 +680,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const firstGroup = logoTrack.firstElementChild;
 
     let offset = 0;
-    let currentSpeed = 60;
-    let targetSpeed = 60;
+    let currentSpeed = 175;
+    let targetSpeed = 175;
     let lastTime = performance.now();
 
     const container = logoTrack.parentElement;
@@ -691,7 +691,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     container.addEventListener("mouseleave", () => {
-      targetSpeed = 60;
+      targetSpeed = 175;
     });
 
     function animate(time) {

@@ -36,7 +36,7 @@ I'm open-sourcing the structure and documenting how it's put together so that ot
 - **[Lenis](https://github.com/darkroomengineering/lenis)** - Smooth-scroll library
 - **[Iconify](https://iconify.design/)** - Icon rendering
 - **[Font Awesome](https://fontawesome.com/)** - Icon set
-- **Google Fonts** (Inter) - Typography
+- **Google Fonts** (Poppins) - Typography
 - **[pdf.js](https://mozilla.github.io/pdf.js/)** - In-page PDF rendering on mobile (loaded on demand)
 
 ---

@@ -11,7 +11,6 @@
   <link id="theme-style" rel="stylesheet" href="assets/css/desktop-light.css" disabled>
   <link id="mobile-theme-style" rel="stylesheet" href="assets/css/mobile-light.css" media="screen and (max-width: 768px)" disabled>
   <script>
-    document.documentElement.classList.add("js");
     (function(){
       var t=null;
       try{ t=localStorage.getItem("theme"); }catch(e){}
@@ -22,9 +21,7 @@
     })();
   </script>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <meta property="og:title" content="Horaira Rezon - Portfolio"/>
@@ -44,7 +41,8 @@
     <div class="nav-top">
       <a href="#header" class="logo">Horaira Rezon</a>
       <div class="nav-controls">
-        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle color theme"></button>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle color theme">
+        </button>
         <button class="hamburger" type="button" aria-label="Open menu">
           <span></span><span></span><span></span>
         </button>
@@ -64,7 +62,7 @@
 
 <section id="header" class="section fade-in">
 <div class="header-container">
-    <img src="assets/images/profile/horaira-rezon.png" class="profile-img" alt="Md. Abu Horaira Al Rezon"/>
+    <img src="assets/images/profile/horaira-rezon.png" class="profile-img"/>
     <div class="header-text">
         <p class="greet">Hello I'm,</p>
         <p class="name">MD. ABU HORAIRA AL REZON</p>
@@ -135,7 +133,8 @@ I've worked on diverse projects including disease prediction, smart irrigation, 
           <li>Practical and scalable solution for managing early blight in potatoes was designed and implemented.</li>
           <li>Precise, data-driven decision-making was promoted, supporting environmental sustainability.</li>
         </ul>
-        <span class="link-button"><a href="http://dx.doi.org/10.13140/RG.2.2.15058.88001" target="_blank">Poster Link <i class="fa-solid fa-arrow-up-right-from-square"></i></a></span>
+        <br>
+        <span class="link-button"><a href="http://dx.doi.org/10.13140/RG.2.2.15058.88001" target="_blank">Poster Link ⤴</a></span>
         </div>
     </div>
     <div class="project-box">
@@ -152,7 +151,8 @@ I've worked on diverse projects including disease prediction, smart irrigation, 
         <ul class="project-list">
           <li>Vis-NIR Spectroscopy was utilized to enable non-destructive assessment of internal fruit quality.</li>
         </ul>
-        <span class="link-button"><a href="http://dx.doi.org/10.13140/RG.2.2.12466.93122" target="_blank">Poster Link <i class="fa-solid fa-arrow-up-right-from-square"></i></a></span>
+        <br>
+        <span class="link-button"><a href="http://dx.doi.org/10.13140/RG.2.2.12466.93122" target="_blank">Poster Link ⤴</a></span>
         </div>
     </div>
     <div class="project-box">
@@ -169,7 +169,8 @@ I've worked on diverse projects including disease prediction, smart irrigation, 
           <li>Automatic water pump activation is enabled when moisture levels fall below a defined threshold.</li>
           <li>Manual navigation of the Robot Car is facilitated via an IR Remote for checking soil conditions and watering specific areas.</li>
         </ul>
-        <span class="link-button"><a href="https://github.com/Allsabaab/Automated-Watering-System-for-Plants" target="_blank">Open Project <i class="fa-solid fa-arrow-up-right-from-square"></i></a></span>
+        <br>
+        <span class="link-button"><a href="https://github.com/Allsabaab/Automated-Watering-System-for-Plants" target="_blank">Open Project ⤴</a></span>
         </div>
     </div>
     <div class="project-box show-more-hidden">
@@ -188,7 +189,8 @@ I've worked on diverse projects including disease prediction, smart irrigation, 
           <li>User-friendly interface for data input and report generation.</li>
           <li>Integration with mobile devices for on-field data entry.</li>
         </ul>
-        <span class="link-button"><a href="https://github.com/Allsabaab/Farm-Inventory-Management-System" target="_blank">Live Project <i class="fa-solid fa-arrow-up-right-from-square"></i></a></span>
+        <br>
+        <span class="link-button"><a href="https://github.com/Allsabaab/Farm-Inventory-Management-System" target="_blank">Live Project ⤴</a></span>
         </div>
     </div>
   </div>
@@ -203,20 +205,24 @@ I've worked on diverse projects including disease prediction, smart irrigation, 
             <div class="project-title">
                 <span>Smart Agro-Technology Innovation Youth Network - SAIYN</span>
             </div>
-            <div class="role-list">
-              <div class="role"><span class="post-tag">Ambassador (Business Competition)</span><span class="post-date-tag">March 2026 - Present</span></div>
-            </div>
         </div>
         <div class="project-details">
+          <div class="project-header">
+            <span class="post-tag">Ambassador (Business Competition)</span>
+            <span class="post-date-tag">March 2026 - Present</span>
+          </div>
+        <br>
         <p>SAIYN is a knowledge-based learning platform for youths where they explore and boost their interests on smart and innovative agro-technologies for sustaining agricultural (crop, fisheries and livestock) production, processing and marketing to ensure food- and nutrition security. This is principally a youth-based network focusing on youth agropreneurship and empowerment. This network is formed in connection with 4-H Illinois approach through the project “Appropriate Scale Mechanization Innovation Hub (ASMIH) Phase II-Bangladesh”, a core component of Appropriate Scale Mechanization Consortium (ASMC) at the University of Illinois at Urbana-Champaign, USA, and financed by the Sustainable Intensification Innovation Lab (SIIL), Kansas State University and Feed the Future, USAID, USA. </p>
         <p>I joined SAIYN as an ambassador for the business competition. Currently, I am an active member of SAIYN, contributing to its mission of promoting smart agro-technologies among young people in Bangladesh. As of now, I have taken on several leadership roles within the network, helping to organize events and workshops that bring together young agro-entrepreneurs and experts in the field.</p>
         <ul class="project-list">
           <li><a class="event-link" href="https://www.facebook.com/share/p/1E9jK42No8/" target="_blank">Agri-Tech Revolution:  Studies and Career Beyond Borders | April 28, 2026</a></li>
         </ul>
+        <br>
         <div class="link-button-section">
-        <span class="link-button"><a href="https://web.facebook.com/smartagrotechidea" target="_blank">SAIYN Facebook Page <i class="fa-solid fa-arrow-up-right-from-square"></i></a></span>
-        <span class="link-button"><a href="https://saiyn-revamped.netlify.app/" target="_blank">SAIYN Official Website <i class="fa-solid fa-arrow-up-right-from-square"></i></a></span>
+        <span class="link-button"><a href="https://web.facebook.com/smartagrotechidea" target="_blank">SAIYN Facebook Page ⤴</a></span>
+        <span class="link-button"><a href="https://saiyn-revamped.netlify.app/" target="_blank">SAIYN Official Website ⤴</a></span>
         </div>
+        <br>
         <div class="media-grid-container">
           <div class="gallery-wrapper clickable-media" data-type="image" data-src="assets/images/experiences/SAIYN/SAIYN-ambassador.png">
             <div class="media-mask-overlay">
@@ -237,6 +243,7 @@ I've worked on diverse projects including disease prediction, smart irrigation, 
             <img src="assets/images/experiences/SAIYN/SAIYN-webiner.png" class="standalone-gallery-img" loading="lazy" decoding="async">
           </div>
         </div>
+        <br>
         </div>
     </div>
     <div class="project-box">
@@ -244,20 +251,24 @@ I've worked on diverse projects including disease prediction, smart irrigation, 
             <div class="project-title">
                 <span>Bluvia</span>
             </div>
-            <div class="role-list">
-              <div class="role"><span class="post-tag">Co-founder & CTO</span><span class="post-date-tag">September 2025 - Present</span></div>
-            </div>
         </div>
         <div class="project-details">
+          <div class="project-header">
+            <span class="post-tag">Co-founder & CTO</span>
+            <span class="post-date-tag">September 2025 - Present</span>
+          </div>
+        <br>
         <p>Bluvia is an innovative startup founded at Bangladesh Agricultural University that focuses on promoting a healthy, natural lifestyle through its flagship product: a 100% natural, organic, and caffeine-free Blue Tea. Crafted from fresh Butterfly Pea Flowers (Aparajita), this herbal infusion is celebrated for its stunning deep blue color, which is derived from natural antioxidants known as anthocyanins. By utilizing locally sourced ingredients, the startup aims to provide a wellness-focused beverage that offers potential health benefits, such as stress relief, improved digestion, and antioxidant support, while maintaining a commitment to quality and chemical-free production.</p>
         <p>Bluvia actively participates in diverse campus and professional events to engage directly with our community and promote healthy, plant-based refreshment solutions. These engagements serve as vital platforms for us to test our product's market viability, gather consumer feedback, and strengthen our brand presence within the university ecosystem.</p>
         <ul class="project-list">
           <li><a class="event-link" href="https://www.facebook.com/share/p/14hFumPDVDD/" target="_blank">Official Refreshment Partner | 3rd National Career Carnival organized by BAUCC at BAU | November 28, 2025</a></li>
           <li><a class="event-link" href="https://www.facebook.com/share/18wFAjGCHg/" target="_blank">Beverage Stall | Tea Utshob 3.0 organized by Team Utshob at BAU | January 8, 2026</a></li>
         </ul>
+        <br>
         <div class="link-button-section">
-        <span class="link-button"><a href="https://www.facebook.com/profile.php?id=61580914606878" target="_blank">Bluvia Facebook Page <i class="fa-solid fa-arrow-up-right-from-square"></i></a></span>
+        <span class="link-button"><a href="https://www.facebook.com/profile.php?id=61580914606878" target="_blank">Bluvia Facebook Page ⤴</a></span>
         </div>
+        <br>
         <div class="media-grid-container">
           <div class="gallery-wrapper clickable-media" data-type="image" data-src="assets/images/experiences/Bluvia/Bluvia-logo.jpg">
             <div class="media-mask-overlay">
@@ -302,6 +313,7 @@ I've worked on diverse projects including disease prediction, smart irrigation, 
             <img src="assets/images/experiences/Bluvia/recieving-letter.jpg" class="standalone-gallery-img" loading="lazy" decoding="async">
           </div>
         </div>
+        <br>
         </div>
     </div>
     <div class="project-box">
@@ -309,21 +321,28 @@ I've worked on diverse projects including disease prediction, smart irrigation, 
             <div class="project-title">
                 <span>Bangladesh Agricultural University Career Club - BAUCC</span>
             </div>
-            <div class="role-list">
-              <div class="role"><span class="post-tag">Research & Development</span><span class="post-date-tag">May 2026 - Present</span></div>
-              <div class="role"><span class="post-tag">Executive Member</span><span class="post-date-tag">August 2025 - May 2026</span></div>
-            </div>
         </div>
         <div class="project-details">
+          <div class="project-header">
+            <span class="post-tag">Research & Development</span>
+            <span class="post-date-tag">May 2026 - Present</span>
+          </div>
+          <div class="project-header">
+            <span class="post-tag">Executive Member</span>
+            <span class="post-date-tag">August 2025 - May 2026</span>
+          </div>
+        <br>
         <p>Bangladesh Agricultural University Career Club (BAUCC) is a non-profit, voluntary organization that is independent of politics, religion, race, caste, and creed. It was formed to provide a platform for students of Bangladesh Agricultural University to enhance their professional skills and explore their potential. BAUCC envisions transforming BAU into a hub of change-makers. Its main objective is to bridge the gap between students and resource persons.</p>
         <p>I joined BAUCC as an executive member on August 2025. Currently, I am an active member of BAUCC, contributing to its mission of promoting professional development and career opportunities among students at Bangladesh Agricultural University. As of now, I have taken on several leadership roles within the club, helping to organize events and workshops that bring together students and industry professionals.</p>
         <ul class="project-list">
           <li><a class="event-link" href="https://fb.me/e/3ErbmTpQt" target="_blank">3rd National Career Carnival at Bangladesh Agricultural University | November 28, 2025 - November 29, 2025</a></li>
         </ul>
+        <br>
         <div class="link-button-section">
-          <span class="link-button"><a href="https://www.facebook.com/baucareerclub" target="_blank">BAUCC Facebook Page <i class="fa-solid fa-arrow-up-right-from-square"></i></a></span>
-        <span class="link-button"><a href="https://www.baucc.com/" target="_blank">BAUCC Official Website <i class="fa-solid fa-arrow-up-right-from-square"></i></a></span>
+          <span class="link-button"><a href="https://www.facebook.com/baucareerclub" target="_blank">BAUCC Facebook Page ⤴</a></span>
+        <span class="link-button"><a href="https://www.baucc.com/" target="_blank">BAUCC Official Website ⤴</a></span>
         </div>
+        <br>
         <div class="media-grid-container">
           <div class="gallery-wrapper clickable-media" data-type="image" data-src="assets/images/experiences/BAUCC/BAUCC-executive.jpg">
             <div class="media-mask-overlay">
@@ -356,6 +375,7 @@ I've worked on diverse projects including disease prediction, smart irrigation, 
             <img src="assets/images/experiences/BAUCC/NCC-photo2.jpg" class="standalone-gallery-img" loading="lazy" decoding="async">
           </div>
         </div>
+        <br>
         </div>
     </div>
   </div>
@@ -382,7 +402,7 @@ I've worked on diverse projects including disease prediction, smart irrigation, 
               <span class="media-mask-text">View Document</span>
             </div>
             <div class="pdf-fallback-preview-card">
-              <span class="pdf-icon-symbol"><i class="fa-regular fa-file-pdf"></i></span>
+              <span class="pdf-icon-symbol">📄</span>
               <span class="pdf-filename-txt">WSSB Best Presentation Certificate</span>
             </div>
           </div>
@@ -391,7 +411,7 @@ I've worked on diverse projects including disease prediction, smart irrigation, 
               <span class="media-mask-text">View Document</span>
             </div>
             <div class="pdf-fallback-preview-card">
-              <span class="pdf-icon-symbol"><i class="fa-regular fa-file-pdf"></i></span>
+              <span class="pdf-icon-symbol">📄</span>
               <span class="pdf-filename-txt">WSSB Best Presentation Award</span>
             </div>
           </div>
@@ -414,6 +434,7 @@ I've worked on diverse projects including disease prediction, smart irrigation, 
             <img src="assets/images/awards/WSSB-conference-26/WSSB-research-team.jpg" class="standalone-gallery-img" loading="lazy" decoding="async">
           </div>
         </div>
+        <br>
         </div>
     </div>
     <div class="project-box">
@@ -434,7 +455,7 @@ I've worked on diverse projects including disease prediction, smart irrigation, 
               <span class="media-mask-text">View Document</span>
             </div>
             <div class="pdf-fallback-preview-card">
-              <span class="pdf-icon-symbol"><i class="fa-regular fa-file-pdf"></i></span>
+              <span class="pdf-icon-symbol">📄</span>
               <span class="pdf-filename-txt">CIGR Gold Winner Certificate</span>
             </div>
           </div>
@@ -453,6 +474,7 @@ I've worked on diverse projects including disease prediction, smart irrigation, 
           <div class="auto-link-preview clickable-media" data-type="link" data-url="https://www.cigrstudentcompetition.org/"></div>
           <div class="auto-link-preview clickable-media" data-type="link" data-url="https://thedailycampus.com/agri-university/246453?fbclid=IwY2xjawSlJYJleHRuA2FlbQIxMABicmlkETFadEt4T09jemczMDNZSUFzc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHj4D-3SqPNIttoFZsYPQOzSdN-968KtCiYGEsZ_a8O2pZ1bv2EkzhCiutrTC_aem_wXWxHELidp5207t3sER6SA"></div>
         </div>
+        <br>
         </div>
     </div>
     <div class="project-box">
@@ -473,7 +495,7 @@ I've worked on diverse projects including disease prediction, smart irrigation, 
               <span class="media-mask-text">View Document</span>
             </div>
             <div class="pdf-fallback-preview-card">
-              <span class="pdf-icon-symbol"><i class="fa-regular fa-file-pdf"></i></span>
+              <span class="pdf-icon-symbol">📄</span>
               <span class="pdf-filename-txt">UIHP Pre Seed Winner</span>
             </div>
           </div>
@@ -503,6 +525,7 @@ I've worked on diverse projects including disease prediction, smart irrigation, 
           </div>
           <div class="auto-link-preview clickable-media" data-type="link" data-url="https://dailynewnation.com/news/774413?fbclid=IwY2xjawSmR7pleHRuA2FlbQIxMABicmlkETE0VXhuNXBCTDFianBCWGdSc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHqB5F2aUBnTjlifbQzNGBb0SRx8fYQxX78rb7t6lKC1xZC5R7zmE81Z8SLEp_aem_WIJORtY7JjFDKkXQcdG7Pw"></div>
         </div>
+        <br>
         </div>
     </div>
     <div class="project-box show-more-hidden">
@@ -523,7 +546,7 @@ I've worked on diverse projects including disease prediction, smart irrigation, 
               <span class="media-mask-text">View Document</span>
             </div>
             <div class="pdf-fallback-preview-card">
-              <span class="pdf-icon-symbol"><i class="fa-regular fa-file-pdf"></i></span>
+              <span class="pdf-icon-symbol">📄</span>
               <span class="pdf-filename-txt">BARI Grand Finale</span>
             </div>
           </div>
@@ -532,7 +555,7 @@ I've worked on diverse projects including disease prediction, smart irrigation, 
               <span class="media-mask-text">View Document</span>
             </div>
             <div class="pdf-fallback-preview-card">
-              <span class="pdf-icon-symbol"><i class="fa-regular fa-file-pdf"></i></span>
+              <span class="pdf-icon-symbol">📄</span>
               <span class="pdf-filename-txt">Certificate - BARI</span>
             </div>
           </div>
@@ -549,6 +572,7 @@ I've worked on diverse projects including disease prediction, smart irrigation, 
             <img src="assets/images/awards/BARI-idea-comp-25/BARI-group-photo.jpg" class="standalone-gallery-img" loading="lazy" decoding="async">
           </div>
         </div>
+        <br>
         </div>
     </div>
   </div>
@@ -570,11 +594,11 @@ I've worked on diverse projects including disease prediction, smart irrigation, 
       </a>
       <a href="https://wa.me/8801799144788" class="contact-link-item" target="_blank">
         <span class="node-label">Message</span>
-        <span class="node-value">(+880) 179 9144 788</span>
+        <span class="node-value">>> (+880) 179 9144 788</span>
       </a>
       <div class="contact-link-item location-trigger" data-map-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d983.7189139036534!2d90.43551292920199!3d24.72477385944715!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x37564feb52a4e087%3A0x8881f3fcb17535c5!2sPrecision%20Agriculture%20Lab!5e0!3m2!1sen!2sbd!4v1782920971068!5m2!1sen!2sbd">
         <span class="node-label">Location</span>
-        <span class="node-value">Smart Agriculture Lab</span>
+        <span class="node-value">>> Smart Agriculture Lab</span>
       </div>
     </div>
   </div>
