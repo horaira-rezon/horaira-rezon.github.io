@@ -1115,4 +1115,7 @@ margin-top:56px;
 height:calc(100vh - 56px);
 height:calc(100svh - 56px);
 }
+#site-header .logo{
+padding:.3rem .8rem;
+}
 }

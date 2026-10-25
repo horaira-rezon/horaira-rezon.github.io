@@ -2603,3 +2603,21 @@ html.js #header .hero-canvas{
 html.nav-open.lenis-stopped{
   overflow:visible;
 }
+/* clearer rounded outlines on the logo, theme switch and menu button */
+#site-header .logo{
+  padding:0.35rem 1rem;
+  border:1.5px solid rgba(255, 255, 255, 0.3);
+  border-radius:999px;
+  transition:border-color 0.3s ease;
+}
+#site-header .logo:hover{
+  border-color:#2e8de6;
+}
+#site-header .theme-toggle,
+#site-header .hamburger{
+  border:1.5px solid rgba(255, 255, 255, 0.3);
+}
+#site-header .theme-toggle:hover,
+#site-header .hamburger:hover{
+  border-color:#2e8de6;
+}
