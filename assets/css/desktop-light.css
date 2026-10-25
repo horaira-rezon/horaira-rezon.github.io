@@ -280,3 +280,17 @@ header{
 .project-popup .auto-link-preview .link-preview-card{
   background:#ffffff;
 }
+.logo-tile{
+  background:#e7e7e784;
+  border-color:#bcbcbc84;
+}
+.logo-item:hover .logo-tile{
+  background:#ffffff;
+  box-shadow:0 0 0 4px rgba(46, 141, 230, 0.12), 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+.logo-name{
+  color:#000000a9;
+}
+.tech-stack-section::before{
+  background:radial-gradient(ellipse at center, rgba(46, 141, 230, 0.14), transparent 70%);
+}

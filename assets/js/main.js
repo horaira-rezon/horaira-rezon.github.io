@@ -1046,64 +1046,108 @@ document.addEventListener('DOMContentLoaded', () => {
       {name: "FreeCAD", type: "image", src: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/FreeCAD-symbol.svg/1280px-FreeCAD-symbol.svg.png"}
     ];
 
-    function createLogoGroup() {
+    function createLogoGroup(hidden) {
       const group = document.createElement("div");
       group.className = "logo-group";
+      if (hidden) group.setAttribute("aria-hidden", "true");
       technologies.forEach(tech => {
         const item = document.createElement("div");
         item.className = "logo-item";
+        const tile = document.createElement("div");
+        tile.className = "logo-tile";
         if (tech.type === "image") {
-          item.innerHTML = `
-          <img src="${tech.src}" alt="${tech.name}" title="${tech.name}">
-          `;
+          tile.innerHTML = `<img src="${tech.src}" alt="${tech.name}" draggable="false">`;
         } else {
-          item.innerHTML = `
-          <iconify-icon icon="${tech.icon}" title="${tech.name}" aria-label="${tech.name}">
-          </iconify-icon>
-          `;
+          tile.innerHTML = `<iconify-icon icon="${tech.icon}" aria-label="${tech.name}"></iconify-icon>`;
         }
+        const name = document.createElement("span");
+        name.className = "logo-name";
+        name.textContent = tech.name;
+        item.append(tile, name);
         group.appendChild(item);
       });
       return group;
     }
 
     logoTrack.innerHTML = "";
-    logoTrack.appendChild(createLogoGroup());
-    logoTrack.appendChild(createLogoGroup());
+    logoTrack.appendChild(createLogoGroup(false));
+    logoTrack.appendChild(createLogoGroup(true));
 
     const firstGroup = logoTrack.firstElementChild;
+    const container = logoTrack.parentElement;
+    const items = Array.from(logoTrack.querySelectorAll(".logo-item"));
+    const SPEED = 90;
 
     let offset = 0;
-    let currentSpeed = 175;
-    let targetSpeed = 175;
+    let currentSpeed = SPEED;
+    let targetSpeed = SPEED;
     let lastTime = performance.now();
+    let centers = [];
+    let onScreen = true;
+    let drag = null;
 
-    const container = logoTrack.parentElement;
+    const measure = () => {
+      centers = items.map(item => item.offsetLeft + item.offsetWidth / 2);
+    };
+    measure();
 
-    container.addEventListener("mouseenter", () => {
-      targetSpeed = 0;
+    // Pause while the mouse is over the strip.
+    container.addEventListener("pointerenter", (e) => {
+      if (e.pointerType === "mouse") targetSpeed = 0;
+    });
+    container.addEventListener("pointerleave", (e) => {
+      if (e.pointerType === "mouse") targetSpeed = SPEED;
     });
 
-    container.addEventListener("mouseleave", () => {
-      targetSpeed = 175;
+    // Grab and drag (or swipe) the strip to move it by hand.
+    container.addEventListener("pointerdown", (e) => {
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      drag = { x: e.clientX, offset };
+      container.classList.add("is-dragging");
+      try { container.setPointerCapture(e.pointerId); } catch (err) {}
     });
+    container.addEventListener("pointermove", (e) => {
+      if (!drag) return;
+      offset = drag.offset - (e.clientX - drag.x);
+      currentSpeed = 0;
+    });
+    const endDrag = () => {
+      drag = null;
+      container.classList.remove("is-dragging");
+    };
+    container.addEventListener("pointerup", endDrag);
+    container.addEventListener("pointercancel", endDrag);
+
+    new IntersectionObserver((entries) => {
+      onScreen = entries[0].isIntersecting;
+    }).observe(container);
 
     function animate(time) {
-      const delta = (time - lastTime) / 1000;
+      const delta = Math.min((time - lastTime) / 1000, 0.1);
       lastTime = time;
-      currentSpeed += (targetSpeed - currentSpeed) * 0.05;
-      offset += currentSpeed * delta;
+      if (onScreen) {
+        if (!drag) {
+          currentSpeed += (targetSpeed - currentSpeed) * 0.05;
+          offset += currentSpeed * delta;
+        }
+        const width = firstGroup.offsetWidth;
+        offset = ((offset % width) + width) % width;
+        logoTrack.style.transform = `translate3d(${-offset}px,0,0)`;
 
-      const width = firstGroup.offsetWidth;
-      if (offset >= width) {
-        offset -= width;
+        // Logos near the middle grow and get their colour back; the ones
+        // towards the edges shrink, fade and turn grey.
+        const half = container.clientWidth / 2;
+        items.forEach((item, i) => {
+          const distance = Math.abs(centers[i] - offset - half) / half;
+          const t = Math.max(0, 1 - distance);
+          item.style.setProperty("--focus", (t * t * (3 - 2 * t)).toFixed(3));
+        });
       }
-
-      logoTrack.style.transform = `translate3d(${-offset}px,0,0)`;
       requestAnimationFrame(animate);
     }
     requestAnimationFrame(animate);
     new ResizeObserver(() => {
+      measure();
       offset %= firstGroup.offsetWidth;
     }).observe(firstGroup);
   }

@@ -968,4 +968,41 @@ border-color:rgba(255,255,255,.18);
 .gallery-counter{
 bottom:22px;
 }
+.logo-loop-container{
+padding:10px 0 26px;
+margin-bottom:12px;
+}
+.logo-group{
+height:auto;
+gap:.9rem;
+padding-right:.9rem;
+}
+.logo-item{
+width:58px;
+height:58px;
+transform:scale(calc(0.74 + 0.36 * var(--focus)));
+}
+.logo-tile{
+border-radius:14px;
+}
+.logo-tile img,
+.logo-tile iconify-icon{
+width:2rem;
+height:2rem;
+font-size:2rem;
+}
+.logo-item:hover .logo-tile img,
+.logo-item:hover .logo-tile iconify-icon{
+opacity:1;
+}
+.logo-name{
+display:none;
+}
+.tech-stack-section::before{
+width:200px;
+height:100px;
+}
+.tech-stack-section::after{
+bottom:14px;
+}
 }
