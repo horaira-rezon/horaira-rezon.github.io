@@ -1321,6 +1321,18 @@ body.no-scroll {
   max-width:calc(100vw - 160px);
   max-height:90vh;
   transition:transform 0.2s ease-out;
+  touch-action:none;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+.media-stage .portal-fullscreen-img.is-zoomed{
+  cursor:grab;
+}
+.media-stage .portal-fullscreen-img.is-dragging{
+  transition:none;
+}
+.media-stage .portal-fullscreen-img.is-zoomed.is-dragging{
+  cursor:grabbing;
 }
 .modal-panel.doc-panel,
 .modal-panel.map-panel{

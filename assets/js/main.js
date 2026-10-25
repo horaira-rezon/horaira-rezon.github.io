@@ -369,12 +369,89 @@ document.addEventListener('DOMContentLoaded', () => {
       variant: 'media-variant',
       inside: '.portal-fullscreen-img'
     });
+    // Zoom with the wheel (or a pinch), and drag to move around a zoomed image.
     let scale = 1;
+    let x = 0;
+    let y = 0;
+    const MIN_SCALE = 1;
+    const MAX_SCALE = 4;
+
+    const clampPan = () => {
+      const maxX = img.offsetWidth * (scale - 1) / 2;
+      const maxY = img.offsetHeight * (scale - 1) / 2;
+      x = Math.min(Math.max(x, -maxX), maxX);
+      y = Math.min(Math.max(y, -maxY), maxY);
+    };
+
+    const apply = () => {
+      clampPan();
+      img.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
+      img.classList.toggle('is-zoomed', scale > 1);
+    };
+
+    const setScale = (next) => {
+      const previous = scale;
+      scale = Math.min(Math.max(MIN_SCALE, next), MAX_SCALE);
+      // Keep the same spot of the image in the middle while zooming.
+      x *= scale / previous;
+      y *= scale / previous;
+      apply();
+    };
+
     overlay.addEventListener('wheel', (e) => {
       e.preventDefault();
-      scale = Math.min(Math.max(1, scale + (e.deltaY > 0 ? -0.15 : 0.15)), 4);
-      img.style.transform = `scale(${scale})`;
+      setScale(scale + (e.deltaY > 0 ? -0.15 : 0.15));
     }, { passive: false });
+
+    img.draggable = false;
+    const pointers = new Map();
+    let drag = null;
+    let pinch = null;
+
+    const pinchDistance = () => {
+      const [a, b] = Array.from(pointers.values());
+      return Math.hypot(a.x - b.x, a.y - b.y);
+    };
+
+    img.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      try { img.setPointerCapture(e.pointerId); } catch (err) {}
+      img.classList.add('is-dragging');
+      if (pointers.size === 2) {
+        drag = null;
+        pinch = { distance: pinchDistance(), scale };
+      } else if (pointers.size === 1) {
+        drag = { startX: e.clientX, startY: e.clientY, x, y };
+      }
+      e.preventDefault();
+    });
+
+    img.addEventListener('pointermove', (e) => {
+      if (!pointers.has(e.pointerId)) return;
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (pinch && pointers.size === 2) {
+        setScale(pinch.scale * pinchDistance() / pinch.distance);
+      } else if (drag && scale > 1) {
+        x = drag.x + (e.clientX - drag.startX);
+        y = drag.y + (e.clientY - drag.startY);
+        apply();
+      }
+    });
+
+    const endPointer = (e) => {
+      if (!pointers.delete(e.pointerId)) return;
+      pinch = null;
+      if (pointers.size === 1) {
+        const [rest] = pointers.values();
+        drag = { startX: rest.x, startY: rest.y, x, y };
+      } else {
+        drag = null;
+        img.classList.remove('is-dragging');
+      }
+    };
+    img.addEventListener('pointerup', endPointer);
+    img.addEventListener('pointercancel', endPointer);
   };
 
   const PDFJS_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
