@@ -192,19 +192,138 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (typingText) type();
 
-  // Hero: the rings and glow behind the name drift slightly with the mouse.
-  const hero = document.getElementById('header');
-  if (hero) {
-    hero.addEventListener('pointermove', (e) => {
+  /* ---------- Hero network ----------
+     Points drift behind the name and link up with fine lines when they
+     come close, like a neural network; near the mouse they connect to the
+     cursor and are gently pushed aside. */
+
+  const heroSection = document.getElementById('header');
+  const heroCanvas = heroSection && heroSection.querySelector('.hero-canvas');
+
+  if (heroCanvas && heroCanvas.getContext) {
+    const ctx = heroCanvas.getContext('2d');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const LINK = 130;
+    const MOUSE_LINK = 170;
+    let width = 0;
+    let height = 0;
+    let points = [];
+    let mouse = null;
+    let running = false;
+    let frame = null;
+    let inView = true;
+
+    const setup = () => {
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      width = heroCanvas.clientWidth;
+      height = heroCanvas.clientHeight;
+      heroCanvas.width = Math.round(width * ratio);
+      heroCanvas.height = Math.round(height * ratio);
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      const count = Math.max(24, Math.min(90, Math.round(width * height / 9000)));
+      points = Array.from({ length: count }, () => {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 0.12 + Math.random() * 0.22;
+        return {
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          r: 0.8 + Math.random() * 1.3
+        };
+      });
+    };
+
+    const draw = () => {
+      ctx.clearRect(0, 0, width, height);
+      for (let i = 0; i < points.length; i++) {
+        const a = points[i];
+        for (let j = i + 1; j < points.length; j++) {
+          const b = points[j];
+          const d = Math.hypot(a.x - b.x, a.y - b.y);
+          if (d < LINK) {
+            ctx.strokeStyle = `rgba(46, 141, 230, ${(1 - d / LINK) * 0.35})`;
+            ctx.lineWidth = 0.8;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+        if (mouse) {
+          const d = Math.hypot(a.x - mouse.x, a.y - mouse.y);
+          if (d < MOUSE_LINK) {
+            ctx.strokeStyle = `rgba(108, 191, 255, ${(1 - d / MOUSE_LINK) * 0.55})`;
+            ctx.lineWidth = 0.9;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(mouse.x, mouse.y);
+            ctx.stroke();
+          }
+        }
+      }
+      points.forEach(p => {
+        ctx.fillStyle = 'rgba(219, 233, 244, 0.75)';
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      });
+    };
+
+    const step = () => {
+      points.forEach(p => {
+        if (mouse) {
+          const dx = p.x - mouse.x;
+          const dy = p.y - mouse.y;
+          const d = Math.hypot(dx, dy);
+          if (d < 90 && d > 0) {
+            p.x += (dx / d) * 0.6;
+            p.y += (dy / d) * 0.6;
+          }
+        }
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > width) p.vx *= -1;
+        if (p.y < 0 || p.y > height) p.vy *= -1;
+        p.x = Math.min(Math.max(p.x, 0), width);
+        p.y = Math.min(Math.max(p.y, 0), height);
+      });
+      draw();
+      frame = requestAnimationFrame(step);
+    };
+
+    const start = () => {
+      if (running || reduceMotion) return;
+      running = true;
+      frame = requestAnimationFrame(step);
+    };
+    const stop = () => {
+      running = false;
+      cancelAnimationFrame(frame);
+    };
+
+    setup();
+    draw();
+    new ResizeObserver(() => {
+      setup();
+      draw();
+    }).observe(heroCanvas);
+    // Only animate while the hero is on screen and the tab is visible.
+    const update = () => {
+      if (inView && !document.hidden) start(); else stop();
+    };
+    new IntersectionObserver((entries) => {
+      inView = entries[0].isIntersecting;
+      update();
+    }).observe(heroSection);
+    document.addEventListener('visibilitychange', update);
+
+    heroSection.addEventListener('pointermove', (e) => {
       if (e.pointerType !== 'mouse') return;
-      const rect = hero.getBoundingClientRect();
-      hero.style.setProperty('--px', ((e.clientX - rect.left) / rect.width * 2 - 1).toFixed(3));
-      hero.style.setProperty('--py', ((e.clientY - rect.top) / rect.height * 2 - 1).toFixed(3));
+      const rect = heroCanvas.getBoundingClientRect();
+      mouse = { x: e.clientX - rect.left, y: e.clientY - rect.top };
     });
-    hero.addEventListener('pointerleave', () => {
-      hero.style.setProperty('--px', 0);
-      hero.style.setProperty('--py', 0);
-    });
+    heroSection.addEventListener('pointerleave', () => { mouse = null; });
   }
 
   /* ---------- Popup windows ---------- */
