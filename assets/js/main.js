@@ -201,6 +201,15 @@ document.addEventListener('DOMContentLoaded', () => {
     return node;
   };
 
+  // Remember whether the last interaction was a mouse/touch press or a key,
+  // so focus is only handed back to the trigger for keyboard users (a
+  // programmatic focus otherwise leaves a stray focus outline behind).
+  let lastInput = 'pointer';
+  window.addEventListener('pointerdown', () => { lastInput = 'pointer'; }, true);
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab' || e.key === 'Enter' || e.key === ' ') lastInput = 'keyboard';
+  }, true);
+
   let scrollLocks = 0;
   const lockScroll = () => {
     if (scrollLocks++ === 0) {
@@ -219,6 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // matching `inside` (the panel, or the image itself) close the window.
   const openModal = ({ content, label, variant = '', inside = '.modal-panel' }) => {
     const trigger = document.activeElement;
+    const openedByKeyboard = lastInput === 'keyboard';
     const overlay = el('div', `modal-overlay ${variant}`.trim());
     overlay.setAttribute('role', 'dialog');
     overlay.setAttribute('aria-modal', 'true');
@@ -260,8 +270,10 @@ document.addEventListener('DOMContentLoaded', () => {
         overlay.classList.add('is-closing');
         unlockScroll();
         setTimeout(() => overlay.remove(), 300);
-        if (trigger && trigger.isConnected && typeof trigger.focus === 'function') {
+        if (openedByKeyboard && trigger && trigger.isConnected && typeof trigger.focus === 'function') {
           trigger.focus({ preventScroll: true });
+        } else if (document.activeElement && typeof document.activeElement.blur === 'function') {
+          document.activeElement.blur();
         }
       }
     });

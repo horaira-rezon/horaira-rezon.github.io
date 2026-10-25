@@ -1415,3 +1415,6 @@ body.no-scroll {
   color:#555;
   font-size:2rem;
 }
+.show-more-btn:focus:not(:focus-visible){
+  outline:none;
+}
