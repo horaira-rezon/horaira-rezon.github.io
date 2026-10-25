@@ -76,7 +76,7 @@ body{
 nav{
   position:relative;
   width:100%;
-  padding:0.2rem 5rem;
+  padding:0.2rem 11%;
   height:40px;
   overflow:hidden;
   transition:height 0.45s cubic-bezier(0.22, 1, 0.36, 1);
@@ -228,8 +228,8 @@ nav.open .nav-links{
 .header-container{
   display:flex;
   align-items:center;
-  margin-left:50px;
-  margin-right:50px;
+  margin-left:max(0px, calc(11% - 75px));
+  margin-right:max(0px, calc(11% - 75px));
   position:relative;
   margin-bottom:100px;
 }
@@ -291,7 +291,7 @@ nav.open .nav-links{
 }
 #about{
   align-items: center;
-  padding:50px 7.5% 0;
+  padding:50px 11% 0;
   margin-bottom: 100px;
 }
 .about-text {
@@ -314,7 +314,7 @@ nav.open .nav-links{
 }
 #skills{
   align-items: center;
-  padding: 0rem 7.5%;
+  padding: 0rem 11%;
   margin-bottom: 100px;
 }
 .title{
@@ -330,7 +330,7 @@ nav.open .nav-links{
   margin-bottom: 2rem;
 }
 #technicality {
-  padding: 0 7.5%;
+  padding: 0 11%;
   margin-bottom: 100px;
 }
 .technicality-container {
@@ -415,7 +415,7 @@ nav.open .nav-links{
   color: #2e8de6;
 }
 #projects {
-  padding: 0 7.5%;
+  padding: 0 11%;
   margin-bottom: 100px;
 }
 .projects-container {
@@ -574,7 +574,7 @@ width: 100%;
   color: #2e8de6;
 }
 #experience {
-  padding: 0 7.5%;
+  padding: 0 11%;
   margin-bottom: 100px;
 }
 .position-header {
@@ -614,7 +614,7 @@ width: 100%;
   color: #7bff8d;
 }
 #honor {
-  padding: 0 7.5%;
+  padding: 0 11%;
   margin-bottom: 100px;
 }
 .media-grid-container {
@@ -868,7 +868,7 @@ body.no-scroll {
   100% { background-position: -200% 0; }
 }
 #contact{
-  padding:0 7.5%;
+  padding:0 11%;
   margin-bottom:50px;
 }
 .contact-panel{
@@ -1111,7 +1111,7 @@ body.no-scroll {
 .site-footer{
   background:#22222242;
   border-top:1px solid #8888882a;
-  padding:28px 7.5%;
+  padding:28px 11%;
 }
 .footer-content{
   display:flex;
@@ -1151,7 +1151,7 @@ body.no-scroll {
   will-change:opacity;
 }
 .modal-overlay:not(.media-variant){
-  padding:40px 7.5%;
+  padding:40px 11%;
 }
 .modal-overlay.is-open{
   opacity:1;
@@ -1205,7 +1205,7 @@ body.no-scroll {
 .modal-close{
   position:fixed;
   top:40px;
-  right:max(12px, calc(7.5% - 54px));
+  right:max(12px, calc(11% - 54px));
   background:rgba(0, 0, 0, 0.5);
   box-shadow:0 4px 12px rgba(0, 0, 0, 0.3);
   border:1px solid #80808033;
