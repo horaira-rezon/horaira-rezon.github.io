@@ -298,6 +298,44 @@ document.addEventListener('DOMContentLoaded', () => {
     box.setAttribute('aria-haspopup', 'dialog');
   });
 
+  // Card chrome: a running number, an arrow, and for experience cards the
+  // latest role (taken from the details) so every card has a meta line.
+  document.querySelectorAll('.page-content .projects-container').forEach(container => {
+    container.querySelectorAll(':scope > .project-box').forEach((box, i) => {
+      box.style.setProperty('--i', i);
+      const header = box.querySelector('.project-header');
+      if (!header) return;
+      if (!header.querySelector(':scope > .project-tag, :scope > .position-tag')) {
+        const roles = box.querySelectorAll('.project-details .project-header');
+        if (roles.length) {
+          const meta = el('div', 'card-meta');
+          roles[0].querySelectorAll('.post-tag, .post-date-tag').forEach(tag => meta.appendChild(tag.cloneNode(true)));
+          if (roles.length > 1) {
+            meta.appendChild(el('span', 'card-more', `+${roles.length - 1} role${roles.length > 2 ? 's' : ''}`));
+          }
+          header.insertBefore(meta, header.firstChild);
+        }
+      }
+      const index = el('span', 'card-index', String(i + 1).padStart(2, '0'));
+      index.setAttribute('aria-hidden', 'true');
+      const arrow = el('span', 'card-arrow');
+      arrow.setAttribute('aria-hidden', 'true');
+      arrow.innerHTML = '<i class="fa-solid fa-arrow-right"></i>';
+      box.insertBefore(index, box.firstChild);
+      header.after(arrow);
+    });
+  });
+
+  // Soft glow that follows the mouse across a card.
+  document.addEventListener('pointermove', (e) => {
+    if (e.pointerType !== 'mouse') return;
+    const box = e.target.closest && e.target.closest('.projects-container > .project-box');
+    if (!box) return;
+    const rect = box.getBoundingClientRect();
+    box.style.setProperty('--mx', `${e.clientX - rect.left}px`);
+    box.style.setProperty('--my', `${e.clientY - rect.top}px`);
+  });
+
   const openDetail = (box) => {
     const header = box.querySelector('.project-header');
     const details = box.querySelector('.project-details');

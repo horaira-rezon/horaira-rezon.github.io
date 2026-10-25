@@ -1530,3 +1530,165 @@ button.doc-action{
 .doc-variant .modal-close{
   top:16px;
 }
+
+/* ---------- Cards (projects / experiences / honors) ---------- */
+.projects-container > .project-box{
+  position:relative;
+  display:grid;
+  grid-template-columns:auto minmax(0, 1fr) auto;
+  align-items:center;
+  column-gap:1.75rem;
+  padding:1.6rem 1.75rem;
+  overflow:hidden;
+  isolation:isolate;
+  cursor:pointer;
+  transition:transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease, box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.35s ease;
+}
+.projects-container > .project-box > .project-details{
+  display:none;
+}
+/* accent bar that grows down the left edge */
+.projects-container > .project-box::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:3px;
+  background:linear-gradient(180deg, #2e8de6, #6cbfff);
+  transform:scaleY(0);
+  transform-origin:top;
+  transition:transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+/* soft glow that follows the mouse */
+.projects-container > .project-box::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background:radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(46, 141, 230, 0.10), transparent 45%);
+  opacity:0;
+  transition:opacity 0.4s ease;
+}
+.projects-container > .project-box:hover{
+  transform:translateY(-3px);
+  border-color:#2e8de659;
+  box-shadow:0 16px 36px rgba(0, 0, 0, 0.35);
+}
+.projects-container > .project-box:hover::before{
+  transform:scaleY(1);
+}
+.projects-container > .project-box:hover::after{
+  opacity:1;
+}
+.card-index{
+  font-size:1.6rem;
+  font-weight:300;
+  letter-spacing:0.05em;
+  line-height:1;
+  color:#ffffff33;
+  font-variant-numeric:tabular-nums;
+  width:4.6rem;
+  padding-right:1.75rem;
+  border-right:1px solid #80808026;
+  align-self:stretch;
+  display:flex;
+  align-items:center;
+  transition:color 0.35s ease;
+}
+.projects-container > .project-box:hover .card-index{
+  color:#2e8de6;
+}
+.projects-container > .project-box .project-header{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:flex-start;
+  gap:0.5rem;
+  margin:0;
+  text-align:left;
+}
+.projects-container > .project-box .project-title{
+  order:2;
+  flex:0 0 100%;
+  margin-top:0.35rem;
+  font-size:1.3rem;
+  font-weight:300;
+  letter-spacing:0.03em;
+  line-height:1.45;
+  text-align:left;
+}
+.projects-container > .project-box .project-header:only-child .project-title,
+.projects-container > .project-box .project-title:first-child{
+  margin-top:0;
+}
+.projects-container > .project-box .project-tag,
+.projects-container > .project-box .position-tag,
+.projects-container > .project-box .post-tag{
+  font-size:0.85rem;
+  padding:0.15rem 0.65rem;
+}
+.projects-container > .project-box .date-tag,
+.projects-container > .project-box .post-date-tag{
+  margin-left:auto;
+  padding:0;
+  font-size:0.9rem;
+}
+.card-meta{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:0.5rem;
+  width:100%;
+}
+.card-more{
+  font-size:0.8rem;
+  font-weight:300;
+  letter-spacing:0.05em;
+  color:#ffffff79;
+  border:1px dashed #80808040;
+  border-radius:20px;
+  padding:0.1rem 0.55rem;
+}
+.card-arrow{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  border:1px solid #80808033;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#ffffffa9;
+  font-size:0.95rem;
+  transition:background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.projects-container > .project-box:hover .card-arrow{
+  background:#2e8de6;
+  border-color:#2e8de6;
+  color:#ffffff;
+  transform:rotate(-45deg);
+}
+/* cards rise in one after another when their section scrolls into view */
+html.js .fade-in:not(.visible) .projects-container > .project-box{
+  opacity:0;
+}
+html.js .fade-in.visible .projects-container > .project-box{
+  animation:cardRise 0.7s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation-delay:calc(var(--i, 0) * 90ms);
+}
+@keyframes cardRise{
+  from{
+    opacity:0;
+    transform:translateY(18px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+@media (prefers-reduced-motion: reduce){
+  html.js .fade-in.visible .projects-container > .project-box{
+    animation:none;
+  }
+}

@@ -840,4 +840,55 @@ min-width:50px;
 .doc-action-text{
 display:none;
 }
+.projects-container > .project-box{
+column-gap:.9rem;
+padding:1rem;
+}
+.projects-container > .project-box:hover{
+transform:none;
+box-shadow:none;
+border-color:#80808026;
+}
+.projects-container > .project-box:hover::before,
+.projects-container > .project-box:hover::after{
+transform:scaleY(0);
+opacity:0;
+}
+.projects-container > .project-box:hover .card-index{
+color:#ffffff33;
+}
+.projects-container > .project-box:hover .card-arrow{
+background:transparent;
+border-color:#80808033;
+color:#ffffffa9;
+transform:none;
+}
+.projects-container > .project-box:active{
+border-color:#2e8de659;
+}
+.card-index{
+font-size:1.1rem;
+width:2.9rem;
+padding-right:.9rem;
+}
+.projects-container > .project-box .project-title{
+font-size:1.08rem;
+line-height:1.4;
+margin-top:.25rem;
+}
+.projects-container > .project-box .project-tag,
+.projects-container > .project-box .position-tag,
+.projects-container > .project-box .post-tag{
+font-size:.8rem;
+padding:.1rem .5rem;
+}
+.projects-container > .project-box .date-tag,
+.projects-container > .project-box .post-date-tag{
+font-size:.8rem;
+}
+.card-arrow{
+width:32px;
+height:32px;
+font-size:.8rem;
+}
 }

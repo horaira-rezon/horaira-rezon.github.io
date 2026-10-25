@@ -52,4 +52,14 @@ color:rgba(0,0,0,.732);
 background:#ffffff4e;
 border-color:#4d4d4d40;
 }
+.projects-container > .project-box:hover{
+border-color:#bcbcbc84;
+}
+.projects-container > .project-box:hover .card-index{
+color:#00000033;
+}
+.projects-container > .project-box:hover .card-arrow{
+border-color:#bcbcbc;
+color:#3c3c3c;
+}
 }

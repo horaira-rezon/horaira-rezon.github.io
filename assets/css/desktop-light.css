@@ -223,3 +223,18 @@ header{
 .doc-pages{
   scrollbar-color:#bcbcbc transparent;
 }
+.card-index{
+  color:#00000033;
+  border-right-color:#bcbcbc84;
+}
+.card-arrow{
+  border-color:#bcbcbc;
+  color:#3c3c3c;
+}
+.card-more{
+  color:#00000079;
+  border-color:#bcbcbc;
+}
+.projects-container > .project-box:hover{
+  box-shadow:0 16px 36px rgba(0, 0, 0, 0.10);
+}
