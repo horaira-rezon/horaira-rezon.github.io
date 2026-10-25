@@ -326,10 +326,43 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Skills: each skill becomes a small tag, and research interests are numbered.
+  document.querySelectorAll('.technicality-container .tech-box').forEach((box, i) => {
+    box.style.setProperty('--i', i);
+  });
+  document.querySelectorAll('.tech-list .skill-value').forEach(value => {
+    const skills = value.textContent.split(',').map(skill => skill.trim()).filter(Boolean);
+    value.replaceChildren(...skills.map(skill => el('span', 'skill-chip', skill)));
+  });
+  document.querySelectorAll('.interest-list li').forEach((item, i) => {
+    const index = el('span', 'interest-index', String(i + 1).padStart(2, '0'));
+    index.setAttribute('aria-hidden', 'true');
+    const text = el('span', 'interest-text');
+    text.append(...item.childNodes);
+    item.append(index, text);
+  });
+
+  // Link buttons: an icon matching the destination, the label, and an arrow.
+  const linkIcon = (href) => {
+    if (/facebook\.com|fb\.me/i.test(href)) return 'fa-brands fa-facebook-f';
+    if (/github\.com/i.test(href)) return 'fa-brands fa-github';
+    if (/linkedin\.com/i.test(href)) return 'fa-brands fa-linkedin-in';
+    if (/doi\.org|researchgate\.net/i.test(href)) return 'fa-regular fa-file-lines';
+    return 'fa-solid fa-globe';
+  };
+  document.querySelectorAll('.page-content .link-button a').forEach(link => {
+    const label = link.textContent.replace('⤴', '').trim();
+    link.classList.add('link-pro');
+    link.innerHTML = `<i class="link-icon ${linkIcon(link.href)}" aria-hidden="true"></i>`
+      + '<span class="link-label"></span>'
+      + '<i class="link-arrow fa-solid fa-arrow-right" aria-hidden="true"></i>';
+    link.querySelector('.link-label').textContent = label;
+  });
+
   // Soft glow that follows the mouse across a card.
   document.addEventListener('pointermove', (e) => {
     if (e.pointerType !== 'mouse') return;
-    const box = e.target.closest && e.target.closest('.projects-container > .project-box');
+    const box = e.target.closest && e.target.closest('.projects-container > .project-box, .technicality-container .tech-box');
     if (!box) return;
     const rect = box.getBoundingClientRect();
     box.style.setProperty('--mx', `${e.clientX - rect.left}px`);
