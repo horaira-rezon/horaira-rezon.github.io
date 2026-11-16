@@ -243,6 +243,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (typingText) type();
 
+  // Hero highlights: count the cards in each section and count up to them.
+  document.querySelectorAll('.hero-stat[data-count]').forEach(stat => {
+    const section = document.querySelector(stat.dataset.count);
+    const total = section ? section.querySelectorAll('.projects-container > .project-box').length : 0;
+    const number = stat.querySelector('strong');
+    const show = (n) => { number.textContent = String(n).padStart(2, '0'); };
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      show(total);
+      return;
+    }
+    show(0);
+    const start = performance.now() + 900;
+    const duration = 1200;
+    const tick = (now) => {
+      const t = Math.min(Math.max((now - start) / duration, 0), 1);
+      show(Math.round(total * (1 - Math.pow(1 - t, 3))));
+      if (t < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  });
+
   /* ---------- Popup windows ---------- */
 
   const el = (tag, className, text) => {

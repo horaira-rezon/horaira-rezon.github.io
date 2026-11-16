@@ -1109,4 +1109,45 @@ padding:0 6px;
 width:16px;
 height:16px;
 }
+#header .header-text{
+text-align:center;
+align-items:center;
+padding-left:0;
+}
+#header .greet{
+font-size:1.4rem;
+}
+#header .profile-img{
+max-height:44svh;
+}
+.hero-role{
+margin:.5rem 0 .2rem;
+font-size:.72rem;
+letter-spacing:.14em;
+}
+#header .typewriter{
+margin:0 auto;
+justify-content:center;
+font-size:1.05rem;
+height:2rem;
+}
+#header .hero-actions{
+justify-content:center;
+}
+.hero-stats{
+justify-content:center;
+gap:1.8rem;
+margin-top:1.3rem;
+padding-top:1rem;
+}
+.hero-stat{
+align-items:center;
+}
+.hero-stat strong{
+font-size:1.5rem;
+}
+.hero-stat span{
+font-size:.62rem;
+letter-spacing:.14em;
+}
 }

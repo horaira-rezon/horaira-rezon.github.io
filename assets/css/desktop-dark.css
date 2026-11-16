@@ -2084,11 +2084,86 @@ html.js .slide-up.visible .technicality-container .tech-box{
   mask-image:linear-gradient(to bottom, #000 80%, transparent 100%), linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
   mask-composite:intersect;
 }
+/* text column: left-aligned beside the photo */
 #header .header-text{
   overflow:visible;
+  text-align:left;
+  align-items:flex-start;
+  padding-left:2rem;
+}
+#header .greet{
+  font-size:1.6rem;
+  margin-bottom:0.2rem;
 }
 #header .name{
-  text-shadow:0 0 42px rgba(46, 141, 230, 0.22);
+  line-height:1.15;
+  letter-spacing:0.01em;
+}
+/* surname in the site's blue with a slow light sheen moving across it */
+.name-accent{
+  background:linear-gradient(100deg, #2e8de6 0%, #2e8de6 35%, #9fd3ff 50%, #2e8de6 65%, #2e8de6 100%);
+  background-size:250% 100%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  -webkit-text-fill-color:transparent;
+  animation:nameSheen 6s ease-in-out infinite;
+}
+@keyframes nameSheen{
+  0%{ background-position:100% 0; }
+  60%, 100%{ background-position:0% 0; }
+}
+.hero-role{
+  margin:0.9rem 0 0.4rem;
+  font-size:0.95rem;
+  font-weight:400;
+  letter-spacing:0.24em;
+  text-transform:uppercase;
+  color:rgba(255, 255, 255, 0.5);
+}
+.hero-role span{
+  margin:0 0.45em;
+  color:#2e8de6;
+}
+#header .typewriter{
+  margin:0;
+  justify-content:flex-start;
+  font-size:1.6rem;
+  height:3rem;
+}
+#header .hero-actions{
+  justify-content:flex-start;
+}
+/* highlights row under the buttons */
+.hero-stats{
+  display:flex;
+  gap:3rem;
+  margin-top:2.6rem;
+  padding-top:1.6rem;
+  border-top:1px solid rgba(255, 255, 255, 0.08);
+}
+.hero-stat{
+  display:flex;
+  flex-direction:column;
+  gap:0.35rem;
+  text-decoration:none;
+}
+.hero-stat strong{
+  font-size:2.1rem;
+  font-weight:500;
+  line-height:1;
+  color:#f2f2f2;
+  font-variant-numeric:tabular-nums;
+  transition:color 0.3s ease;
+}
+.hero-stat span{
+  font-size:0.72rem;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:rgba(255, 255, 255, 0.45);
+}
+.hero-stat:hover strong{
+  color:#2e8de6;
 }
 /* call-to-action buttons */
 .hero-actions{
@@ -2153,14 +2228,18 @@ html.js #header .profile-img{
 }
 html.js #header .greet,
 html.js #header .name,
+html.js #header .hero-role,
 html.js #header .typewriter,
-html.js #header .hero-actions{
+html.js #header .hero-actions,
+html.js #header .hero-stats{
   animation:heroRise 0.9s cubic-bezier(0.22, 1, 0.36, 1) backwards;
 }
 html.js #header .greet{ animation-delay:0.25s; }
-html.js #header .name{ animation-delay:0.4s; }
-html.js #header .typewriter{ animation-delay:0.55s; }
-html.js #header .hero-actions{ animation-delay:0.7s; }
+html.js #header .name{ animation-delay:0.38s; }
+html.js #header .hero-role{ animation-delay:0.5s; }
+html.js #header .typewriter{ animation-delay:0.6s; }
+html.js #header .hero-actions{ animation-delay:0.72s; }
+html.js #header .hero-stats{ animation-delay:0.85s; }
 @keyframes heroRise{
   from{ opacity:0; transform:translateY(22px); }
   to{ opacity:1; transform:none; }
@@ -2173,8 +2252,11 @@ html.js #header .hero-actions{ animation-delay:0.7s; }
   html.js #header .profile-img,
   html.js #header .greet,
   html.js #header .name,
+  html.js #header .hero-role,
   html.js #header .typewriter,
-  html.js #header .hero-actions{
+  html.js #header .hero-actions,
+  html.js #header .hero-stats,
+  .name-accent{
     animation:none;
   }
 }
