@@ -381,7 +381,9 @@ header{
   color:#000000;
 }
 .funding-doc{
-  color:#1f6fc4;
+  color:#333333;
+  border-color:rgba(0, 0, 0, 0.22);
+  background:rgba(0, 0, 0, 0.04);
 }
 .funding-doc:hover{
   color:#ffffff;
