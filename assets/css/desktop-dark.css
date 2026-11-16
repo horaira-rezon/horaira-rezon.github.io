@@ -2711,3 +2711,16 @@ html.nav-open.lenis-stopped{
 .media-stage .portal-fullscreen-img.is-loading{
   filter:blur(3px);
 }
+/* HR logo in the navigation bar */
+#site-header .logo-img{
+  display:block;
+  width:36px;
+  height:36px;
+  border-radius:9px;
+  box-shadow:0 0 0 1px rgba(255, 255, 255, 0.1);
+  transition:transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+}
+#site-header .logo:hover .logo-img{
+  transform:scale(1.06);
+  box-shadow:0 0 0 1px #2e8de6;
+}

@@ -1151,4 +1151,9 @@ font-size:1.5rem;
 font-size:.62rem;
 letter-spacing:.14em;
 }
+#site-header .logo-img{
+width:32px;
+height:32px;
+border-radius:8px;
+}
 }
