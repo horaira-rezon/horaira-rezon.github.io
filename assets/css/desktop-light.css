@@ -380,3 +380,9 @@ header{
 #site-header.is-scrolled .logo:hover .logo-text{
   color:#000000;
 }
+.funding-doc{
+  color:#1f6fc4;
+}
+.funding-doc:hover{
+  color:#ffffff;
+}
