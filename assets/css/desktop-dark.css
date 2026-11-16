@@ -2126,8 +2126,9 @@ html.js .slide-up.visible .technicality-container .tech-box{
   color:rgba(255, 255, 255, 0.5);
 }
 .hero-role span{
-  margin:0 0.45em;
-  color:#2e8de6;
+  margin:0 0.6em;
+  color:rgba(255, 255, 255, 0.35);
+  font-weight:300;
 }
 #header .typewriter{
   margin:0;
