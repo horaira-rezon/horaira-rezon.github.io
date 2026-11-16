@@ -495,13 +495,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- Media: images, documents, maps ---------- */
 
-  // Light copies of the gallery photos, made by tools/make-images.py:
-  // assets/images/thumbs/... for the gallery tiles and
-  // assets/images/large/... for the image viewer. If a copy is missing the
-  // original is used instead.
-  const imageVariant = (src, kind) => (src.startsWith('assets/images/')
-    ? src.replace(/^assets\/images\//, `assets/images/${kind}/`).replace(/\.[^./]+$/, '.jpg')
-    : src);
+  // Light versions of the gallery photos come from the free wsrv.nl image
+  // service, which resizes each photo straight from its public URL and caches
+  // the result, so new photos need no extra step. 'thumbs' are small (gallery
+  // tiles), 'large' is viewer-sized. On a local preview the service can't
+  // reach the photos, so the original is used; it is also the fallback if
+  // the service ever fails.
+  const IMAGE_SIZES = { thumbs: 'w=640&h=640&q=70', large: 'w=2000&h=2000&q=82' };
+  const isLocalPage = /^(localhost|127\.0\.0\.1|\[::1\]|)$/.test(location.hostname);
+  const imageVariant = (src, kind) => {
+    if (isLocalPage || !IMAGE_SIZES[kind]) return src;
+    const url = new URL(src, location.href).href;
+    return `https://wsrv.nl/?url=${encodeURIComponent(url)}&${IMAGE_SIZES[kind]}&fit=inside&we&output=jpg`;
+  };
 
   // Point the (hidden) gallery images on the page at their thumbnails now.
   // Hidden lazy images are not downloaded, and every popup copy of a card
