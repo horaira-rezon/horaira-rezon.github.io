@@ -425,6 +425,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const body = details.cloneNode(true);
     body.classList.add('project-popup-body');
     body.querySelectorAll('br').forEach(br => br.remove());
+    // Tiles show thumbnails (set up at page load); fall back to the original
+    // if a thumbnail is missing.
+    body.querySelectorAll('.gallery-wrapper[data-type="image"]').forEach(wrapper => {
+      const thumb = wrapper.querySelector('img');
+      const original = wrapper.dataset.src;
+      if (!thumb || !original) return;
+      thumb.addEventListener('error', () => {
+        if (thumb.getAttribute('src') !== original) thumb.src = original;
+      });
+    });
     body.querySelectorAll('.media-grid-container').forEach(grid => {
       const count = grid.children.length;
       const head = el('div', 'gallery-head');
@@ -485,15 +495,75 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- Media: images, documents, maps ---------- */
 
+  // Light copies of the gallery photos, made by tools/make-images.py:
+  // assets/images/thumbs/... for the gallery tiles and
+  // assets/images/large/... for the image viewer. If a copy is missing the
+  // original is used instead.
+  const imageVariant = (src, kind) => (src.startsWith('assets/images/')
+    ? src.replace(/^assets\/images\//, `assets/images/${kind}/`).replace(/\.[^./]+$/, '.jpg')
+    : src);
+
+  // Point the (hidden) gallery images on the page at their thumbnails now.
+  // Hidden lazy images are not downloaded, and every popup copy of a card
+  // then starts from the small file instead of the full-size photo.
+  document.querySelectorAll('.page-content .gallery-wrapper[data-type="image"]').forEach(wrapper => {
+    const img = wrapper.querySelector('img');
+    if (img && wrapper.dataset.src) img.src = imageVariant(wrapper.dataset.src, 'thumbs');
+  });
+
   // gallery: every image source in the same gallery, so the viewer can step
   // through them with the arrows, the arrow keys or a swipe.
   const openImage = (src, gallery = [src]) => {
     let current = Math.max(0, gallery.indexOf(src));
     const stage = el('div', 'media-stage');
     const img = el('img', 'portal-fullscreen-img');
-    img.src = src;
     img.alt = '';
     stage.appendChild(img);
+
+    // Size the image box from the thumbnail so the sharper copy can be
+    // swapped in later without anything jumping.
+    const fit = () => {
+      if (!img.naturalWidth) return;
+      const maxWidth = window.innerWidth - (isMobile() ? 32 : 160);
+      const maxHeight = window.innerHeight * (isMobile() ? 0.85 : 0.9);
+      const ratio = img.naturalWidth / img.naturalHeight;
+      const width = Math.min(maxWidth, maxHeight * ratio);
+      img.style.width = `${width}px`;
+      img.style.height = `${width / ratio}px`;
+    };
+    img.addEventListener('load', fit);
+
+    // Show the thumbnail straight away (it is usually cached from the tile),
+    // then the larger copy once it has downloaded. The token ignores loads
+    // that finish after the viewer has already moved to another image.
+    let loadToken = 0;
+    const loadInto = (original) => {
+      const token = ++loadToken;
+      img.classList.add('is-loading');
+      img.onerror = () => {
+        if (token === loadToken && img.getAttribute('src') !== original) img.src = original;
+      };
+      img.src = imageVariant(original, 'thumbs');
+      const sharp = (url, fallback) => {
+        const preload = new Image();
+        preload.onload = () => {
+          if (token !== loadToken) return;
+          img.src = url;
+          img.classList.remove('is-loading');
+        };
+        preload.onerror = () => {
+          if (token !== loadToken) return;
+          if (fallback) {
+            sharp(fallback, null);
+          } else {
+            img.classList.remove('is-loading');
+          }
+        };
+        preload.src = url;
+      };
+      sharp(imageVariant(original, 'large'), original);
+    };
+    loadInto(src);
 
     const hasGallery = gallery.length > 1;
     const counter = el('div', 'gallery-counter');
@@ -547,13 +617,7 @@ document.addEventListener('DOMContentLoaded', () => {
       x = 0;
       y = 0;
       apply();
-      img.classList.add('is-switching');
-      const nextImage = new Image();
-      nextImage.onload = nextImage.onerror = () => {
-        img.src = gallery[current];
-        img.classList.remove('is-switching');
-      };
-      nextImage.src = gallery[current];
+      loadInto(gallery[current]);
       counter.textContent = `${current + 1} / ${gallery.length}`;
     };
     counter.textContent = `${current + 1} / ${gallery.length}`;

@@ -118,6 +118,16 @@ Then visit `http://localhost:8000` in your browser.
 1. Open the project folder in VS Code.
 2. Right-click `index.html` → **Open with Live Server**.
 
+### Adding Gallery Photos
+
+Gallery tiles and the image viewer use light copies of each photo so pages stay fast. After adding a photo to a gallery in `index.html`, run:
+
+```bash
+python3 tools/make-images.py
+```
+
+This writes a small thumbnail to `assets/images/thumbs/` and a viewer-sized copy to `assets/images/large/` (originals are never changed). It needs [Pillow](https://pypi.org/project/pillow/) (`pip install Pillow`).
+
 ### Deploying Your Own Copy
 
 Since this is a static site, it can be deployed anywhere without a build step:

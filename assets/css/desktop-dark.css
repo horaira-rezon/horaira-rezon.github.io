@@ -2613,3 +2613,10 @@ html.nav-open.lenis-stopped{
   width:18px;
   height:18px;
 }
+/* image viewer: soften the low-res thumbnail until the sharp copy arrives */
+.media-stage .portal-fullscreen-img{
+  transition:transform 0.2s ease-out, opacity 0.25s ease, filter 0.3s ease;
+}
+.media-stage .portal-fullscreen-img.is-loading{
+  filter:blur(3px);
+}
