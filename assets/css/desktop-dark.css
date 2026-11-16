@@ -2714,9 +2714,9 @@ html.nav-open.lenis-stopped{
 /* HR logo in the navigation bar */
 #site-header .logo-img{
   display:block;
-  width:36px;
-  height:36px;
-  border-radius:9px;
+  width:26px;
+  height:26px;
+  border-radius:7px;
   box-shadow:0 0 0 1px rgba(255, 255, 255, 0.1);
   transition:transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
 }
