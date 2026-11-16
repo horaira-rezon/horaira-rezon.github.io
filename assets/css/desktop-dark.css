@@ -2076,20 +2076,6 @@ html.js .slide-up.visible .technicality-container .tech-box{
   max-width:500px;
   max-height:calc(100% - 64px);
 }
-/* drifting network of points behind the name (drawn by main.js) */
-.hero-canvas{
-  position:absolute;
-  top:0;
-  bottom:0;
-  left:38%;
-  right:0;
-  width:62%;
-  height:100%;
-  z-index:0;
-  pointer-events:none;
-  -webkit-mask-image:radial-gradient(ellipse 58% 62% at 52% 50%, #000 25%, transparent 78%);
-  mask-image:radial-gradient(ellipse 58% 62% at 52% 50%, #000 25%, transparent 78%);
-}
 /* the photo melts into the black background */
 #header .profile-img{
   position:relative;
@@ -2175,9 +2161,6 @@ html.js #header .greet{ animation-delay:0.25s; }
 html.js #header .name{ animation-delay:0.4s; }
 html.js #header .typewriter{ animation-delay:0.55s; }
 html.js #header .hero-actions{ animation-delay:0.7s; }
-html.js #header .hero-canvas{
-  animation:heroFade 2s ease 0.3s backwards;
-}
 @keyframes heroRise{
   from{ opacity:0; transform:translateY(22px); }
   to{ opacity:1; transform:none; }
@@ -2186,17 +2169,12 @@ html.js #header .hero-canvas{
   from{ opacity:0; transform:translateY(16px) scale(1.03); }
   to{ opacity:1; transform:none; }
 }
-@keyframes heroFade{
-  from{ opacity:0; }
-  to{ opacity:1; }
-}
 @media (prefers-reduced-motion: reduce){
   html.js #header .profile-img,
   html.js #header .greet,
   html.js #header .name,
   html.js #header .typewriter,
-  html.js #header .hero-actions,
-  html.js #header .hero-canvas{
+  html.js #header .hero-actions{
     animation:none;
   }
 }
