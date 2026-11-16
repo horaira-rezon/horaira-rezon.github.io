@@ -245,8 +245,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- Hero network ----------
      Faint points drift behind the name and are linked by fine lines when
-     close, like a sensor or neural network; now and then a small pulse of
-     light travels along one of the links. */
+     close, like a sensor or neural network; now and then one of the links
+     briefly brightens. */
 
   const heroSection = document.getElementById('header');
   const heroCanvas = heroSection && heroSection.querySelector('.hero-canvas');
@@ -313,7 +313,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }
       }
-      ctx.fillStyle = 'rgba(176, 198, 222, 0.55)';
+      ctx.fillStyle = 'rgba(200, 200, 200, 0.35)';
       points.forEach(p => {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
@@ -329,15 +329,6 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.moveTo(a.x, a.y);
         ctx.lineTo(b.x, b.y);
         ctx.stroke();
-        const x = a.x + (b.x - a.x) * pulse.t;
-        const y = a.y + (b.y - a.y) * pulse.t;
-        const glow = ctx.createRadialGradient(x, y, 0, x, y, 7);
-        glow.addColorStop(0, 'rgba(108, 191, 255, 0.9)');
-        glow.addColorStop(1, 'rgba(108, 191, 255, 0)');
-        ctx.fillStyle = glow;
-        ctx.beginPath();
-        ctx.arc(x, y, 7, 0, Math.PI * 2);
-        ctx.fill();
       });
     };
 
