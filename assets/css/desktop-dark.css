@@ -2136,17 +2136,26 @@ html.js .slide-up.visible .technicality-container .tech-box{
 }
 /* highlights row under the buttons */
 .hero-stats{
-  display:flex;
-  gap:3rem;
-  margin-top:2.6rem;
-  padding-top:1.6rem;
-  border-top:1px solid rgba(255, 255, 255, 0.08);
+  display:inline-grid;
+  grid-template-columns:repeat(3, minmax(9rem, 1fr));
+  margin-top:2.4rem;
+  padding:1.1rem 0;
+  border:1px solid rgba(255, 255, 255, 0.08);
+  border-radius:14px;
+  background:rgba(255, 255, 255, 0.02);
 }
+/* number centered above its label, thin dividers between the three */
 .hero-stat{
   display:flex;
   flex-direction:column;
-  gap:0.35rem;
+  align-items:center;
+  gap:0.45rem;
+  padding:0 1.8rem;
+  text-align:center;
   text-decoration:none;
+}
+.hero-stat + .hero-stat{
+  border-left:1px solid rgba(255, 255, 255, 0.08);
 }
 .hero-stat strong{
   font-size:2.1rem;
