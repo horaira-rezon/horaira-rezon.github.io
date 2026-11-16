@@ -2091,6 +2091,8 @@ html.js .slide-up.visible .technicality-container .tech-box{
   text-align:left;
   align-items:flex-start;
   padding-left:2rem;
+  /* let the column set the width; the name is then sized to fit it */
+  min-width:0;
 }
 #header .greet{
   font-size:1.6rem;
@@ -2099,6 +2101,7 @@ html.js .slide-up.visible .technicality-container .tech-box{
 #header .name{
   line-height:1.15;
   letter-spacing:0.01em;
+  white-space:nowrap;
 }
 /* surname in the site's blue with a slow light sheen moving across it */
 .name-accent{
@@ -2714,18 +2717,21 @@ html.nav-open.lenis-stopped{
 .media-stage .portal-fullscreen-img.is-loading{
   filter:blur(3px);
 }
-/* HR logo in the navigation bar */
-#site-header .logo-img{
-  display:block;
-  width:26px;
-  height:26px;
-  border-radius:7px;
-  box-shadow:0 0 0 1px rgba(255, 255, 255, 0.1);
-  transition:transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+/* name wordmark in the navigation bar: "Horaira" plus "Rezon" in blue */
+#site-header .logo-text{
+  font-size:1.2rem;
+  font-weight:600;
+  letter-spacing:0.01em;
 }
-#site-header .logo:hover .logo-img{
-  transform:scale(1.06);
-  box-shadow:0 0 0 1px #2e8de6;
+#site-header .logo-accent{
+  color:#2e8de6;
+  transition:color 0.3s ease;
+}
+#site-header .logo:hover .logo-text{
+  color:#ffffff;
+}
+#site-header .logo:hover .logo-accent{
+  color:#6cbfff;
 }
 /* "Funded by ..." line under a funded project's title */
 .funding-line{

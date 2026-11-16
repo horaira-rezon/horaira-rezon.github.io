@@ -377,3 +377,6 @@ header{
 .funding-line strong{
   color:#111111;
 }
+#site-header.is-scrolled .logo:hover .logo-text{
+  color:#000000;
+}

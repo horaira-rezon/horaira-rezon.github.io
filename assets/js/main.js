@@ -243,6 +243,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (typingText) type();
 
+  // Desktop: size the name so it spans exactly the width of the highlights
+  // box below it (same left and right edges). Phones keep their own size.
+  const heroName = document.querySelector('#header .name');
+  const heroStats = document.querySelector('.hero-stats');
+  const fitHeroName = () => {
+    if (!heroName || !heroStats) return;
+    heroName.style.fontSize = '';
+    if (isMobile()) return;
+    const range = document.createRange();
+    range.selectNodeContents(heroName);
+    const textWidth = range.getBoundingClientRect().width;
+    const target = heroStats.getBoundingClientRect().width;
+    if (!textWidth || !target) return;
+    const size = parseFloat(getComputedStyle(heroName).fontSize);
+    heroName.style.fontSize = `${(size * target / textWidth).toFixed(2)}px`;
+  };
+  fitHeroName();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitHeroName);
+  let fitTimer = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(fitTimer);
+    fitTimer = setTimeout(fitHeroName, 120);
+  });
+
   // Hero highlights: count the cards in each section and count up to them.
   document.querySelectorAll('.hero-stat[data-count]').forEach(stat => {
     const section = document.querySelector(stat.dataset.count);
