@@ -1001,10 +1001,6 @@ display:none;
 .tech-stack-section{
 overflow:visible;
 }
-.tech-stack-section::before{
-width:280px;
-height:170px;
-}
 .hero-canvas{
 left:0;
 top:50%;

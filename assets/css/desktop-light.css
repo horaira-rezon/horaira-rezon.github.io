@@ -291,9 +291,6 @@ header{
 .logo-name{
   color:#000000a9;
 }
-.tech-stack-section::before{
-  background:radial-gradient(closest-side, rgba(46, 141, 230, 0.14), rgba(46, 141, 230, 0.05) 55%, transparent);
-}
 /* navigation: light glass once scrolled or with the menu open */
 #site-header::before{
   background:rgba(255, 255, 255, 0.8);
