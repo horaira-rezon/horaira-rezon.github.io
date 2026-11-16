@@ -474,7 +474,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     body.querySelectorAll('.auto-link-preview').forEach(renderLinkPreview);
     if (tags.children.length) popup.appendChild(tags);
-    popup.append(el('div', 'project-popup-title', title), el('div', 'project-popup-divider'), body);
+    popup.appendChild(el('div', 'project-popup-title', title));
+    const funding = header.querySelector('.funding-line');
+    if (funding) popup.appendChild(funding.cloneNode(true));
+    popup.append(el('div', 'project-popup-divider'), body);
     scroll.appendChild(popup);
     openModal({ content: panel, label: title || 'Details' });
   };
@@ -984,14 +987,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const lat = coordMatch[2];
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
+    // Both links open the phone's maps app when it is installed (Apple Maps on
+    // iPhone, Google Maps elsewhere) and the maps website otherwise.
     return isIOS
       ? `https://maps.apple.com/?ll=${lat},${lng}&q=${encodeURIComponent(label)}`
-      : `geo:${lat},${lng}?q=${lat},${lng}(${encodeURIComponent(label)})`;
+      : `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
   };
 
   const openMap = (mapSrc) => {
     if (isMobile()) {
-      window.location.href = getNativeMapUrl(mapSrc);
+      window.open(getNativeMapUrl(mapSrc), '_blank', 'noopener');
       return;
     }
     const panel = el('div', 'modal-panel map-panel');
@@ -1091,7 +1096,13 @@ document.addEventListener('DOMContentLoaded', () => {
           : [media.dataset.src];
         openImage(media.dataset.src, gallery);
       } else if (type === 'pdf') {
-        openDocument(media.dataset.src, mediaTitle(media));
+        // Phones open PDFs in their own PDF viewer; desktops use the
+        // built-in document window.
+        if (isMobile()) {
+          window.open(media.dataset.src, '_blank', 'noopener');
+        } else {
+          openDocument(media.dataset.src, mediaTitle(media));
+        }
       } else if (type === 'link' && media.dataset.url) {
         window.open(media.dataset.url, '_blank', 'noopener');
       }

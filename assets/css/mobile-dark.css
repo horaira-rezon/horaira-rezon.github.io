@@ -276,6 +276,7 @@ font-size: 1.1rem;
 .tech-box li{
 font-size: 1.1rem;
 }
+#funded,
 #projects{
 padding:0 1.2rem;
 margin-bottom:4.5rem;
@@ -1135,14 +1136,26 @@ height:2rem;
 justify-content:center;
 }
 .hero-stats{
-grid-template-columns:repeat(3, 1fr);
+grid-template-columns:repeat(2, 1fr);
 width:100%;
 max-width:340px;
 margin-top:1.3rem;
-padding:.8rem 0;
+padding:0;
 }
 .hero-stat{
-padding:0 .5rem;
+padding:.7rem .5rem;
+}
+.hero-stat + .hero-stat{
+border-left:none;
+}
+.hero-stat:nth-child(even){
+border-left:1px solid rgba(255,255,255,.08);
+}
+.hero-stat:nth-child(n+3){
+border-top:1px solid rgba(255,255,255,.08);
+}
+.funding-line{
+font-size:.85rem;
 }
 .hero-stat strong{
 font-size:1.5rem;

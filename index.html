@@ -11,10 +11,10 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <meta name="theme-color" content="#1c1c1c">
 
-  <link rel="stylesheet" href="assets/css/desktop-dark.css?v=20261117c">
-  <link rel="stylesheet" href="assets/css/mobile-dark.css?v=20261117c" media="screen and (max-width: 768px)">
-  <link id="theme-style" rel="stylesheet" href="assets/css/desktop-light.css?v=20261117c" disabled>
-  <link id="mobile-theme-style" rel="stylesheet" href="assets/css/mobile-light.css?v=20261117c" media="screen and (max-width: 768px)" disabled>
+  <link rel="stylesheet" href="assets/css/desktop-dark.css?v=20261117d">
+  <link rel="stylesheet" href="assets/css/mobile-dark.css?v=20261117d" media="screen and (max-width: 768px)">
+  <link id="theme-style" rel="stylesheet" href="assets/css/desktop-light.css?v=20261117d" disabled>
+  <link id="mobile-theme-style" rel="stylesheet" href="assets/css/mobile-light.css?v=20261117d" media="screen and (max-width: 768px)" disabled>
   <script>
     document.documentElement.classList.add("js");
     (function(){
@@ -60,7 +60,8 @@
       <li class="nav-eyebrow" aria-hidden="true">Menu</li>
       <li><a href="#about">About Me</a></li>
       <li><a href="#technicality">Skills & Interests</a></li>
-      <li><a href="#projects">Projects</a></li>
+      <li><a href="#funded">Funded Projects</a></li>
+      <li><a href="#projects">Self Projects</a></li>
       <li><a href="#experience">Experiences</a></li>
       <li><a href="#honor">Honor & Awards</a></li>
       <li><a href="#contact">Contact Me</a></li>
@@ -90,12 +91,13 @@
             <span id="typing-text"></span>
         </div>
         <div class="hero-actions">
-            <a href="#projects" class="hero-btn hero-btn-primary">View My Work <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            <a href="#funded" class="hero-btn hero-btn-primary">View My Work <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
             <button type="button" class="hero-btn hero-btn-ghost clickable-media" data-type="pdf" data-src="assets/pdf/CV-horaira-rezon.pdf" data-title="Curriculum Vitae"><i class="fa-regular fa-file-lines" aria-hidden="true"></i> View CV</button>
         </div>
         <!-- the numbers are counted from the cards on the page by main.js -->
         <div class="hero-stats">
-            <a href="#projects" class="hero-stat" data-count="#projects"><strong>0</strong><span>Projects</span></a>
+            <a href="#funded" class="hero-stat" data-count="#funded"><strong>0</strong><span>Funded Projects</span></a>
+            <a href="#projects" class="hero-stat" data-count="#projects"><strong>0</strong><span>Self Projects</span></a>
             <a href="#experience" class="hero-stat" data-count="#experience"><strong>0</strong><span>Experiences</span></a>
             <a href="#honor" class="hero-stat" data-count="#honor"><strong>0</strong><span>Honors &amp; Awards</span></a>
         </div>
@@ -143,8 +145,40 @@ I've worked on diverse projects including disease prediction, smart irrigation, 
   </div>
 </section>
 
+<section id="funded" class="section fade-in">
+  <div class="title" align="center">Funded Projects</div>
+  <hr class="line">
+  <div class="projects-container">
+    <div class="project-box">
+        <div class="project-header">
+            <span class="project-tag">Machine Learning</span>
+            <span class="project-tag">IoT</span>
+            <div class="project-title">
+                <span>Prediction of Early Blight Disease in Potato using Machine Learning</span>
+            </div>
+            <div class="funding-line">
+                <i class="fa-solid fa-building-columns funding-icon" aria-hidden="true"></i>
+                <span class="funding-text">Funded by <strong>Bangladesh Agricultural Research Institute (BARI)</strong></span>
+                <button type="button" class="funding-doc clickable-media" data-type="pdf" data-src="assets/pdf/awards/BARI-idea-comp-25/BARI-certificate.pdf" data-title="BARI Grand Finale" aria-label="View funding document" title="View funding document"><i class="fa-regular fa-file-lines" aria-hidden="true"></i></button>
+            </div>
+        </div>
+        <div class="project-details">
+        <p>Potato (Solanum tuberosum L.) is one of the most vital crops in Bangladesh but is highly susceptible to early blight. (Chothani, et al., 2017) found that early blight severity increases significantly under higher temperature (35-38°C), lower evening humidity (30-58%), and moderate wind speed (1.2-2.2 km/h). Relative humidity more than 90% for 5 to 6 hours accelerates spore germination. (Cowgill, et al., 2005) Weather data can be used to predict early blight as the fungal activity majorly depends on the environment.</p>
+        <p>To combat this significant agricultural challenge, our team is developing an advanced predictive model for Early Blight. Our approach aims to empower farmers with timely, data-driven insights for disease management. The main objective of this study is to develop an AI-powered early warning system that predicts the risk of early blight in potato crops using real-time microclimatic data from a portable mini weather station.</p>
+        <p>We've focused on creating a solution that is both practical and scalable, ensuring it can be effectively deployed across diverse farming conditions in Bangladesh. This not only promotes precise disease management decisions but also supports environmental sustainability by potentially reducing the indiscriminate use of fungicides.</p>
+        <ul class="project-list">
+          <li>Practical and scalable solution for managing early blight in potatoes was designed and implemented.</li>
+          <li>Precise, data-driven decision-making was promoted, supporting environmental sustainability.</li>
+        </ul>
+        <br>
+        <span class="link-button"><a href="http://dx.doi.org/10.13140/RG.2.2.15058.88001" target="_blank">Poster Link ⤴</a></span>
+        </div>
+    </div>
+  </div>
+</section>
+
 <section id="projects" class="section fade-in">
-  <div class="title" align="center">Projects</div>
+  <div class="title" align="center">Self Projects</div>
   <hr class="line">
   <div class="projects-container">
     <div class="project-box">
@@ -267,26 +301,6 @@ I've worked on diverse projects including disease prediction, smart irrigation, 
         </ul>
         <br>
         <span class="link-button"><a href="https://github.com/horaira-rezon/Vision-Inference-Studio" target="_blank">Open Project ⤴</a></span>
-        </div>
-    </div>
-    <div class="project-box">
-        <div class="project-header">
-            <span class="project-tag">Machine Learning</span>
-            <span class="project-tag">IoT</span>
-            <div class="project-title">
-                <span>Prediction of Early Blight Disease in Potato using Machine Learning</span>
-            </div>
-        </div>
-        <div class="project-details">
-        <p>Potato (Solanum tuberosum L.) is one of the most vital crops in Bangladesh but is highly susceptible to early blight. (Chothani, et al., 2017) found that early blight severity increases significantly under higher temperature (35-38°C), lower evening humidity (30-58%), and moderate wind speed (1.2-2.2 km/h). Relative humidity more than 90% for 5 to 6 hours accelerates spore germination. (Cowgill, et al., 2005) Weather data can be used to predict early blight as the fungal activity majorly depends on the environment.</p>
-        <p>To combat this significant agricultural challenge, our team is developing an advanced predictive model for Early Blight. Our approach aims to empower farmers with timely, data-driven insights for disease management. The main objective of this study is to develop an AI-powered early warning system that predicts the risk of early blight in potato crops using real-time microclimatic data from a portable mini weather station.</p>
-        <p>We've focused on creating a solution that is both practical and scalable, ensuring it can be effectively deployed across diverse farming conditions in Bangladesh. This not only promotes precise disease management decisions but also supports environmental sustainability by potentially reducing the indiscriminate use of fungicides.</p>
-        <ul class="project-list">
-          <li>Practical and scalable solution for managing early blight in potatoes was designed and implemented.</li>
-          <li>Precise, data-driven decision-making was promoted, supporting environmental sustainability.</li>
-        </ul>
-        <br>
-        <span class="link-button"><a href="http://dx.doi.org/10.13140/RG.2.2.15058.88001" target="_blank">Poster Link ⤴</a></span>
         </div>
     </div>
     <div class="project-box">
@@ -785,7 +799,7 @@ I've worked on diverse projects including disease prediction, smart irrigation, 
 
 <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
 <script src="https://unpkg.com/lenis@1.3.11/dist/lenis.min.js"></script>
-<script src="assets/js/main.js?v=20261117c"></script>
+<script src="assets/js/main.js?v=20261117d"></script>
 </body>
 </html>
 
@@ -794,6 +808,6 @@ I've worked on diverse projects including disease prediction, smart irrigation, 
 Else, if you want to show the project by default; for the 1st, 2nd, and 3rd boxes; just use:
 <div class="project-box">
 You must have to use "show-more-hidden" class for hidden projects to avoid flickering issue while reloading the whole webpage. No exception! -->
-<!-- After editing any CSS or JS file, change the "?v=20261117c" number on the stylesheet and
+<!-- After editing any CSS or JS file, change the "?v=20261117d" number on the stylesheet and
 main.js links above (e.g. to today's date) so browsers download the new files instead of
 showing cached old ones. -->

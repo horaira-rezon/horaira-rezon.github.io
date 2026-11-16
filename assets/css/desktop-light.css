@@ -371,3 +371,9 @@ header{
 #site-header .theme-toggle::before{
   left:28.5px;
 }
+.funding-line{
+  color:rgba(0, 0, 0, 0.65);
+}
+.funding-line strong{
+  color:#111111;
+}

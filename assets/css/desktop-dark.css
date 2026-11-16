@@ -414,6 +414,7 @@ nav.open .nav-links{
   left: 0;
   color: #2e8de6;
 }
+#funded,
 #projects {
   padding: 0 7%;
   margin-bottom: 100px;
@@ -2136,8 +2137,10 @@ html.js .slide-up.visible .technicality-container .tech-box{
 }
 /* highlights row under the buttons */
 .hero-stats{
-  display:inline-grid;
-  grid-template-columns:repeat(3, minmax(9rem, 1fr));
+  display:grid;
+  width:100%;
+  max-width:880px;
+  grid-template-columns:repeat(4, minmax(0, 1fr));
   margin-top:2.4rem;
   padding:1.1rem 0;
   border:1px solid rgba(255, 255, 255, 0.08);
@@ -2150,7 +2153,7 @@ html.js .slide-up.visible .technicality-container .tech-box{
   flex-direction:column;
   align-items:center;
   gap:0.45rem;
-  padding:0 1.8rem;
+  padding:0 1.2rem;
   text-align:center;
   text-decoration:none;
 }
@@ -2723,4 +2726,57 @@ html.nav-open.lenis-stopped{
 #site-header .logo:hover .logo-img{
   transform:scale(1.06);
   box-shadow:0 0 0 1px #2e8de6;
+}
+/* "Funded by ..." line under a funded project's title */
+.funding-line{
+  order:3;
+  flex:0 0 100%;
+  display:grid;
+  grid-template-columns:auto minmax(0, max-content) auto;
+  justify-content:start;
+  align-items:center;
+  gap:0.55rem;
+  margin-top:0.55rem;
+  font-size:0.92rem;
+  font-weight:300;
+  color:rgba(255, 255, 255, 0.65);
+  text-align:left;
+}
+.funding-line strong{
+  font-weight:500;
+  color:#dbe9f4;
+}
+.funding-icon{
+  color:#2e8de6;
+  font-size:0.9rem;
+}
+.funding-doc{
+  width:30px;
+  height:30px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  border:1px solid rgba(46, 141, 230, 0.45);
+  background:rgba(46, 141, 230, 0.1);
+  color:#2e8de6;
+  font-size:0.85rem;
+  cursor:pointer;
+  transition:background-color 0.3s ease, color 0.3s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.funding-doc:hover{
+  background:#2e8de6;
+  color:#ffffff;
+  transform:scale(1.08);
+}
+.funding-doc:focus{
+  outline:none;
+}
+.funding-doc:focus-visible{
+  outline:2px solid #2e8de6;
+  outline-offset:2px;
+}
+.project-popup .funding-line{
+  justify-content:center;
+  margin:0.7rem 0 0;
 }
