@@ -612,7 +612,7 @@ width: 100%;
   transition: color 0.26s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .event-link:hover {
-  color: #7bff8d;
+  color: #2e8de6;
 }
 #honor {
   padding: 0 7%;
